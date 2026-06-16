@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manage Orders</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+body{
+background:#000;
+color:white;
+padding:25px;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.title{
+font-size:32px;
+font-weight:bold;
+}
+
+.back-btn{
+background:white;
+color:black;
+border:none;
+padding:12px 20px;
+border-radius:12px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.orders{
+display:grid;
+gap:20px;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:20px;
+padding:20px;
+backdrop-filter:blur(20px);
+}
+
+.name{
+font-size:22px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.info{
+color:#ccc;
+margin-bottom:10px;
+}
+
+select{
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+margin-top:10px;
+font-size:16px;
+}
+
+.save-btn{
+margin-top:15px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:white;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="title">
+📦 Manage Orders
+</div>
+
+<button
+class="back-btn"
+onclick="window.location.href='dashboard.html'">
+← Dashboard
+</button>
+
+</div>
+
+<div
+class="orders"
+id="orders">
+</div>
+<script>
+
+async function loadOrders(){
+
+try{
+
+const res =
+await fetch(
+"http://localhost:5000/orders"
+);
+
+const orders =
+await res.json();
+
+let html = "";
+
+orders.forEach((order,index)=>{
+
+html += `
+
+<div class="card">
+
+<div class="name">
+${order.name || "Customer"}
+</div>
+
+<div class="info">
+📞 ${order.phone || "N/A"}
+</div>
+
+<div class="info">
+📍 ${order.address || "N/A"}
+</div>
+
+<div class="info">
+💰 Total: ₹${order.total || 0}
+</div>
+
+<div class="info">
+📦 Items:
+${order.items ? order.items.length : 0}
+</div>
+
+<select id="status${index}">
+
+<option
+value="Order Placed"
+${order.status==="Order Placed"?"selected":""}>
+Order Placed
+</option>
+
+<option
+value="Packed"
+${order.status==="Packed"?"selected":""}>
+Packed
+</option>
+
+<option
+value="Shipped"
+${order.status==="Shipped"?"selected":""}>
+Shipped
+</option>
+
+<option
+value="Out For Delivery"
+${order.status==="Out For Delivery"?"selected":""}>
+Out For Delivery
+</option>
+
+<option
+value="Delivered"
+${order.status==="Delivered"?"selected":""}>
+Delivered
+</option>
+
+</select>
+
+<button
+class="save-btn"
+onclick="saveStatus(${index})">
+Save Status
+</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("orders")
+.innerHTML = html;
+
+}catch(err){
+
+console.log(err);
+
+}
+
+}
+
+async function saveStatus(index){
+
+const status =
+document.getElementById(
+`status${index}`
+).value;
+
+try{
+
+await fetch(
+`http://localhost:5000/orders/${index}`,
+{
+method:"PUT",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+status:status
+})
+}
+);
+
+alert(
+"✅ Status Updated"
+);
+
+}catch(err){
+
+alert(
+"❌ Update Failed"
+);
+
+}
+
+}
+
+loadOrders();
+
+</script>
+
+</body>
+</html>

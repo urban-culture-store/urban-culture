@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customers</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+body{
+background:#000;
+color:white;
+padding:25px;
+}
+
+.title{
+font-size:35px;
+font-weight:bold;
+text-align:center;
+margin-bottom:25px;
+}
+
+.search{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+margin-bottom:20px;
+font-size:16px;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.1);
+padding:20px;
+border-radius:20px;
+margin-bottom:15px;
+backdrop-filter:blur(20px);
+}
+
+.name{
+font-size:22px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.info{
+color:#ccc;
+margin-bottom:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="title">
+👥 Customers
+</div>
+
+<input
+class="search"
+id="search"
+placeholder="Search Customer..."
+onkeyup="searchCustomers()">
+
+<div id="customers"></div>
+<script>
+
+let allCustomers = [];
+
+async function loadCustomers(){
+
+try{
+
+const res =
+await fetch(
+"http://localhost:5000/orders"
+);
+
+const orders =
+await res.json();
+
+const customersMap = {};
+
+orders.forEach(order=>{
+
+if(!customersMap[order.phone]){
+
+customersMap[order.phone] = {
+
+name: order.name,
+phone: order.phone,
+address: order.address,
+orders: 0,
+totalSpent: 0
+
+};
+
+}
+
+customersMap[order.phone].orders++;
+
+customersMap[order.phone].totalSpent +=
+Number(order.total || 0);
+
+});
+
+allCustomers =
+Object.values(customersMap);
+
+renderCustomers(allCustomers);
+
+}catch(err){
+
+console.log(err);
+
+}
+
+}
+
+function renderCustomers(customers){
+
+let html = "";
+
+customers.forEach(customer=>{
+
+html += `
+
+<div class="card">
+
+<div class="name">
+${customer.name}
+</div>
+
+<div class="info">
+📞 ${customer.phone}
+</div>
+
+<div class="info">
+📍 ${customer.address}
+</div>
+
+<div class="info">
+📦 Orders:
+${customer.orders}
+</div>
+
+<div class="info">
+💰 Total Spent:
+₹${customer.totalSpent}
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById(
+"customers"
+).innerHTML = html;
+
+}
+
+function searchCustomers(){
+
+const text =
+document.getElementById("search")
+.value
+.toLowerCase();
+
+const filtered =
+allCustomers.filter(customer =>
+
+customer.name
+.toLowerCase()
+.includes(text)
+
+||
+
+customer.phone
+.includes(text)
+
+);
+
+renderCustomers(filtered);
+
+}
+
+loadCustomers();
+
+</script>
+
+</body>
+</html>

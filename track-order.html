@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Order - URBAN Culture</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+body{
+background:#000;
+color:white;
+padding:30px;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.logo{
+font-size:32px;
+font-weight:bold;
+}
+
+.back-btn{
+background:white;
+color:black;
+border:none;
+padding:12px 20px;
+border-radius:12px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(20px);
+padding:30px;
+border-radius:25px;
+border:1px solid rgba(255,255,255,0.1);
+}
+
+.order-id{
+font-size:22px;
+font-weight:bold;
+margin-bottom:30px;
+text-align:center;
+}
+
+.timeline{
+position:relative;
+margin-left:20px;
+}
+
+.step{
+display:flex;
+align-items:center;
+margin-bottom:40px;
+}
+
+.circle{
+width:30px;
+height:30px;
+border-radius:50%;
+background:#333;
+margin-right:20px;
+}
+
+.active{
+background:#00ff88;
+box-shadow:0 0 20px #00ff88;
+}
+
+.line{
+position:absolute;
+left:14px;
+top:30px;
+width:3px;
+height:220px;
+background:#444;
+}
+
+.step-text{
+font-size:20px;
+}
+
+.status{
+margin-top:30px;
+text-align:center;
+font-size:24px;
+font-weight:bold;
+color:#00ff88;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="logo">
+📦 Track Order
+</div>
+
+<button
+class="back-btn"
+onclick="window.location.href='my-orders.html'">
+← My Orders
+</button>
+
+</div>
+
+<div class="container">
+
+<div class="order-id">
+Order #UC1001
+</div>
+
+<div class="timeline">
+
+<div class="line"></div>
+
+<div class="step">
+<div class="circle active"></div>
+<div class="step-text">Order Placed</div>
+</div>
+
+<div class="step">
+<div class="circle active"></div>
+<div class="step-text">Packed</div>
+</div>
+
+<div class="step">
+<div class="circle active"></div>
+<div class="step-text">Shipped</div>
+</div>
+
+<div class="step">
+<div class="circle"></div>
+<div class="step-text">Out For Delivery</div>
+</div>
+
+<div class="step">
+<div class="circle"></div>
+<div class="step-text">Delivered</div>
+</div>
+
+</div>
+<div class="status" id="statusText">
+🚚 Shipped
+</div>
+
+</div>
+
+<script>
+
+let currentStatus = 3;
+
+/*
+
+1 = Order Placed
+2 = Packed
+3 = Shipped
+4 = Out For Delivery
+5 = Delivered
+
+*/
+
+function updateTracking(status){
+
+const circles =
+document.querySelectorAll(".circle");
+
+circles.forEach(circle=>{
+circle.classList.remove("active");
+});
+
+for(let i=0;i<status;i++){
+circles[i].classList.add("active");
+}
+
+const statusText =
+document.getElementById("statusText");
+
+if(status===1){
+statusText.innerHTML="📝 Order Placed";
+}
+
+if(status===2){
+statusText.innerHTML="📦 Packed";
+}
+
+if(status===3){
+statusText.innerHTML="🚚 Shipped";
+}
+
+if(status===4){
+statusText.innerHTML="🏍️ Out For Delivery";
+}
+
+if(status===5){
+statusText.innerHTML="✅ Delivered";
+}
+
+}
+
+updateTracking(currentStatus);
+
+</script>
+
+</body>
+</html>

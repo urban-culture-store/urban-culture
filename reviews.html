@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Reviews</title>
+
+<style>
+
+body{
+background:#000;
+color:white;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+padding:25px;
+}
+
+.container{
+max-width:800px;
+margin:auto;
+}
+
+.card{
+background:rgba(255,255,255,.05);
+padding:20px;
+border-radius:20px;
+margin-bottom:20px;
+backdrop-filter:blur(20px);
+}
+
+input,
+textarea,
+select{
+width:100%;
+padding:15px;
+margin-bottom:15px;
+border:none;
+border-radius:12px;
+}
+
+button{
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+background:white;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+.review{
+padding:15px;
+border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h2>⭐ Write Review</h2>
+
+<input
+id="name"
+placeholder="Your Name">
+
+<select id="rating">
+
+<option value="5">⭐⭐⭐⭐⭐</option>
+<option value="4">⭐⭐⭐⭐</option>
+<option value="3">⭐⭐⭐</option>
+<option value="2">⭐⭐</option>
+<option value="1">⭐</option>
+
+</select>
+
+<textarea
+id="message"
+placeholder="Write Review">
+</textarea>
+
+<button onclick="addReview()">
+Submit Review
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>Customer Reviews</h2>
+
+<div id="reviews"></div>
+
+</div>
+
+</div>
+<script>
+
+function addReview(){
+
+const review = {
+
+name:
+document.getElementById("name").value,
+
+rating:
+document.getElementById("rating").value,
+
+message:
+document.getElementById("message").value,
+
+date:
+new Date().toLocaleDateString()
+
+};
+
+if(
+!review.name ||
+!review.message
+){
+
+alert(
+"Fill Required Fields"
+);
+
+return;
+
+}
+
+let reviews =
+JSON.parse(
+localStorage.getItem("reviews")
+) || [];
+
+reviews.unshift(review);
+
+localStorage.setItem(
+"reviews",
+JSON.stringify(reviews)
+);
+
+document.getElementById("name").value="";
+document.getElementById("message").value="";
+
+loadReviews();
+
+alert(
+"✅ Review Added"
+);
+
+}
+
+function loadReviews(){
+
+let reviews =
+JSON.parse(
+localStorage.getItem("reviews")
+) || [];
+
+let html = "";
+
+reviews.forEach(review=>{
+
+html += `
+
+<div class="review">
+
+<h3>
+${review.name}
+</h3>
+
+<p>
+${"⭐".repeat(review.rating)}
+</p>
+
+<p>
+${review.message}
+</p>
+
+<small>
+${review.date}
+</small>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("reviews")
+.innerHTML = html;
+
+}
+
+loadReviews();
+
+</script>
+
+</body>
+</html>

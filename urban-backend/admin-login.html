@@ -1,0 +1,29 @@
+function adminLogin(){
+
+const user =
+document.getElementById("username").value.trim();
+
+const pass =
+document.getElementById("password").value.trim();
+
+alert(
+"USER = " + user +
+"\nPASS = " + pass
+);
+
+if(user === "admin" && pass === "urban123"){
+
+localStorage.setItem("admin","true");
+
+alert("LOGIN SUCCESS");
+
+window.location.href = "dashboard.html";
+
+}else{
+
+alert("LOGIN FAILED");
+
+}
+
+}
+

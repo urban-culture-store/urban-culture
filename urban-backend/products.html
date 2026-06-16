@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URBAN Culture Store</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#0d0d0d;
+color:white;
+padding:20px;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.logo{
+font-size:35px;
+font-weight:bold;
+}
+
+.cart-btn{
+background:white;
+color:black;
+padding:12px 20px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.search-box{
+margin-bottom:25px;
+}
+
+.search-box input{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+font-size:16px;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
+}
+
+.card{
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,0.15);
+border-radius:20px;
+padding:20px;
+}
+
+.image{
+height:220px;
+background:#1c1c1c;
+border-radius:15px;
+margin-bottom:15px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:50px;
+}
+
+.name{
+font-size:22px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.price{
+font-size:20px;
+color:#00ff88;
+margin-bottom:10px;
+}
+
+.category{
+color:#ccc;
+margin-bottom:15px;
+}
+
+.btn{
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:white;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="logo">
+URBAN Culture
+</div>
+
+<button
+class="cart-btn"
+onclick="window.location.href='cart.html'">
+Cart </button>
+
+</div>
+
+<div class="search-box">
+<input
+type="text"
+id="search"
+placeholder="Search Products..."
+onkeyup="filterProducts()">
+</div>
+
+<div class="products" id="products">
+</div>
+
+<script>
+
+let allProducts=[];
+
+async function loadProducts(){
+
+const res =
+await fetch("http://localhost:5000/products");
+
+const products =
+await res.json();
+
+allProducts = products;
+
+renderProducts(products);
+
+}
+
+function renderProducts(products){
+
+let html="";
+
+products.forEach((product,index)=>{
+
+html += `
+<div class="card">
+
+<div class="image">
+🛍️
+</div>
+
+<div class="name">
+${product.name}
+</div>
+
+<div class="price">
+₹${product.price}
+</div>
+
+<div class="category">
+${product.category}
+</div>
+
+<button
+class="btn"
+onclick="addToCart(${index})">
+Add To Cart
+</button>
+
+</div>
+`;
+
+});
+
+document.getElementById("products")
+.innerHTML = html;
+
+}
+
+function filterProducts(){
+
+const search =
+document.getElementById("search")
+.value
+.toLowerCase();
+
+const filtered =
+allProducts.filter(product =>
+
+product.name.toLowerCase()
+.includes(search)
+
+);
+
+renderProducts(filtered);
+
+}
+
+function addToCart(index){
+
+let cart =
+JSON.parse(
+localStorage.getItem("cart")
+) || [];
+
+cart.push(allProducts[index]);
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+alert("✅ Added To Cart");
+
+}
+
+loadProducts();
+
+</script>
+
+</body>
+</html>

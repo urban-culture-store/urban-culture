@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URBAN Culture</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+body{
+background:#000;
+color:white;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+.hero{
+
+height:100vh;
+
+display:flex;
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+text-align:center;
+
+padding:20px;
+}
+
+.topbar{
+
+position:fixed;
+
+top:20px;
+
+right:20px;
+
+z-index:999;
+}
+
+.login-btn{
+
+background:white;
+
+color:black;
+
+padding:12px 22px;
+
+border:none;
+
+border-radius:15px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+text-decoration:none;
+}
+
+.logo{
+
+font-size:55px;
+
+font-weight:700;
+
+margin-bottom:15px;
+}
+
+.subtitle{
+
+font-size:18px;
+
+color:#aaa;
+
+margin-bottom:35px;
+
+max-width:600px;
+}
+
+.shop-btn{
+
+background:white;
+
+color:black;
+
+padding:18px 45px;
+
+border-radius:18px;
+
+text-decoration:none;
+
+font-size:20px;
+
+font-weight:bold;
+
+display:inline-block;
+}
+
+.glow{
+
+position:absolute;
+
+width:350px;
+
+height:350px;
+
+background:white;
+
+opacity:.05;
+
+filter:blur(100px);
+
+border-radius:50%;
+}
+
+.g1{
+top:10%;
+left:10%;
+}
+
+.g2{
+bottom:10%;
+right:10%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="glow g1"></div>
+<div class="glow g2"></div>
+
+<div class="topbar">
+
+<a
+class="login-btn"
+href="customer-login.html">
+Login </a>
+
+</div>
+
+<div class="hero">
+
+<div class="logo">
+URBAN Culture
+</div>
+
+<div class="subtitle">
+
+Premium Streetwear &
+Fashion Collection
+
+</div>
+
+<a
+class="shop-btn"
+href="products.html">
+
+🛍 Shop Now
+
+</a>
+
+</div>
+<div style="padding:40px 20px;max-width:1200px;margin:auto;">
+
+<h2
+style="
+text-align:center;
+margin-bottom:25px;
+font-size:32px;
+">
+
+🔥 Best Sellers
+
+</h2>
+
+<div
+style="
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+">
+
+<div
+style="
+background:rgba(255,255,255,.05);
+padding:20px;
+border-radius:25px;
+border:1px solid rgba(255,255,255,.1);
+">
+
+<h3>T-Shirt Collection</h3>
+
+<p
+style="
+color:#aaa;
+margin-top:10px;
+">
+
+Premium Urban Wear
+
+</p>
+
+</div>
+
+<div
+style="
+background:rgba(255,255,255,.05);
+padding:20px;
+border-radius:25px;
+border:1px solid rgba(255,255,255,.1);
+">
+
+<h3>Hoodies</h3>
+
+<p
+style="
+color:#aaa;
+margin-top:10px;
+">
+
+Winter Collection
+
+</p>
+
+</div>
+
+<div
+style="
+background:rgba(255,255,255,.05);
+padding:20px;
+border-radius:25px;
+border:1px solid rgba(255,255,255,.1);
+">
+
+<h3>Accessories</h3>
+
+<p
+style="
+color:#aaa;
+margin-top:10px;
+">
+
+Trending Fashion
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<footer
+style="
+padding:30px;
+text-align:center;
+color:#888;
+">
+
+© 2025 URBAN Culture
+
+</footer>
+
+<script>
+
+const customer =
+localStorage.getItem(
+"customer"
+);
+
+if(customer){
+
+document.querySelector(
+".login-btn"
+).innerHTML =
+"👤 Profile";
+
+document.querySelector(
+".login-btn"
+).href =
+"profile.html";
+
+}
+
+</script>
+
+</body>
+</html>

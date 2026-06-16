@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - URBAN Culture</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+body{
+background:#000;
+color:white;
+padding:25px;
+}
+
+.container{
+max-width:750px;
+margin:auto;
+}
+
+.title{
+font-size:38px;
+font-weight:bold;
+text-align:center;
+margin-bottom:25px;
+}
+
+.form-box{
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(25px);
+border:1px solid rgba(255,255,255,0.1);
+padding:25px;
+border-radius:25px;
+}
+
+input,
+textarea,
+select{
+width:100%;
+padding:15px;
+margin-bottom:15px;
+border:none;
+border-radius:15px;
+font-size:16px;
+}
+
+textarea{
+height:100px;
+resize:none;
+}
+
+.summary{
+margin-top:25px;
+padding:20px;
+background:rgba(255,255,255,0.05);
+border-radius:20px;
+}
+
+.item{
+padding:10px 0;
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.total{
+font-size:28px;
+font-weight:bold;
+margin-top:15px;
+}
+
+.btn{
+width:100%;
+padding:16px;
+margin-top:15px;
+border:none;
+border-radius:15px;
+background:white;
+color:black;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<script>
+
+if(
+!localStorage.getItem("customer")
+){
+
+window.location.href =
+"customer-login.html";
+
+}
+
+</script>
+
+<div class="container">
+
+<div class="title">
+Checkout
+</div>
+
+<div class="form-box">
+
+<input
+type="text"
+id="name"
+placeholder="Full Name">
+
+<input
+type="text"
+id="phone"
+placeholder="Mobile Number">
+
+<textarea
+id="address"
+placeholder="Full Address">
+</textarea>
+
+<input
+type="text"
+id="landmark"
+placeholder="Landmark">
+
+<select id="state">
+<option>Kerala</option>
+<option>Tamil Nadu</option>
+<option>Karnataka</option>
+<option>Maharashtra</option>
+<option>Delhi</option>
+</select>
+
+<input
+type="text"
+id="district"
+placeholder="District">
+
+<input
+type="text"
+id="pincode"
+placeholder="Pincode">
+
+<input
+type="text"
+id="couponCode"
+placeholder="Coupon Code">
+
+<button
+class="btn"
+onclick="applyCoupon()">
+Apply Coupon </button>
+
+<div class="summary">
+
+<h2>Order Summary</h2>
+
+<div id="items"></div>
+
+<div
+class="total"
+id="total">
+Total : ₹0
+</div>
+
+</div>
+
+<button
+class="btn"
+onclick="placeOrder()">
+Place Order </button>
+
+<button
+class="btn"
+onclick="whatsappOrder()">
+📲 Order On WhatsApp </button>
+
+</div>
+
+</div>
+
+<script>
+
+let cart =
+JSON.parse(
+localStorage.getItem("cart")
+) || [];
+
+let total = 0;
+let discount = 0;
+function loadSummary(){
+
+let html="";
+
+total = 0;
+
+cart.forEach(item=>{
+
+total += Number(item.price);
+
+html += `
+
+<div class="item">
+${item.name} - ₹${item.price}
+</div>
+`;
+
+});
+
+document.getElementById("items")
+.innerHTML = html;
+
+document.getElementById("total")
+.innerHTML =
+"Total : ₹" + total;
+
+}
+
+function applyCoupon(){
+
+const code =
+document.getElementById("couponCode").value;
+
+const coupons =
+JSON.parse(
+localStorage.getItem("coupons")
+) || [];
+
+const coupon =
+coupons.find(
+c => c.code === code
+);
+
+if(coupon){
+
+discount =
+Number(coupon.discount);
+
+const finalTotal =
+total -
+(total * discount / 100);
+
+document.getElementById("total")
+.innerHTML =
+"Total : ₹" + finalTotal;
+
+alert(
+"✅ Coupon Applied"
+);
+
+}else{
+
+alert(
+"❌ Invalid Coupon"
+);
+
+}
+
+}
+
+async function placeOrder(){
+
+const finalTotal =
+total -
+(total * discount / 100);
+
+const order = {
+
+name:
+document.getElementById("name").value,
+
+phone:
+document.getElementById("phone").value,
+
+address:
+document.getElementById("address").value,
+
+landmark:
+document.getElementById("landmark").value,
+
+state:
+document.getElementById("state").value,
+
+district:
+document.getElementById("district").value,
+
+pincode:
+document.getElementById("pincode").value,
+
+items: cart,
+
+total: finalTotal,
+
+status:"Order Placed",
+
+date:
+new Date().toLocaleString()
+
+};
+
+if(
+!order.name ||
+!order.phone ||
+!order.address
+){
+
+alert(
+"Please Fill Required Fields"
+);
+
+return;
+
+}
+
+try{
+
+await fetch(
+"http://localhost:5000/orders",
+{
+method:"POST",
+headers:{
+"Content-Type":
+"application/json"
+},
+body:
+JSON.stringify(order)
+}
+);
+
+alert(
+"✅ Order Placed Successfully"
+);
+
+localStorage.removeItem(
+"cart"
+);
+
+window.location.href =
+"track-order.html";
+
+}catch(err){
+
+alert(
+"❌ Order Failed"
+);
+
+}
+
+}
+
+function whatsappOrder(){
+
+const name =
+document.getElementById("name").value;
+
+const phone =
+document.getElementById("phone").value;
+
+const address =
+document.getElementById("address").value;
+
+let items = "";
+
+cart.forEach(item=>{
+
+items +=
+item.name +
+" - ₹" +
+item.price +
+"%0A";
+
+});
+
+const finalTotal =
+total -
+(total * discount / 100);
+
+const msg =
+
+"🛍️ URBAN Culture Order%0A%0A" +
+
+"👤 Name: " + name + "%0A" +
+
+"📞 Phone: " + phone + "%0A" +
+
+"📍 Address: " + address + "%0A%0A" +
+
+"📦 Products:%0A" +
+
+items +
+
+"%0A💰 Total: ₹" +
+finalTotal;
+
+window.open(
+"https://wa.me/919496721916?text=" +
+msg,
+"_blank"
+);
+
+}
+
+loadSummary();
+
+</script>
+
+</body>
+</html>

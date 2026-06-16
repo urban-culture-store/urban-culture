@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Login</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+body{
+background:#000;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+padding:20px;
+}
+
+.login-box{
+width:100%;
+max-width:450px;
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(25px);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:30px;
+padding:35px;
+}
+
+h1{
+color:white;
+text-align:center;
+margin-bottom:25px;
+}
+
+input{
+width:100%;
+padding:15px;
+margin-bottom:15px;
+border:none;
+border-radius:15px;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+background:white;
+color:black;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.link{
+text-align:center;
+margin-top:15px;
+}
+
+.link a{
+color:white;
+text-decoration:none;
+}
+
+#msg{
+margin-top:15px;
+text-align:center;
+font-weight:bold;
+color:#00ff88;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+<h1>Customer Login</h1>
+
+<input
+type="text"
+id="phone"
+placeholder="Mobile Number">
+
+<input
+type="password"
+id="password"
+placeholder="Password">
+
+<button onclick="login()">
+Login
+</button>
+
+<div id="msg"></div>
+
+<div class="link">
+<a href="customer-register.html">
+Create Account
+</a>
+</div>
+
+</div>
+
+<script>
+
+function login(){
+
+const phone =
+document.getElementById("phone").value;
+
+const password =
+document.getElementById("password").value;
+
+const users =
+JSON.parse(
+localStorage.getItem("users")
+) || [];
+
+const user =
+users.find(u =>
+
+u.phone === phone &&
+u.password === password
+
+);
+
+if(user){
+
+localStorage.setItem(
+"customer",
+JSON.stringify(user)
+);
+
+document.getElementById("msg")
+.innerHTML =
+"✅ Login Success";
+
+setTimeout(()=>{
+
+window.location.href =
+"products.html";
+
+},1000);
+
+}else{
+
+document.getElementById("msg")
+.style.color="red";
+
+document.getElementById("msg")
+.innerHTML =
+"❌ Invalid Login";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

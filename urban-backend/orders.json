@@ -1,0 +1,71 @@
+[
+  {
+    "name": "Zanil K",
+    "phone": "09496721916",
+    "address": "Vattapoyil Eachur",
+    "landmark": "",
+    "state": "Kerala",
+    "district": "",
+    "pincode": "670591",
+    "items": [
+      {
+        "name": "T SHIRT FOR MEN",
+        "price": "499",
+        "stock": "10",
+        "category": "T-Shirt",
+        "featured": "Yes",
+        "image": "/home/safwanzan/Desktop/URBAN-CULTURE/customer-site/images/product1.jpeg",
+        "description": ""
+      }
+    ],
+    "total": 499,
+    "status": "Pending",
+    "date": "16/06/2026, 11:19:01"
+  },
+  {
+    "name": "Zanil K",
+    "phone": "09496721916",
+    "address": "Vattapoyil Eachur",
+    "landmark": "",
+    "state": "Kerala",
+    "district": "",
+    "pincode": "670591",
+    "items": [
+      {
+        "name": "T SHIRT FOR MEN",
+        "price": "499",
+        "stock": "10",
+        "category": "T-Shirt",
+        "featured": "Yes",
+        "image": "/home/safwanzan/Desktop/URBAN-CULTURE/customer-site/images/product1.jpeg",
+        "description": ""
+      }
+    ],
+    "total": 499,
+    "status": "Pending",
+    "date": "16/06/2026, 12:29:47"
+  },
+  {
+    "name": "Zanil K",
+    "phone": "09496721916",
+    "address": "Vattapoyil Eachur",
+    "landmark": "",
+    "state": "Kerala",
+    "district": "",
+    "pincode": "670594",
+    "items": [
+      {
+        "name": "T SHIRT FOR MEN",
+        "price": "100",
+        "stock": "10",
+        "category": "T-Shirt",
+        "featured": "No",
+        "image": "images/product1.jpeg",
+        "description": ""
+      }
+    ],
+    "total": 100,
+    "status": "Pending",
+    "date": "16/06/2026, 18:58:23"
+  }
+]

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URBAN Culture Cart</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+body{
+background:#000;
+color:white;
+padding:25px;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+.title{
+font-size:32px;
+font-weight:bold;
+}
+
+.back{
+background:white;
+color:black;
+border:none;
+padding:12px 20px;
+border-radius:15px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.cart-item{
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,0.1);
+padding:20px;
+border-radius:20px;
+margin-bottom:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.name{
+font-size:20px;
+font-weight:bold;
+}
+
+.price{
+color:#00ff88;
+margin-top:5px;
+}
+
+.remove{
+background:red;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:10px;
+cursor:pointer;
+}
+
+.total{
+margin-top:30px;
+font-size:28px;
+font-weight:bold;
+}
+
+.checkout{
+width:100%;
+margin-top:20px;
+padding:15px;
+background:white;
+color:black;
+border:none;
+border-radius:15px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.empty{
+text-align:center;
+margin-top:100px;
+font-size:25px;
+color:#999;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="title">
+🛒 My Cart
+</div>
+
+<button
+class="back"
+onclick="window.location.href='products.html'">
+Products
+</button>
+
+</div>
+
+<div id="cartContainer"></div>
+
+<script>
+
+let cart =
+JSON.parse(localStorage.getItem("cart")) || [];
+
+function loadCart(){
+
+const container =
+document.getElementById("cartContainer");
+
+if(cart.length===0){
+
+container.innerHTML=`
+<div class="empty">
+Cart Empty
+</div>
+`;
+
+return;
+}
+
+let total=0;
+let html="";
+
+cart.forEach((item,index)=>{
+
+total += Number(item.price);
+
+html += `
+<div class="cart-item">
+
+<div>
+<div class="name">${item.name}</div>
+<div class="price">₹${item.price}</div>
+</div>
+
+<button
+class="remove"
+onclick="removeItem(${index})">
+Delete
+</button>
+
+</div>
+`;
+
+});
+
+html += `
+<div class="total">
+Total : ₹${total}
+</div>
+
+<button
+class="checkout"
+onclick="checkout()">
+Proceed To Checkout
+</button>
+`;
+
+container.innerHTML=html;
+
+}
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+loadCart();
+
+}
+
+function checkout(){
+
+window.location.href=
+"checkout.html";
+
+}
+
+loadCart();
+
+</script>
+
+</body>
+</html>

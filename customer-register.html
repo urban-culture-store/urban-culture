@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Register</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+body{
+background:#000;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.register-box{
+width:100%;
+max-width:500px;
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(25px);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:30px;
+padding:35px;
+}
+
+h1{
+color:white;
+text-align:center;
+margin-bottom:25px;
+}
+
+input{
+width:100%;
+padding:15px;
+margin-bottom:15px;
+border:none;
+border-radius:15px;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+background:white;
+color:black;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.link{
+text-align:center;
+margin-top:15px;
+}
+
+.link a{
+color:white;
+text-decoration:none;
+}
+
+#msg{
+margin-top:15px;
+text-align:center;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="register-box">
+
+<h1>Create Account</h1>
+
+<input
+type="text"
+id="name"
+placeholder="Full Name">
+
+<input
+type="text"
+id="phone"
+placeholder="Mobile Number">
+
+<input
+type="email"
+id="email"
+placeholder="Email Address">
+
+<input
+type="password"
+id="password"
+placeholder="Password">
+
+<button onclick="register()">
+Create Account
+</button>
+
+<div id="msg"></div>
+
+<div class="link">
+<a href="customer-login.html">
+Already Have Account?
+</a>
+</div>
+
+</div>
+
+<script>
+
+function register(){
+
+const user = {
+
+name:
+document.getElementById("name").value,
+
+phone:
+document.getElementById("phone").value,
+
+email:
+document.getElementById("email").value,
+
+password:
+document.getElementById("password").value
+
+};
+
+if(
+!user.name ||
+!user.phone ||
+!user.password
+){
+
+document.getElementById("msg")
+.style.color="red";
+
+document.getElementById("msg")
+.innerHTML=
+"Fill Required Fields";
+
+return;
+
+}
+
+let users =
+JSON.parse(
+localStorage.getItem("users")
+) || [];
+
+const exists =
+users.find(u =>
+u.phone === user.phone
+);
+
+if(exists){
+
+document.getElementById("msg")
+.style.color="red";
+
+document.getElementById("msg")
+.innerHTML=
+"Phone Already Registered";
+
+return;
+
+}
+
+users.push(user);
+
+localStorage.setItem(
+"users",
+JSON.stringify(users)
+);
+
+document.getElementById("msg")
+.style.color="#00ff88";
+
+document.getElementById("msg")
+.innerHTML=
+"✅ Account Created";
+
+setTimeout(()=>{
+
+window.location.href =
+"customer-login.html";
+
+},1000);
+
+}
+
+</script>
+
+</body>
+</html>

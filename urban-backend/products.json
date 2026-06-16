@@ -1,0 +1,20 @@
+[
+  {
+    "name": "T SHIRT FOR MEN",
+    "price": "100",
+    "stock": "10",
+    "category": "T-Shirt",
+    "featured": "No",
+    "image": "images/product1.jpeg",
+    "description": ""
+  },
+  {
+    "name": "sweater",
+    "price": "200",
+    "stock": "1",
+    "category": "Hoodie",
+    "featured": "Yes",
+    "image": "/home/safwanzan/Desktop/URBAN-CULTURE/customer-site/images/product2.jpg.jpeg",
+    "description": ""
+  }
+]

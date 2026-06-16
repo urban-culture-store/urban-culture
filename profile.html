@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+body{
+background:#000;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.profile-box{
+width:100%;
+max-width:600px;
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(25px);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:30px;
+padding:35px;
+}
+
+.avatar{
+width:120px;
+height:120px;
+border-radius:50%;
+background:white;
+color:black;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:40px;
+font-weight:bold;
+margin:0 auto 20px;
+}
+
+h1{
+text-align:center;
+margin-bottom:25px;
+}
+
+.info{
+background:rgba(255,255,255,0.05);
+padding:15px;
+border-radius:15px;
+margin-bottom:15px;
+}
+
+.label{
+color:#aaa;
+font-size:14px;
+}
+
+.value{
+font-size:18px;
+font-weight:bold;
+margin-top:5px;
+}
+
+.btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+margin-top:10px;
+background:white;
+color:black;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.logout{
+background:red;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="profile-box">
+
+<div class="avatar" id="avatar">
+U
+</div>
+
+<h1>My Profile</h1>
+
+<div class="info">
+<div class="label">Full Name</div>
+<div class="value" id="name"></div>
+</div>
+
+<div class="info">
+<div class="label">Phone Number</div>
+<div class="value" id="phone"></div>
+</div>
+
+<div class="info">
+<div class="label">Email</div>
+<div class="value" id="email"></div>
+</div>
+
+<button
+class="btn"
+onclick="window.location.href='my-orders.html'">
+📦 My Orders </button>
+
+<button
+class="btn"
+onclick="window.location.href='wishlist.html'">
+❤️ Wishlist </button>
+
+<button
+class="btn"
+onclick="window.location.href='products.html'">
+🛍️ Continue Shopping </button>
+
+<button
+class="btn logout"
+onclick="logout()">
+Logout </button>
+
+</div>
+
+<script>
+
+const user =
+JSON.parse(
+localStorage.getItem("customer")
+);
+
+if(!user){
+
+window.location.href =
+"customer-login.html";
+
+}
+
+document.getElementById("name")
+.innerHTML = user.name;
+
+document.getElementById("phone")
+.innerHTML = user.phone;
+
+document.getElementById("email")
+.innerHTML = user.email;
+
+document.getElementById("avatar")
+.innerHTML =
+user.name.charAt(0).toUpperCase();
+
+function logout(){
+
+localStorage.removeItem(
+"customer"
+);
+
+window.location.href =
+"customer-login.html";
+
+}
+
+</script>
+
+</body>
+</html>

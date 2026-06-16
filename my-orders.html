@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Orders</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+body{
+background:#000;
+color:white;
+padding:25px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+}
+
+h1{
+text-align:center;
+margin-bottom:25px;
+}
+
+.search{
+display:flex;
+gap:10px;
+margin-bottom:25px;
+}
+
+.search input{
+flex:1;
+padding:15px;
+border:none;
+border-radius:15px;
+}
+
+.search button{
+padding:15px 25px;
+border:none;
+border-radius:15px;
+background:white;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+.order{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(25px);
+border:1px solid rgba(255,255,255,0.1);
+padding:20px;
+border-radius:20px;
+margin-bottom:20px;
+}
+
+.status{
+display:inline-block;
+padding:8px 15px;
+background:#222;
+border-radius:10px;
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📦 My Orders</h1>
+
+<div class="search">
+
+<input
+type="text"
+id="phone"
+placeholder="Enter Mobile Number">
+
+<button onclick="findOrders()">
+Search
+</button>
+
+</div>
+
+<div id="orders"></div>
+
+</div>
+
+<script>
+
+async function findOrders(){
+
+const phone =
+document.getElementById("phone").value;
+
+const res =
+await fetch(
+"http://localhost:5000/orders"
+);
+
+const orders =
+await res.json();
+
+const filtered =
+orders.filter(order =>
+
+order.phone === phone
+
+);
+
+let html="";
+
+if(filtered.length===0){
+
+html =
+"<h2>No Orders Found</h2>";
+
+}else{
+
+filtered.forEach(order=>{
+
+html += `
+
+<div class="order">
+
+<h2>${order.name}</h2>
+
+<p>
+📞 ${order.phone}
+</p>
+
+<p>
+📍 ${order.address}
+</p>
+
+<p>
+💰 Total :
+₹${order.total || 0}
+</p>
+
+<div class="status">
+${order.status || "Pending"}
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+document.getElementById("orders")
+.innerHTML = html;
+
+}
+
+</script>
+
+</body>
+</html>

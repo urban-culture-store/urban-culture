@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URBAN Culture Store</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+body{
+background:#000;
+color:#fff;
+padding:25px;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+.logo{
+font-size:34px;
+font-weight:700;
+}
+
+.actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.top-btn{
+background:#fff;
+color:#000;
+border:none;
+padding:12px 18px;
+border-radius:15px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.search{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+margin-bottom:25px;
+font-size:16px;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:25px;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(25px);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:25px;
+overflow:hidden;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card img{
+width:100%;
+height:260px;
+object-fit:cover;
+background:#111;
+}
+
+.info{
+padding:20px;
+}
+
+.badge{
+display:inline-block;
+background:gold;
+color:black;
+padding:5px 10px;
+border-radius:10px;
+font-size:12px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.name{
+font-size:22px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.price{
+font-size:28px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.desc{
+color:#aaa;
+margin-bottom:10px;
+}
+
+.stock{
+color:#00ff88;
+font-weight:bold;
+margin-bottom:15px;
+}
+
+.buttons{
+display:flex;
+gap:10px;
+}
+
+.cart-btn,
+.wish-btn{
+flex:1;
+padding:12px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.cart-btn{
+background:white;
+color:black;
+}
+
+.wish-btn{
+background:#222;
+color:white;
+}
+
+.out{
+background:#444;
+color:#999;
+cursor:not-allowed;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="logo">
+URBAN Culture
+</div>
+
+<div class="actions">
+
+<button
+class="top-btn"
+onclick="goProfile()">
+👤 Profile </button>
+
+<button
+class="top-btn"
+onclick="window.location.href='wishlist.html'">
+❤️ Wishlist
+(<span id="wishCount">0</span>) </button>
+
+<button
+class="top-btn"
+onclick="window.location.href='cart.html'">
+🛒 Cart
+(<span id="cartCount">0</span>) </button>
+
+</div>
+
+</div>
+
+<input
+class="search"
+id="search"
+placeholder="Search Products..."
+onkeyup="filterProducts()">
+
+<div
+class="products"
+id="products">
+</div>
+
+<script>
+let allProducts=[];
+async function loadProducts(){
+
+const res =
+await fetch(
+"http://localhost:5000/products"
+);
+
+const products =
+await res.json();
+
+allProducts = products;
+
+renderProducts(products);
+
+}
+
+function renderProducts(products){
+
+let html="";
+
+products.forEach((product,index)=>{
+
+html += `
+
+<div class="card">
+
+<img
+src="${
+product.image ||
+'https://via.placeholder.com/500'
+}">
+
+<div class="info">
+
+${
+product.featured === "Yes"
+?
+'<div class="badge">FEATURED</div>'
+:
+''
+}
+
+<div class="name">
+${product.name}
+</div>
+
+<div class="price">
+₹${product.price}
+</div>
+
+<div class="desc">
+${product.description || ""}
+</div>
+
+<div class="stock">
+Stock :
+${product.stock || 0}
+</div>
+
+<div class="buttons">
+
+${
+(product.stock || 0) > 0
+?
+`<button
+class="cart-btn"
+onclick="addToCart(${index})">
+Add To Cart </button>`
+:
+`<button
+class="cart-btn out">
+Out Of Stock </button>`
+}
+
+<button
+class="wish-btn"
+onclick="addWishlist(${index})">
+❤️ </button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("products")
+.innerHTML = html;
+
+}
+
+function filterProducts(){
+
+const text =
+document.getElementById("search")
+.value
+.toLowerCase();
+
+const filtered =
+allProducts.filter(product =>
+
+product.name
+.toLowerCase()
+.includes(text)
+
+);
+
+renderProducts(filtered);
+
+}
+
+function goProfile(){
+
+const user =
+localStorage.getItem("customer");
+
+if(user){
+
+window.location.href =
+"profile.html";
+
+}else{
+
+window.location.href =
+"customer-login.html";
+
+}
+
+}
+
+function updateCartCount(){
+
+let cart =
+JSON.parse(
+localStorage.getItem("cart")
+) || [];
+
+document.getElementById(
+"cartCount"
+).innerHTML =
+cart.length;
+
+}
+
+function updateWishCount(){
+
+let wishlist =
+JSON.parse(
+localStorage.getItem("wishlist")
+) || [];
+
+document.getElementById(
+"wishCount"
+).innerHTML =
+wishlist.length;
+
+}
+
+function addToCart(index){
+
+let cart =
+JSON.parse(
+localStorage.getItem("cart")
+) || [];
+
+cart.push(
+allProducts[index]
+);
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+updateCartCount();
+
+alert(
+"✅ Added To Cart"
+);
+
+}
+
+function addWishlist(index){
+
+let wishlist =
+JSON.parse(
+localStorage.getItem("wishlist")
+) || [];
+
+wishlist.push(
+allProducts[index]
+);
+
+localStorage.setItem(
+"wishlist",
+JSON.stringify(wishlist)
+);
+
+updateWishCount();
+
+alert(
+"❤️ Added To Wishlist"
+);
+
+}
+
+loadProducts();
+
+updateCartCount();
+
+updateWishCount();
+
+</script>
+
+</body>
+</html>
