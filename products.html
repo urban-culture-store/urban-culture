@@ -1,50 +1,51 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>URBAN Culture Store</title>
+<title>URBAN Culture Products</title>
 
 <style>
-
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+font-family:Arial,sans-serif;
 }
 
 body{
 background:#000;
 color:#fff;
-padding:25px;
 }
 
-.header{
+header{
+background:#000;
+padding:20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:25px;
+border-bottom:1px solid #222;
+position:sticky;
+top:0;
+z-index:1000;
 }
 
 .logo{
-font-size:34px;
-font-weight:700;
+font-size:32px;
+font-weight:bold;
 }
 
-.actions{
+.right{
 display:flex;
 gap:10px;
-flex-wrap:wrap;
 }
 
-.top-btn{
+.btn{
 background:#fff;
 color:#000;
 border:none;
 padding:12px 18px;
-border-radius:15px;
+border-radius:12px;
 font-weight:bold;
 cursor:pointer;
 }
@@ -52,36 +53,39 @@ cursor:pointer;
 .search{
 width:100%;
 padding:15px;
+margin:20px 0;
 border:none;
-border-radius:15px;
-margin-bottom:25px;
+border-radius:12px;
 font-size:16px;
+}
+
+.container{
+padding:20px;
 }
 
 .products{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
 gap:25px;
 }
 
 .card{
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(25px);
-border:1px solid rgba(255,255,255,0.1);
-border-radius:25px;
+background:#111;
+border-radius:20px;
 overflow:hidden;
+cursor:pointer;
 transition:.3s;
+border:1px solid #222;
 }
 
 .card:hover{
-transform:translateY(-5px);
+transform:translateY(-6px);
 }
 
 .card img{
 width:100%;
-height:260px;
+height:320px;
 object-fit:cover;
-background:#111;
 }
 
 .info{
@@ -100,93 +104,75 @@ margin-bottom:10px;
 }
 
 .name{
-font-size:22px;
+font-size:24px;
 font-weight:bold;
 margin-bottom:10px;
 }
 
 .price{
-font-size:28px;
+font-size:30px;
 font-weight:bold;
-margin-bottom:10px;
-}
-
-.desc{
-color:#aaa;
+color:#00ff88;
 margin-bottom:10px;
 }
 
 .stock{
 color:#00ff88;
-font-weight:bold;
 margin-bottom:15px;
+font-weight:bold;
 }
 
-.buttons{
+.actions{
 display:flex;
 gap:10px;
 }
 
-.cart-btn,
-.wish-btn{
+.cartBtn{
 flex:1;
 padding:12px;
 border:none;
-border-radius:12px;
-cursor:pointer;
+border-radius:10px;
+background:#fff;
 font-weight:bold;
+cursor:pointer;
 }
 
-.cart-btn{
-background:white;
-color:black;
-}
-
-.wish-btn{
+.wishBtn{
+width:55px;
+border:none;
+border-radius:10px;
 background:#222;
 color:white;
+font-size:20px;
+cursor:pointer;
 }
-
-.out{
-background:#444;
-color:#999;
-cursor:not-allowed;
-}
-
 </style>
-
 </head>
-
 <body>
 
-<div class="header">
+<header>
 
 <div class="logo">
 URBAN Culture
 </div>
 
-<div class="actions">
+<div class="right">
 
-<button
-class="top-btn"
-onclick="goProfile()">
-👤 Profile </button>
+<button class="btn"
+onclick="location.href='wishlist.html'">
+❤️ Wishlist (<span id="wishCount">0</span>)
+</button>
 
-<button
-class="top-btn"
-onclick="window.location.href='wishlist.html'">
-❤️ Wishlist
-(<span id="wishCount">0</span>) </button>
-
-<button
-class="top-btn"
-onclick="window.location.href='cart.html'">
-🛒 Cart
-(<span id="cartCount">0</span>) </button>
+<button class="btn"
+onclick="location.href='cart.html'">
+🛒 Cart (<span id="cartCount">0</span>)
+</button>
 
 </div>
 
-</div>
+</header>
+
+<div class="container">
 
 <input
 class="search"
@@ -194,25 +180,33 @@ id="search"
 placeholder="Search Products..."
 onkeyup="filterProducts()">
 
-<div
-class="products"
-id="products">
+<div class="products" id="products">
+</div>
+
 </div>
 
 <script>
+
 let allProducts=[];
+
 async function loadProducts(){
 
-const res = await fetch(
+try{
+
+const res=await fetch(
 "https://urban-culture.onrender.com/products"
 );
 
-const products =
-await res.json();
+allProducts=await res.json();
 
-allProducts = products;
+renderProducts(allProducts);
 
-renderProducts(products);
+}catch(err){
+
+document.getElementById("products").innerHTML=
+"<h2>Products Not Available</h2>";
+
+}
 
 }
 
@@ -222,77 +216,42 @@ let html="";
 
 products.forEach((product,index)=>{
 
-html += `
+html+=`
 
 <div class="card">
 
 <img
-onclick="openProduct(${index})"
-style="cursor:pointer"
-src="${
-product.image ||
-'https://via.placeholder.com/500'
-}">
+src="${product.image || 'https://via.placeholder.com/600'}"
+onclick="openProduct(${index})">
 
 <div class="info">
 
-${
-product.featured === "Yes"
-?
-'<div class="badge">FEATURED</div>'
-:
-''
-}
+${product.featured==="Yes"
+?'<div class="badge">FEATURED</div>'
+:''}
 
-<div class="name">
-${product.name}
-</div>
+<div class="name">${product.name}</div>
 
-<div class="price">
-₹${product.price}
-</div>
-
-<div class="desc">
-${product.description || ""}
-</div>
+<div class="price">₹${product.price}</div>
 
 <div class="stock">
-Stock :
-${product.stock || 0}
+Stock : ${product.stock || 0}
 </div>
 
-<div class="buttons">
-
-${
-(product.stock || 0) > 0
-?
-`<button
-class="cart-btn"
-onclick="addToCart(${index})">
-Add To Cart </button>`
-:
-`<button
-class="cart-btn out">
-Out Of Stock </button>`
-}
+<div class="actions">
 
 <button
-class="wish-btn"
-onclick="addWishlist(${index})">
-❤️ </button>
-function openProduct(index){
+class="cartBtn"
+onclick="event.stopPropagation();addToCart(${index})">
+Add To Cart
+</button>
 
-localStorage.setItem(
-"selectedProduct",
-JSON.stringify(
-allProducts[index]
-)
-);
+<button
+class="wishBtn"
+onclick="event.stopPropagation();addWishlist(${index})">
+❤️
+</button>
 
-window.location.href =
-"product.html";
-
-}
 </div>
 
 </div>
@@ -303,88 +262,27 @@ window.location.href =
 
 });
 
-document.getElementById("products")
-.innerHTML = html;
+document.getElementById("products").innerHTML=html;
 
 }
 
-function filterProducts(){
+function openProduct(index){
 
-const text =
-document.getElementById("search")
-.value
-.toLowerCase();
-
-const filtered =
-allProducts.filter(product =>
-
-product.name
-.toLowerCase()
-.includes(text)
-
+localStorage.setItem(
+"selectedProduct",
+JSON.stringify(allProducts[index])
 );
 
-renderProducts(filtered);
-
-}
-
-function goProfile(){
-
-const user =
-localStorage.getItem("customer");
-
-if(user){
-
-window.location.href =
-"profile.html";
-
-}else{
-
-window.location.href =
-"customer-login.html";
-
-}
-
-}
-
-function updateCartCount(){
-
-let cart =
-JSON.parse(
-localStorage.getItem("cart")
-) || [];
-
-document.getElementById(
-"cartCount"
-).innerHTML =
-cart.length;
-
-}
-
-function updateWishCount(){
-
-let wishlist =
-JSON.parse(
-localStorage.getItem("wishlist")
-) || [];
-
-document.getElementById(
-"wishCount"
-).innerHTML =
-wishlist.length;
+window.location.href="product.html";
 
 }
 
 function addToCart(index){
 
-let cart =
-JSON.parse(
-localStorage.getItem("cart")
-) || [];
+let cart=
+JSON.parse(localStorage.getItem("cart"))||[];
 
-cart.push(
-allProducts[index]
-);
+cart.push(allProducts[index]);
 
 localStorage.setItem(
 "cart",
@@ -393,22 +291,16 @@ JSON.stringify(cart)
 
 updateCartCount();
 
-alert(
-"✅ Added To Cart"
-);
+alert("Added To Cart");
 
 }
 
 function addWishlist(index){
 
-let wishlist =
-JSON.parse(
-localStorage.getItem("wishlist")
-) || [];
+let wishlist=
+JSON.parse(localStorage.getItem("wishlist"))||[];
 
-wishlist.push(
-allProducts[index]
-);
+wishlist.push(allProducts[index]);
 
 localStorage.setItem(
 "wishlist",
@@ -417,16 +309,48 @@ JSON.stringify(wishlist)
 
 updateWishCount();
 
-alert(
-"❤️ Added To Wishlist"
+alert("Added To Wishlist");
+
+}
+
+function updateCartCount(){
+
+let cart=
+JSON.parse(localStorage.getItem("cart"))||[];
+
+document.getElementById("cartCount").innerHTML=
+cart.length;
+
+}
+
+function updateWishCount(){
+
+let wishlist=
+JSON.parse(localStorage.getItem("wishlist"))||[];
+
+document.getElementById("wishCount").innerHTML=
+wishlist.length;
+
+}
+
+function filterProducts(){
+
+const text=
+document.getElementById("search")
+.value
+.toLowerCase();
+
+const filtered=
+allProducts.filter(p=>
+p.name.toLowerCase().includes(text)
 );
+
+renderProducts(filtered);
 
 }
 
 loadProducts();
-
 updateCartCount();
-
 updateWishCount();
 
 </script>
