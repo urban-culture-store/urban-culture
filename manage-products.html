@@ -217,7 +217,7 @@ let currentIndex=-1;
 async function loadProducts(){
 
 const res=
-await fetch("http://localhost:5000/products");
+await fetch("https://urban-culture.onrender.com/products");
 
 const products=
 await res.json();
@@ -341,7 +341,7 @@ return;
 }
 
 await fetch(
-`http://localhost:5000/products/${index}`,
+`https://urban-culture.onrender.com/products/${index}`,
 {
 method:"DELETE"
 }
