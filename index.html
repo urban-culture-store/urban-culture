@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>URBAN Culture</title>
 
 <style>
@@ -12,289 +12,479 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+font-family:Arial,sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
 }
 
 body{
 background:#000;
-color:white;
-min-height:100vh;
+color:#fff;
 overflow-x:hidden;
 }
 
-.hero{
+/* Animated Background */
 
-height:100vh;
-
-display:flex;
-flex-direction:column;
-
-justify-content:center;
-
-align-items:center;
-
-text-align:center;
-
-padding:20px;
-}
-
-.topbar{
-
+.bg-animation{
 position:fixed;
-
-top:20px;
-
-right:20px;
-
-z-index:999;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
+overflow:hidden;
 }
 
-.login-btn{
-
-background:white;
-
-color:black;
-
-padding:12px 22px;
-
-border:none;
-
-border-radius:15px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-text-decoration:none;
-}
-
-.logo{
-
-font-size:55px;
-
-font-weight:700;
-
-margin-bottom:15px;
-}
-
-.subtitle{
-
-font-size:18px;
-
-color:#aaa;
-
-margin-bottom:35px;
-
-max-width:600px;
-}
-
-.shop-btn{
-
-background:white;
-
-color:black;
-
-padding:18px 45px;
-
-border-radius:18px;
-
-text-decoration:none;
-
-font-size:20px;
-
-font-weight:bold;
-
-display:inline-block;
-}
-
-.glow{
-
+.bg-animation span{
 position:absolute;
-
-width:350px;
-
-height:350px;
-
-background:white;
-
-opacity:.05;
-
-filter:blur(100px);
-
+display:block;
+width:20px;
+height:20px;
+background:rgba(255,255,255,0.05);
+animation:animate 20s linear infinite;
+bottom:-150px;
 border-radius:50%;
 }
 
-.g1{
-top:10%;
+.bg-animation span:nth-child(1){
 left:10%;
+width:80px;
+height:80px;
+animation-duration:15s;
 }
 
-.g2{
-bottom:10%;
-right:10%;
+.bg-animation span:nth-child(2){
+left:30%;
+width:40px;
+height:40px;
+animation-duration:12s;
+}
+
+.bg-animation span:nth-child(3){
+left:50%;
+width:60px;
+height:60px;
+animation-duration:18s;
+}
+
+.bg-animation span:nth-child(4){
+left:70%;
+width:100px;
+height:100px;
+animation-duration:22s;
+}
+
+.bg-animation span:nth-child(5){
+left:90%;
+width:50px;
+height:50px;
+animation-duration:14s;
+}
+
+@keyframes animate{
+0%{
+transform:translateY(0) rotate(0deg);
+opacity:1;
+}
+100%{
+transform:translateY(-1200px) rotate(720deg);
+opacity:0;
+}
+}
+
+/* Header */
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px;
+position:fixed;
+top:0;
+width:100%;
+background:rgba(0,0,0,0.7);
+backdrop-filter:blur(15px);
+z-index:1000;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+}
+
+.login-btn{
+background:#fff;
+color:#000;
+border:none;
+padding:12px 25px;
+border-radius:15px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* Hero */
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+.hero h1{
+font-size:90px;
+line-height:1;
+animation:fadeUp 1s ease;
+}
+
+.hero p{
+margin-top:20px;
+font-size:24px;
+color:#aaa;
+animation:fadeUp 1.4s ease;
+}
+
+.shop-btn{
+margin-top:35px;
+padding:18px 45px;
+font-size:22px;
+font-weight:bold;
+border:none;
+border-radius:18px;
+background:#fff;
+color:#000;
+cursor:pointer;
+transition:.3s;
+animation:fadeUp 1.8s ease;
+}
+
+.shop-btn:hover{
+transform:scale(1.08);
+}
+
+@keyframes fadeUp{
+from{
+opacity:0;
+transform:translateY(50px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* Store */
+
+.store{
+padding:25px;
+}
+
+.search{
+width:100%;
+padding:16px;
+font-size:18px;
+border:none;
+border-radius:15px;
+margin-bottom:20px;
+}
+
+.product-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:#111;
+border-radius:20px;
+overflow:hidden;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+.card img{
+width:100%;
+height:300px;
+object-fit:cover;
+}
+
+.card-body{
+padding:15px;
+}
+
+.price{
+margin-top:10px;
+font-size:22px;
+font-weight:bold;
+}
+
+.cart-btn{
+margin-top:15px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:#fff;
+color:#000;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:60px;
+}
+
+.hero p{
+font-size:18px;
+}
+
+.logo{
+font-size:22px;
+}
+
+.shop-btn{
+width:90%;
+max-width:320px;
+}
+
+.product-grid{
+grid-template-columns:1fr;
+}
+
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="glow g1"></div>
-<div class="glow g2"></div>
-
-<div class="topbar">
-
-<a
-class="login-btn"
-href="customer-login.html">
-Login </a>
-
+<div class="bg-animation">
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
 </div>
 
-<div class="hero">
+<header>
 
 <div class="logo">
 URBAN Culture
 </div>
 
-<div class="subtitle">
+<button
+class="login-btn"
+onclick="window.location.href='customer-login.html'">
+Login
+</button>
 
-Premium Streetwear &
-Fashion Collection
+</header>
 
-</div>
+<section class="hero">
 
-<a
+<h1>
+URBAN<br>
+Culture
+</h1>
+
+<p>
+Premium Streetwear & Fashion Collection
+</p>
+
+<button
 class="shop-btn"
-href="products.html">
-
+onclick="openStore()">
 🛍 Shop Now
+</button>
 
-</a>
+</section>
 
-</div>
-<div style="padding:40px 20px;max-width:1200px;margin:auto;">
+<section
+class="store"
+id="storeSection">
 
-<h2
-style="
-text-align:center;
-margin-bottom:25px;
-font-size:32px;
-">
-
-🔥 Best Sellers
-
-</h2>
+<input
+type="text"
+class="search"
+placeholder="Search Products..."
+onkeyup="filterProducts(this.value)"
+>
 
 <div
-style="
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:20px;
-">
-
-<div
-style="
-background:rgba(255,255,255,.05);
-padding:20px;
-border-radius:25px;
-border:1px solid rgba(255,255,255,.1);
-">
-
-<h3>T-Shirt Collection</h3>
-
-<p
-style="
-color:#aaa;
-margin-top:10px;
-">
-
-Premium Urban Wear
-
-</p>
-
+id="products"
+class="product-grid">
 </div>
 
-<div
-style="
-background:rgba(255,255,255,.05);
-padding:20px;
-border-radius:25px;
-border:1px solid rgba(255,255,255,.1);
-">
-
-<h3>Hoodies</h3>
-
-<p
-style="
-color:#aaa;
-margin-top:10px;
-">
-
-Winter Collection
-
-</p>
-
-</div>
-
-<div
-style="
-background:rgba(255,255,255,.05);
-padding:20px;
-border-radius:25px;
-border:1px solid rgba(255,255,255,.1);
-">
-
-<h3>Accessories</h3>
-
-<p
-style="
-color:#aaa;
-margin-top:10px;
-">
-
-Trending Fashion
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<footer
-style="
-padding:30px;
-text-align:center;
-color:#888;
-">
-
-© 2025 URBAN Culture
-
-</footer>
+</section>
 
 <script>
 
-const customer =
-localStorage.getItem(
-"customer"
-);
+function openStore(){
 
-if(customer){
-
-document.querySelector(
-".login-btn"
-).innerHTML =
-"👤 Profile";
-
-document.querySelector(
-".login-btn"
-).href =
-"profile.html";
+document
+.getElementById("storeSection")
+.scrollIntoView({
+behavior:"smooth"
+});
 
 }
+<script>
+
+let allProducts = [];
+
+async function loadProducts(){
+
+try{
+
+const res =
+await fetch(
+"https://urban-culture.onrender.com/products"
+);
+
+const products =
+await res.json();
+
+allProducts = products;
+
+renderProducts(products);
+
+}catch(error){
+
+document.getElementById("products")
+.innerHTML = `
+<h2 style="
+text-align:center;
+grid-column:1/-1;
+color:red;">
+Products Loading Failed
+</h2>
+`;
+
+}
+
+}
+
+function renderProducts(products){
+
+const container =
+document.getElementById("products");
+
+container.innerHTML = "";
+
+products.forEach(product=>{
+
+container.innerHTML += `
+
+<div class="card">
+
+${product.featured === "Yes" ?
+
+`<div style="
+background:gold;
+color:black;
+padding:8px 12px;
+font-weight:bold;
+text-align:center;">
+⭐ FEATURED
+</div>`
+
+: ""}
+
+<img src="${product.image}">
+
+<div class="card-body">
+
+<h3>${product.name}</h3>
+
+<div class="price">
+₹${product.price}
+</div>
+
+<p style="
+margin-top:10px;
+color:#00ff88;">
+Stock : ${product.stock}
+</p>
+
+<button
+class="cart-btn"
+.card{
+box-shadow:
+0 0 20px rgba(255,255,255,.08);
+}
+
+.card h3{
+margin-bottom:10px;
+}
+
+.card img{
+background:#111;
+}
+onclick="addToCart('${product.name}')">
+🛒 Add To Cart
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function filterProducts(text){
+
+const filtered =
+allProducts.filter(product=>
+
+product.name
+.toLowerCase()
+.includes(
+text.toLowerCase()
+)
+
+);
+
+renderProducts(filtered);
+
+}
+
+function addToCart(name){
+
+let cart =
+JSON.parse(
+localStorage.getItem("cart")
+) || [];
+
+cart.push(name);
+
+localStorage.setItem(
+"cart",
+JSON.stringify(cart)
+);
+
+alert(
+name + " Added To Cart"
+);
+
+}
+
+loadProducts();
 
 </script>
 
