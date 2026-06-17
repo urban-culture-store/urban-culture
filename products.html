@@ -227,6 +227,8 @@ html += `
 <div class="card">
 
 <img
+onclick="openProduct(${index})"
+style="cursor:pointer"
 src="${
 product.image ||
 'https://via.placeholder.com/500'
@@ -278,7 +280,19 @@ Out Of Stock </button>`
 class="wish-btn"
 onclick="addWishlist(${index})">
 ❤️ </button>
+function openProduct(index){
 
+localStorage.setItem(
+"selectedProduct",
+JSON.stringify(
+allProducts[index]
+)
+);
+
+window.location.href =
+"product.html";
+
+}
 </div>
 
 </div>
