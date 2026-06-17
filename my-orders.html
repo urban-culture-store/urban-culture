@@ -81,16 +81,6 @@ margin-top:10px;
 
 <h1>📦 My Orders</h1>
 
-<div class="search">
-
-<input
-type="text"
-id="phone"
-placeholder="Enter Mobile Number">
-
-<button onclick="findOrders()">
-Search
-</button>
 
 </div>
 
@@ -102,8 +92,13 @@ Search
 
 async function findOrders(){
 
+const customer =
+JSON.parse(
+localStorage.getItem("customer")
+);
+
 const phone =
-document.getElementById("phone").value;
+customer.phone;
 
 const res =
 await fetch(
@@ -166,6 +161,8 @@ document.getElementById("orders")
 .innerHTML = html;
 
 }
+
+findOrders();
 
 </script>
 

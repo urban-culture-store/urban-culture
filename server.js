@@ -1,222 +1,196 @@
-const express = require("express");
-const cors = require("cors");
-const fs = require("fs");
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Orders</title>
 
-const app = express();
+<style>
 
-app.use(cors());
-app.use(express.json());
-
-const PRODUCTS_FILE = "products.json";
-const ORDERS_FILE = "orders.json";
-
-// Load Database
-let products = [];
-let orders = [];
-
-if(fs.existsSync(PRODUCTS_FILE)){
-products = JSON.parse(fs.readFileSync(PRODUCTS_FILE));
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 }
 
-if(fs.existsSync(ORDERS_FILE)){
-orders = JSON.parse(fs.readFileSync(ORDERS_FILE));
+body{
+background:#000;
+color:white;
+padding:20px;
 }
 
-// Home
-app.get("/", (req,res)=>{
-res.send("URBAN Culture Backend Running");
-});
+.container{
+max-width:1000px;
+margin:auto;
+}
 
-// =====================
-// PRODUCTS
-// =====================
+h1{
+text-align:center;
+margin-bottom:25px;
+}
 
-// Get Products
-app.get("/products",(req,res)=>{
-res.json(products);
-});
+.order{
+background:#111;
+border:1px solid #222;
+border-radius:20px;
+padding:20px;
+margin-bottom:15px;
+cursor:pointer;
+transition:.3s;
+}
 
-// Add Product
-app.post("/products",(req,res)=>{
+.order:hover{
+transform:translateY(-3px);
+border-color:#444;
+}
 
-const product = req.body;
+.name{
+font-size:20px;
+font-weight:bold;
+margin-bottom:10px;
+}
 
-products.push(product);
+.price{
+font-size:22px;
+font-weight:bold;
+color:#00ff88;
+margin-top:10px;
+}
 
-fs.writeFileSync(
-PRODUCTS_FILE,
-JSON.stringify(products,null,2)
+.status{
+display:inline-block;
+padding:8px 15px;
+border-radius:10px;
+margin-top:10px;
+background:#222;
+}
+
+.date{
+color:#aaa;
+margin-top:8px;
+}
+
+.empty{
+text-align:center;
+padding:50px;
+color:#999;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📦 My Orders</h1>
+
+<div id="orders"></div>
+
+</div>
+
+<script>
+
+async function loadOrders(){
+
+const customer =
+JSON.parse(
+localStorage.getItem("customer")
 );
 
-res.json({
-success:true,
-message:"Product Added",
-product
-});
+if(!customer){
 
-});
+window.location.href =
+"customer-login.html";
 
-// Delete Product
-app.delete("/products/:id",(req,res)=>{
-app.put("/products/:id",(req,res)=>{
+return;
 
-const id = parseInt(req.params.id);
+}
 
-if(id >= 0 && id < products.length){
-
-products[id] = {
-...products[id],
-...req.body
-};
-
-fs.writeFileSync(
-PRODUCTS_FILE,
-JSON.stringify(products,null,2)
+const res =
+await fetch(
+"https://urban-culture.onrender.com/orders"
 );
 
-res.json({
-success:true,
-message:"Product Updated"
-});
+const allOrders =
+await res.json();
+
+const orders =
+allOrders.filter(order=>
+
+order.phone === customer.phone
+
+);
+
+let html="";
+
+if(orders.length===0){
+
+html = `
+<div class="empty">
+No Orders Found
+</div>
+`;
 
 }else{
 
-res.status(404).json({
-success:false,
-message:"Product Not Found"
+orders.reverse().forEach(order=>{
+
+html += `
+
+<div
+class="order"
+onclick='openOrder(${JSON.stringify(order)})'>
+
+<div class="name">
+${order.items?.[0]?.name || "Product"}
+</div>
+
+<div class="price">
+₹${order.total || 0}
+</div>
+
+<div class="date">
+📅 ${order.date || ""}
+</div>
+
+<div class="date">
+🆔 ${order.orderId || ""}
+</div>
+
+<div class="status">
+${order.status || "Pending"}
+</div>
+
+</div>
+
+`;
+
 });
 
 }
 
-});
-
-const id = parseInt(req.params.id);
-
-if(id >= 0 && id < products.length){
-
-products.splice(id,1);
-
-fs.writeFileSync(
-PRODUCTS_FILE,
-JSON.stringify(products,null,2)
-);
-
-res.json({
-success:true,
-message:"Product Deleted"
-});
-
-}else{
-
-res.status(404).json({
-success:false,
-message:"Product Not Found"
-});
+document.getElementById("orders")
+.innerHTML = html;
 
 }
 
-});
+function openOrder(order){
 
-// =====================
-// ORDERS
-// =====================
-
-// Get Orders
-app.get("/orders",(req,res)=>{
-res.json(orders);
-});
-
-// Add Order
-app.post("/orders",(req,res)=>{
-
-const order = req.body;
-
-order.status = "Pending";
-
-orders.push(order);
-
-fs.writeFileSync(
-ORDERS_FILE,
-JSON.stringify(orders,null,2)
+localStorage.setItem(
+"selectedOrder",
+JSON.stringify(order)
 );
 
-res.json({
-success:true,
-message:"Order Saved"
-});
-
-});
-
-// Delete Order
-app.delete("/orders/:id",(req,res)=>{
-
-const id = parseInt(req.params.id);
-
-if(id >= 0 && id < orders.length){
-
-orders.splice(id,1);
-
-fs.writeFileSync(
-ORDERS_FILE,
-JSON.stringify(orders,null,2)
-);
-
-res.json({
-success:true,
-message:"Order Deleted"
-});
-
-}else{
-
-res.status(404).json({
-success:false,
-message:"Order Not Found"
-});
+window.location.href =
+"order-details.html";
 
 }
 
-});
+loadOrders();
 
-// Update Order Status
-app.put("/orders/:id",(req,res)=>{
+</script>
 
-const id = parseInt(req.params.id);
-
-const {status} = req.body;
-
-if(id >= 0 && id < orders.length){
-
-orders[id].status = status;
-
-fs.writeFileSync(
-ORDERS_FILE,
-JSON.stringify(orders,null,2)
-);
-
-res.json({
-success:true,
-message:"Status Updated"
-});
-
-}else{
-
-res.status(404).json({
-success:false,
-message:"Order Not Found"
-});
-
-}
-
-});
-
-// =====================
-// SERVER
-// =====================
-
-app.listen(5000,()=>{
-
-console.log(
-"🚀 URBAN Culture Backend Running On Port 5000"
-);
-
-});
+</body>
+</html>

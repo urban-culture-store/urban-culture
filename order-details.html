@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Details</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+body{
+background:#000;
+color:#fff;
+padding:20px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+}
+
+.card{
+background:#111;
+border:1px solid #222;
+border-radius:20px;
+padding:25px;
+margin-bottom:20px;
+}
+
+h1{
+margin-bottom:20px;
+}
+
+.row{
+margin-bottom:12px;
+}
+
+.label{
+color:#888;
+font-size:14px;
+}
+
+.value{
+font-size:18px;
+font-weight:bold;
+}
+
+.timeline{
+margin-top:25px;
+}
+
+.step{
+padding:12px;
+border-left:3px solid #00ff88;
+margin-bottom:12px;
+background:#181818;
+border-radius:8px;
+}
+
+.cancel-btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+font-weight:bold;
+cursor:pointer;
+margin-top:20px;
+background:#ff3333;
+color:white;
+}
+
+.disabled{
+background:#444;
+cursor:not-allowed;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📦 Order Details</h1>
+
+<div class="card">
+
+<div class="row">
+<div class="label">Order ID</div>
+<div class="value" id="orderId"></div>
+</div>
+
+<div class="row">
+<div class="label">Order Date</div>
+<div class="value" id="orderDate"></div>
+</div>
+
+<div class="row">
+<div class="label">Customer</div>
+<div class="value" id="customer"></div>
+</div>
+
+<div class="row">
+<div class="label">Phone</div>
+<div class="value" id="phone"></div>
+</div>
+
+<div class="row">
+<div class="label">Address</div>
+<div class="value" id="address"></div>
+</div>
+
+<div class="row">
+<div class="label">Total Amount</div>
+<div class="value" id="amount"></div>
+</div>
+
+<div class="row">
+<div class="label">Status</div>
+<div class="value" id="status"></div>
+</div>
+
+<div class="row">
+<div class="label">Delivery Partner</div>
+<div class="value" id="partner"></div>
+</div>
+
+<div class="row">
+<div class="label">Tracking ID</div>
+<div class="value" id="trackingId"></div>
+</div>
+
+<div class="timeline" id="timeline"></div>
+
+<button
+id="cancelBtn"
+class="cancel-btn"
+onclick="cancelOrder()">
+Cancel Order
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+const order =
+JSON.parse(
+localStorage.getItem("selectedOrder")
+);
+
+document.getElementById("orderId").innerText =
+order.orderId || "-";
+
+document.getElementById("orderDate").innerText =
+order.date || "-";
+
+document.getElementById("customer").innerText =
+order.name || "-";
+
+document.getElementById("phone").innerText =
+order.phone || "-";
+
+document.getElementById("address").innerText =
+`${order.address},
+${order.pincode}`;
+
+document.getElementById("amount").innerText =
+"₹" + (order.total || 0);
+
+document.getElementById("status").innerText =
+order.status || "Pending";
+
+document.getElementById("partner").innerText =
+order.deliveryPartner || "Not Assigned";
+
+document.getElementById("trackingId").innerText =
+order.trackingId || "-";
+
+let timelineHTML = "";
+
+if(order.tracking){
+
+order.tracking.forEach(step=>{
+
+timelineHTML += `
+<div class="step">
+<b>${step.status}</b><br>
+${step.date}
+</div>
+`;
+
+});
+
+}
+
+document.getElementById("timeline")
+.innerHTML = timelineHTML;
+
+const cancelBtn =
+document.getElementById("cancelBtn");
+
+if(
+order.status==="Shipped" ||
+order.status==="Out For Delivery" ||
+order.status==="Delivered"
+){
+
+cancelBtn.disabled = true;
+
+cancelBtn.innerText =
+"Cancellation Not Available";
+
+cancelBtn.classList.add("disabled");
+
+}
+
+function cancelOrder(){
+
+alert(
+"Order Cancel Request Sent"
+);
+
+}
+
+</script>
+
+</body>
+</html>
