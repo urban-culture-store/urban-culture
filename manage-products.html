@@ -318,19 +318,49 @@ document.getElementById("editModal").style.display="flex";
 
 }
 
-function saveEdit(){
+async function saveEdit(){
 
-allProducts[currentIndex].name=
-document.getElementById("editName").value;
+const updatedProduct = {
 
-allProducts[currentIndex].price=
-document.getElementById("editPrice").value;
+...allProducts[currentIndex],
 
-alert("Edit Saved");
+name:
+document.getElementById("editName").value,
 
-document.getElementById("editModal").style.display="none";
+price:
+document.getElementById("editPrice").value
 
-renderProducts(allProducts);
+};
+
+const res = await fetch(
+
+`https://urban-culture.onrender.com/products/${currentIndex}`,
+
+{
+method:"PUT",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(updatedProduct)
+}
+
+);
+
+if(res.ok){
+
+alert("✅ Product Updated");
+
+document.getElementById(
+"editModal"
+).style.display="none";
+
+loadProducts();
+
+}else{
+
+alert("❌ Update Failed");
+
+}
 
 }
 
