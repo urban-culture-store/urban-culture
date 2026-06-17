@@ -15,86 +15,11 @@ box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
 
-html{
-scroll-behavior:smooth;
-}
-
 body{
 background:#000;
 color:#fff;
 overflow-x:hidden;
 }
-
-/* Animated Background */
-
-.bg-animation{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-1;
-overflow:hidden;
-}
-
-.bg-animation span{
-position:absolute;
-display:block;
-width:20px;
-height:20px;
-background:rgba(255,255,255,0.05);
-animation:animate 20s linear infinite;
-bottom:-150px;
-border-radius:50%;
-}
-
-.bg-animation span:nth-child(1){
-left:10%;
-width:80px;
-height:80px;
-animation-duration:15s;
-}
-
-.bg-animation span:nth-child(2){
-left:30%;
-width:40px;
-height:40px;
-animation-duration:12s;
-}
-
-.bg-animation span:nth-child(3){
-left:50%;
-width:60px;
-height:60px;
-animation-duration:18s;
-}
-
-.bg-animation span:nth-child(4){
-left:70%;
-width:100px;
-height:100px;
-animation-duration:22s;
-}
-
-.bg-animation span:nth-child(5){
-left:90%;
-width:50px;
-height:50px;
-animation-duration:14s;
-}
-
-@keyframes animate{
-0%{
-transform:translateY(0) rotate(0deg);
-opacity:1;
-}
-100%{
-transform:translateY(-1200px) rotate(720deg);
-opacity:0;
-}
-}
-
-/* Header */
 
 header{
 display:flex;
@@ -104,7 +29,7 @@ padding:20px;
 position:fixed;
 top:0;
 width:100%;
-background:rgba(0,0,0,0.7);
+background:rgba(0,0,0,.9);
 backdrop-filter:blur(15px);
 z-index:1000;
 }
@@ -120,15 +45,12 @@ color:#000;
 border:none;
 padding:12px 25px;
 border-radius:15px;
-font-size:16px;
 font-weight:bold;
 cursor:pointer;
 }
 
-/* Hero */
-
 .hero{
-height:100vh;
+min-height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -138,21 +60,19 @@ padding:20px;
 }
 
 .hero h1{
-font-size:90px;
+font-size:80px;
 line-height:1;
-animation:fadeUp 1s ease;
 }
 
 .hero p{
 margin-top:20px;
-font-size:24px;
+font-size:22px;
 color:#aaa;
-animation:fadeUp 1.4s ease;
 }
 
 .shop-btn{
 margin-top:35px;
-padding:18px 45px;
+padding:18px 50px;
 font-size:22px;
 font-weight:bold;
 border:none;
@@ -160,43 +80,21 @@ border-radius:18px;
 background:#fff;
 color:#000;
 cursor:pointer;
-transition:.3s;
-animation:fadeUp 1.8s ease;
 }
 
-.shop-btn:hover{
-transform:scale(1.08);
+.products-section{
+padding:30px 20px;
 }
 
-@keyframes fadeUp{
-from{
-opacity:0;
-transform:translateY(50px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
+.section-title{
+font-size:32px;
+margin-bottom:25px;
+text-align:center;
 }
 
-/* Store */
-
-.store{
-padding:25px;
-}
-
-.search{
-width:100%;
-padding:16px;
-font-size:18px;
-border:none;
-border-radius:15px;
-margin-bottom:20px;
-}
-
-.product-grid{
+.products{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:20px;
 }
 
@@ -204,16 +102,11 @@ gap:20px;
 background:#111;
 border-radius:20px;
 overflow:hidden;
-transition:.3s;
-}
-
-.card:hover{
-transform:translateY(-8px);
 }
 
 .card img{
 width:100%;
-height:300px;
+height:320px;
 object-fit:cover;
 }
 
@@ -221,14 +114,22 @@ object-fit:cover;
 padding:15px;
 }
 
-.price{
-margin-top:10px;
-font-size:22px;
-font-weight:bold;
+.card h3{
+margin-bottom:10px;
 }
 
-.cart-btn{
-margin-top:15px;
+.price{
+font-size:24px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.stock{
+color:#00ff88;
+margin-bottom:15px;
+}
+
+.buy-btn{
 width:100%;
 padding:12px;
 border:none;
@@ -239,12 +140,10 @@ font-weight:bold;
 cursor:pointer;
 }
 
-/* Mobile */
-
 @media(max-width:768px){
 
 .hero h1{
-font-size:60px;
+font-size:58px;
 }
 
 .hero p{
@@ -255,12 +154,7 @@ font-size:18px;
 font-size:22px;
 }
 
-.shop-btn{
-width:90%;
-max-width:320px;
-}
-
-.product-grid{
+.products{
 grid-template-columns:1fr;
 }
 
@@ -268,16 +162,7 @@ grid-template-columns:1fr;
 
 </style>
 </head>
-
 <body>
-
-<div class="bg-animation">
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-</div>
 
 <header>
 
@@ -313,23 +198,19 @@ onclick="openStore()">
 </section>
 
 <section
-class="store"
+class="products-section"
 id="storeSection">
 
-<input
-type="text"
-class="search"
-placeholder="Search Products..."
-onkeyup="filterProducts(this.value)"
->
+<h2 class="section-title">
+Featured Products
+</h2>
 
 <div
-id="products"
-class="product-grid">
+class="products"
+id="products">
 </div>
 
 </section>
-
 <script>
 
 function openStore(){
@@ -341,9 +222,8 @@ behavior:"smooth"
 });
 
 }
-<script>
 
-let allProducts = [];
+let allProducts=[];
 
 async function loadProducts(){
 
@@ -354,24 +234,18 @@ await fetch(
 "https://urban-culture.onrender.com/products"
 );
 
-const products =
+const data =
 await res.json();
 
-allProducts = products;
+allProducts = data;
 
-renderProducts(products);
+renderProducts(data);
 
-}catch(error){
+}catch(err){
 
 document.getElementById("products")
-.innerHTML = `
-<h2 style="
-text-align:center;
-grid-column:1/-1;
-color:red;">
-Products Loading Failed
-</h2>
-`;
+.innerHTML =
+"<h2>Products Loading Failed</h2>";
 
 }
 
@@ -382,26 +256,13 @@ function renderProducts(products){
 const container =
 document.getElementById("products");
 
-container.innerHTML = "";
+container.innerHTML="";
 
 products.forEach(product=>{
 
 container.innerHTML += `
 
 <div class="card">
-
-${product.featured === "Yes" ?
-
-`<div style="
-background:gold;
-color:black;
-padding:8px 12px;
-font-weight:bold;
-text-align:center;">
-⭐ FEATURED
-</div>`
-
-: ""}
 
 <img src="${product.image}">
 
@@ -413,28 +274,12 @@ text-align:center;">
 ₹${product.price}
 </div>
 
-<p style="
-margin-top:10px;
-color:#00ff88;">
+<div class="stock">
 Stock : ${product.stock}
-</p>
+</div>
 
-<button
-class="cart-btn"
-.card{
-box-shadow:
-0 0 20px rgba(255,255,255,.08);
-}
-
-.card h3{
-margin-bottom:10px;
-}
-
-.card img{
-background:#111;
-}
-onclick="addToCart('${product.name}')">
-🛒 Add To Cart
+<button class="buy-btn">
+View Product
 </button>
 
 </div>
@@ -444,43 +289,6 @@ onclick="addToCart('${product.name}')">
 `;
 
 });
-
-}
-
-function filterProducts(text){
-
-const filtered =
-allProducts.filter(product=>
-
-product.name
-.toLowerCase()
-.includes(
-text.toLowerCase()
-)
-
-);
-
-renderProducts(filtered);
-
-}
-
-function addToCart(name){
-
-let cart =
-JSON.parse(
-localStorage.getItem("cart")
-) || [];
-
-cart.push(name);
-
-localStorage.setItem(
-"cart",
-JSON.stringify(cart)
-);
-
-alert(
-name + " Added To Cart"
-);
 
 }
 
