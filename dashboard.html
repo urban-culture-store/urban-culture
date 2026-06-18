@@ -269,83 +269,6 @@ Recent Orders
 </thead>
 
 <tbody id="ordersTable">
-
-<tr>
-<td>#UC1001</td>
-<td>Rahul</td>
-<td>₹999</td>
-<td id="status1">Pending</td>
-
-<td>
-<select id="courier1">
-
-<option>Delhivery</option>
-
-<option>DTDC</option>
-
-<option>Blue Dart</option>
-
-<option>XpressBees</option>
-
-<option>Ekart</option>
-
-</select>
-</td>
-
-<td>
-<button
-class="accept"
-onclick="acceptOrder(1)">
-Accept
-</button>
-
-<button
-class="reject"
-onclick="rejectOrder(1)">
-Reject
-</button>
-</td>
-
-</tr>
-
-<tr>
-<td>#UC1002</td>
-<td>Arjun</td>
-<td>₹1499</td>
-<td id="status2">Pending</td>
-
-<td>
-<select id="courier2">
-
-<option>Delhivery</option>
-
-<option>DTDC</option>
-
-<option>Blue Dart</option>
-
-<option>XpressBees</option>
-
-<option>Ekart</option>
-
-</select>
-</td>
-
-<td>
-<button
-class="accept"
-onclick="acceptOrder(2)">
-Accept
-</button>
-
-<button
-class="reject"
-onclick="rejectOrder(2)">
-Reject
-</button>
-</td>
-
-</tr>
-
 </tbody>
 
 </table>
@@ -395,12 +318,32 @@ data:[
 
 });
 
-function acceptOrder(id){
+async function acceptOrder(id){
 
 const courier =
 document.getElementById(
 "courier"+id
 ).value;
+
+await fetch(
+`https://urban-culture.onrender.com/orders/${id}`,
+{
+method:"PUT",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+status:"Confirmed",
+deliveryPartner:courier
+})
+}
+);
+
+alert("✅ Order Confirmed");
+
+loadOrders();
+
+}
 
 const tracking =
 "UC" +
@@ -427,14 +370,101 @@ tracking
 
 }
 
-function rejectOrder(id){
+async function cancelOrder(id){
 
-document.getElementById(
-"status"+id
-).innerHTML =
-"Rejected";
+await fetch(
+`https://urban-culture.onrender.com/orders/${id}`,
+{
+method:"PUT",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+status:"Cancelled",
+cancelled:true
+})
+}
+);
+
+alert("❌ Order Cancelled");
+
+loadOrders();
 
 }
+
+async function loadOrders(){
+
+const res = await fetch(
+"https://urban-culture.onrender.com/orders"
+);
+
+const orders = await res.json();
+
+let html = "";
+
+orders.reverse().forEach((order,index)=>{
+
+html += `
+
+<tr>
+
+<td>
+${order.orderId || ("UC"+Date.now()+index)}
+</td>
+
+<td>
+${order.name}
+</td>
+
+<td>
+₹${order.total}
+</td>
+
+<td id="status${index}">
+${order.status || "Pending"}
+</td>
+
+<td>
+
+<select id="courier${index}">
+<option>Delhivery</option>
+<option>DTDC</option>
+<option>Blue Dart</option>
+<option>XpressBees</option>
+<option>Ekart</option>
+</select>
+
+</td>
+
+<td>
+
+<button
+class="accept"
+onclick="acceptOrder(${index})">
+Accept
+</button>
+
+<button
+class="reject"
+onclick="cancelOrder(${index})">
+Cancel
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById(
+"ordersTable"
+).innerHTML = html;
+
+}
+
+loadOrders();
 
 </script>
 
