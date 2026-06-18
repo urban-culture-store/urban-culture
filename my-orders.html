@@ -105,15 +105,18 @@ await fetch(
 "https://urban-culture.onrender.com/orders"
 );
 
-const orders =
-await res.json();
+const customer =
+JSON.parse(
+localStorage.getItem("customer")
+);
 
 const filtered =
 orders.filter(order =>
 
-order.phone === phone
+order.phone === customer.phone
 
 );
+
 
 let html="";
 
