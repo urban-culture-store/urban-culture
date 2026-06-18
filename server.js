@@ -139,7 +139,7 @@ const order = req.body;
 
 order.orderId = "UC" + Date.now();
 
-order.status = "Pending";
+order.status = "Order Placed";
 
 order.deliveryPartner = "Not Assigned";
 
