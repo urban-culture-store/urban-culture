@@ -31,23 +31,30 @@ z-index:1000;
 }
 
 .logo{
-font-size:32px;
-font-weight:bold;
+font-size:26px;
+font-weight:800;
+letter-spacing:1px;
 }
 
 .right{
 display:flex;
 gap:10px;
+align-items:center;
 }
 
 .btn{
-background:#fff;
-color:#000;
-border:none;
-padding:12px 18px;
-border-radius:12px;
-font-weight:bold;
+width:48px;
+height:48px;
+border-radius:50%;
+background:#111;
+color:#fff;
+border:1px solid #222;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
 cursor:pointer;
+padding:0;
 }
 
 .search{
@@ -65,8 +72,8 @@ padding:20px;
 
 .products{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:25px;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
 }
 
 .card{
@@ -146,6 +153,45 @@ color:white;
 font-size:20px;
 cursor:pointer;
 }
+
+
+.search{
+width:100%;
+padding:15px 20px;
+background:#111;
+border:1px solid #222;
+border-radius:30px;
+color:#fff;
+font-size:16px;
+margin-bottom:20px;
+}
+
+.search::placeholder{
+color:#888;
+}
+
+@media(max-width:768px){
+
+.logo{
+font-size:22px;
+}
+
+.card img{
+height:220px;
+}
+
+.name{
+font-size:18px;
+}
+
+.price{
+font-size:22px;
+}
+
+}
+
+</style>
+
 </style>
 </head>
 <body>
@@ -153,25 +199,30 @@ cursor:pointer;
 <header>
 
 <div class="logo">
-URBAN Culture
+URBAN CULTURE.IND
 </div>
 
 <div class="right">
 
 <button
-class="top-btn"
+class="btn"
+title="Profile"
 onclick="window.location.href='profile.html'">
-👤 Profile
+👤
 </button>
 
-<button class="btn"
+<button
+class="btn"
+title="Wishlist"
 onclick="location.href='wishlist.html'">
-❤️ Wishlist (<span id="wishCount">0</span>)
+❤️
 </button>
 
-<button class="btn"
+<button
+class="btn"
+title="Cart"
 onclick="location.href='cart.html'">
-🛒 Cart (<span id="cartCount">0</span>)
+🛒
 </button>
 
 </div>
