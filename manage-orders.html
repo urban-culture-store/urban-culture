@@ -153,44 +153,74 @@ ${order.name || "Customer"}
 ${order.items ? order.items.length : 0}
 </div>
 
+<div class="info">
+🆔 Order ID:
+${order.orderId || ("UC"+index)}
+</div>
+
+<div class="info">
+🚚 Delivery Partner:
+${order.deliveryPartner || "Not Assigned"}
+</div>
+
+<div class="info">
+📍 Tracking ID:
+${order.trackingId || "Pending"}
+</div>
+
+<div class="info">
+📅 Date:
+${order.date || "N/A"}
+</div>
+
 <select id="status${index}">
 
-<option
-value="Order Placed"
+<option value="Order Placed"
 ${order.status==="Order Placed"?"selected":""}>
 Order Placed
 </option>
 
-<option
-value="Packed"
+<option value="Confirmed"
+${order.status==="Confirmed"?"selected":""}>
+Confirmed
+</option>
+
+<option value="Packed"
 ${order.status==="Packed"?"selected":""}>
 Packed
 </option>
 
-<option
-value="Shipped"
+<option value="Shipped"
 ${order.status==="Shipped"?"selected":""}>
 Shipped
 </option>
 
-<option
-value="Out For Delivery"
+<option value="Out For Delivery"
 ${order.status==="Out For Delivery"?"selected":""}>
 Out For Delivery
 </option>
 
-<option
-value="Delivered"
+<option value="Delivered"
 ${order.status==="Delivered"?"selected":""}>
 Delivered
 </option>
 
+<option value="Cancelled"
+${order.status==="Cancelled"?"selected":""}>
+Cancelled
+</option>
 </select>
 
 <button
 class="save-btn"
 onclick="saveStatus(${index})">
 Save Status
+</button>
+
+<button
+class="save-btn"
+onclick="downloadInvoice(${index})">
+📄 Download Invoice
 </button>
 
 </div>
@@ -232,19 +262,25 @@ status:status
 }
 );
 
-alert(
-"✅ Status Updated"
-);
+alert("✅ Status Updated");
 
 }catch(err){
 
-alert(
-"❌ Update Failed"
+alert("❌ Update Failed");
+
+}
+
+}
+
+function downloadInvoice(index){
+
+window.open(
+`invoice.html?order=${index}`,
+"_blank"
 );
 
 }
 
-}
 
 loadOrders();
 
