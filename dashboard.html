@@ -220,22 +220,22 @@ Manager
 
 <div class="card">
 <h3>Total Revenue</h3>
-<h1 class="revenue">₹25,000</h1>
+<h1 class="revenue" id="revenue">₹0</h1>
 </div>
 
 <div class="card">
 <h3>Pending Orders</h3>
-<h1 class="pending">12</h1>
+<h1 class="pending" id="pending">0</h1>
 </div>
 
 <div class="card">
 <h3>Confirmed Orders</h3>
-<h1 class="confirmed">35</h1>
+<h1 class="confirmed" id="confirmed">0</h1>
 </div>
 
 <div class="card">
 <h3>Delivered Orders</h3>
-<h1 class="delivered">90</h1>
+<h1 class="delivered" id="delivered">0</h1>
 </div>
 
 </div>
@@ -345,30 +345,6 @@ loadOrders();
 
 }
 
-const tracking =
-"UC" +
-Math.floor(
-Math.random()*1000000
-);
-
-document.getElementById(
-"status"+id
-).innerHTML =
-"Confirmed";
-
-alert(
-
-"Order Accepted\n\n" +
-
-"Courier : " +
-courier +
-
-"\nTracking ID : " +
-tracking
-
-);
-
-}
 
 async function cancelOrder(id){
 
@@ -392,6 +368,7 @@ loadOrders();
 
 }
 
+
 async function loadOrders(){
 
 const res = await fetch(
@@ -399,6 +376,38 @@ const res = await fetch(
 );
 
 const orders = await res.json();
+
+let revenue = 0;
+let pending = 0;
+let confirmed = 0;
+let delivered = 0;
+
+orders.forEach(order=>{
+
+revenue += Number(order.total || 0);
+
+if(order.status==="Pending")
+pending++;
+
+if(order.status==="Confirmed")
+confirmed++;
+
+if(order.status==="Delivered")
+delivered++;
+
+});
+
+document.getElementById("revenue").innerText =
+"₹" + revenue;
+
+document.getElementById("pending").innerText =
+pending;
+
+document.getElementById("confirmed").innerText =
+confirmed;
+
+document.getElementById("delivered").innerText =
+delivered;
 
 let html = "";
 
@@ -463,6 +472,27 @@ document.getElementById(
 ).innerHTML = html;
 
 }
+
+
+document.getElementById(
+"revenue"
+).innerText =
+"₹" + revenue;
+
+document.getElementById(
+"pending"
+).innerText =
+pending;
+
+document.getElementById(
+"confirmed"
+).innerText =
+confirmed;
+
+document.getElementById(
+"delivered"
+).innerText =
+delivered;
 
 loadOrders();
 
