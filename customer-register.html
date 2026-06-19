@@ -125,13 +125,28 @@ Already Have Account?
 
 function register(){
 
+const phone =
+document.getElementById("phone").value;
+
+if(!/^\+91[0-9]{10}$/.test(phone)){
+
+document.getElementById("msg")
+.style.color="red";
+
+document.getElementById("msg")
+.innerHTML=
+"Use +91XXXXXXXXXX";
+
+return;
+
+}
+
 const user = {
 
 name:
 document.getElementById("name").value,
 
-phone:
-document.getElementById("phone").value,
+phone: phone,
 
 email:
 document.getElementById("email").value,

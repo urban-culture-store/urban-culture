@@ -1,6 +1,17 @@
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
+const mongoose = require("mongoose");
+
+mongoose.connect(
+"mongodb+srv://urbanculture:safarudheen@cluster0.aqirf6e.mongodb.net/urbanculture?retryWrites=true&w=majority"
+)
+.then(()=>{
+console.log("✅ MongoDB Connected");
+})
+.catch(err=>{
+console.log(err);
+});
 
 const app = express();
 
@@ -92,6 +103,7 @@ message:"Product Not Found"
 }
 
 });
+
 
 // Delete Product
 app.delete("/products/:id",(req,res)=>{

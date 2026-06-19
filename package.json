@@ -20,6 +20,8 @@
   "homepage": "https://github.com/urbanculturedm-coder/urban-culture#readme",
   "dependencies": {
     "cors": "^2.8.6",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "mongodb": "^7.3.0",
+    "mongoose": "^9.7.1"
   }
 }

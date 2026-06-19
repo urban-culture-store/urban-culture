@@ -309,6 +309,11 @@ window.onload =
 findOrders;
 function showOrder(order){
 
+localStorage.setItem(
+"selectedOrder",
+JSON.stringify(order)
+);
+
 document.getElementById(
 "modal"
 ).style.display="flex";
@@ -371,6 +376,22 @@ ${order.trackingId || "Pending"}
 <b>Delivery Partner:</b>
 ${order.deliveryPartner || "Not Assigned"}
 </p>
+
+<br>
+
+<button
+onclick="window.location.href='track-order.html'"
+style="
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+background:white;
+color:black;
+font-weight:bold;
+cursor:pointer;">
+🚚 Track Order
+</button>
 
 </div>
 

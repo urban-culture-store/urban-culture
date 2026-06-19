@@ -169,13 +169,14 @@ Order #UC1001
 
 async function loadTracking(){
 
-const params =
-new URLSearchParams(
-window.location.search
+const selected =
+JSON.parse(
+localStorage.getItem(
+"selectedOrder"
+)
 );
 
-const orderId =
-params.get("id");
+if(!selected) return;
 
 const res =
 await fetch(
@@ -187,28 +188,37 @@ await res.json();
 
 const order =
 orders.find(
-o => o.orderId === orderId
+o =>
+o.orderId === selected.orderId
 );
 
-if(!order){
-return;
-}
+if(!order) return;
 
-document.querySelector(".order-id")
-.innerHTML =
+document.querySelector(
+".order-id"
+).innerHTML =
 "Order #" + order.orderId;
 
-const statusMap = {
-"Order Placed":1,
-"Confirmed":2,
-"Packed":2,
-"Shipped":3,
-"Out For Delivery":4,
-"Delivered":5
-};
+if(order.status==="Order Placed")
+updateTracking(1);
 
-const currentStatus =
-statusMap[order.status] || 1;
+if(order.status==="Packed")
+updateTracking(2);
+
+if(order.status==="Shipped")
+updateTracking(3);
+
+if(order.status==="Out For Delivery")
+updateTracking(4);
+
+if(order.status==="Delivered")
+updateTracking(5);
+
+}
+
+loadTracking();
+
+function updateTracking(status){
 
 const circles =
 document.querySelectorAll(".circle");
@@ -217,17 +227,39 @@ circles.forEach(circle=>{
 circle.classList.remove("active");
 });
 
-for(let i=0;i<currentStatus;i++){
+for(let i=0;i<status;i++){
 circles[i].classList.add("active");
 }
 
-document.getElementById("statusText")
-.innerHTML =
-"📦 " + order.status;
+const statusText =
+document.getElementById("statusText");
 
+if(status===1){
+statusText.innerHTML =
+"📝 Order Placed";
 }
 
-loadTracking();
+if(status===2){
+statusText.innerHTML =
+"📦 Packed";
+}
+
+if(status===3){
+statusText.innerHTML =
+"🚚 Shipped";
+}
+
+if(status===4){
+statusText.innerHTML =
+"🏍️ Out For Delivery";
+}
+
+if(status===5){
+statusText.innerHTML =
+"✅ Delivered";
+}
+
+}
 
 </script>
 

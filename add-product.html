@@ -137,9 +137,18 @@ placeholder="Stock Quantity">
 
 <input
 type="text"
-id="image"
-placeholder="Image URL"
-onkeyup="previewImage()">
+id="image1"
+placeholder="Image 1 URL">
+
+<input
+type="text"
+id="image2"
+placeholder="Image 2 URL">
+
+<input
+type="text"
+id="image3"
+placeholder="Image 3 URL">
 
 <textarea
 id="description"
@@ -184,8 +193,14 @@ document.getElementById("category").value,
 featured:
 document.getElementById("featured").value,
 
+images:[
+document.getElementById("image1").value,
+document.getElementById("image2").value,
+document.getElementById("image3").value
+],
+
 image:
-document.getElementById("image").value,
+document.getElementById("image1").value,
 
 description:
 document.getElementById("description").value

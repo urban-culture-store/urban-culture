@@ -119,6 +119,16 @@ function login(){
 const phone =
 document.getElementById("phone").value;
 
+if(!/^\+91[0-9]{10}$/.test(phone)){
+
+alert(
+"Enter valid Indian number (+91XXXXXXXXXX)"
+);
+
+return;
+
+}
+
 const password =
 document.getElementById("password").value;
 

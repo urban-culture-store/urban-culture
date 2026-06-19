@@ -123,6 +123,27 @@ flex-direction:column;
 
 }
 
+.gallery{
+display:flex;
+gap:10px;
+margin-top:15px;
+margin-bottom:20px;
+}
+
+.thumb{
+width:80px;
+height:80px;
+object-fit:cover;
+border-radius:12px;
+cursor:pointer;
+border:2px solid #222;
+}
+
+.thumb:hover{
+border:2px solid white;
+}
+
+
 </style>
 
 </head>
@@ -139,6 +160,25 @@ flex-direction:column;
 id="productImage"
 class="product-image"
 src="">
+
+<div class="gallery">
+
+<img
+id="thumb1"
+class="thumb"
+onclick="changeImage(this.src)">
+
+<img
+id="thumb2"
+class="thumb"
+onclick="changeImage(this.src)">
+
+<img
+id="thumb3"
+class="thumb"
+onclick="changeImage(this.src)">
+
+</div>
 
 <div
 id="productName"
@@ -161,30 +201,24 @@ class="product-desc">
 Select Size
 </option>
 
-<option>S</option>
-<option>M</option>
-<option>L</option>
-<option>XL</option>
-<option>XXL</option>
-
-</select>
-
-<select id="qty">
-
-<option value="1">
-Qty 1
+<option value="S">
+S
 </option>
 
-<option value="2">
-Qty 2
+<option value="M">
+M
 </option>
 
-<option value="3">
-Qty 3
+<option value="L">
+L
 </option>
 
-<option value="4">
-Qty 4
+<option value="XL">
+XL
+</option>
+
+<option value="XXL">
+XXL
 </option>
 
 </select>
@@ -201,11 +235,6 @@ class="buy-btn"
 onclick="buyNow()">
 ⚡ Buy Now </button>
 
-</div>
-
-<div
-id="stock"
-class="stock">
 </div>
 
 </div>
@@ -231,6 +260,25 @@ document.getElementById(
 ).src =
 product.image;
 
+if(product.images){
+
+document.getElementById(
+"thumb1"
+).src =
+product.images[0] || "";
+
+document.getElementById(
+"thumb2"
+).src =
+product.images[1] || "";
+
+document.getElementById(
+"thumb3"
+).src =
+product.images[2] || "";
+
+}
+
 document.getElementById(
 "productName"
 ).innerHTML =
@@ -246,12 +294,6 @@ document.getElementById(
 ).innerHTML =
 product.description ||
 "Premium URBAN Culture Product";
-
-document.getElementById(
-"stock"
-).innerHTML =
-"Stock : " +
-(product.stock || 0);
 
 function addToCart(){
 
@@ -312,7 +354,16 @@ window.location.href =
 
 }
 
+function changeImage(src){
+
+document.getElementById(
+"productImage"
+).src = src;
+
+}
+
 </script>
 
 </body>
 </html>
+
