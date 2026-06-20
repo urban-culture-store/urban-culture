@@ -1,132 +1,244 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
 <title>URBAN Culture Products</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
 <style>
+
+```css
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#000;
-color:#fff;
+background:#050505;
+color:white;
+overflow-x:hidden;
+min-height:100vh;
+position:relative;
 }
 
-header{
-background:#000;
-padding:20px;
+/* Background Glow */
+
+.bg-glow{
+position:fixed;
+border-radius:50%;
+filter:blur(120px);
+opacity:.18;
+z-index:-1;
+animation:float 10s ease-in-out infinite;
+}
+
+.glow1{
+width:350px;
+height:350px;
+background:white;
+top:-100px;
+left:-100px;
+}
+
+.glow2{
+width:300px;
+height:300px;
+background:#666;
+right:-80px;
+top:250px;
+animation-delay:2s;
+}
+
+.glow3{
+width:250px;
+height:250px;
+background:#999;
+bottom:-50px;
+left:40%;
+animation-delay:4s;
+}
+
+@keyframes float{
+
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(40px);
+}
+
+100%{
+transform:translateY(0);
+}
+
+}
+
+/* Navbar */
+
+.navbar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-border-bottom:1px solid #222;
+padding:20px 8%;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(20px);
+border-bottom:1px solid rgba(255,255,255,.08);
 position:sticky;
 top:0;
-z-index:1000;
+z-index:999;
 }
 
 .logo{
-font-size:26px;
+font-size:28px;
 font-weight:800;
-letter-spacing:1px;
 }
 
-.right{
+.nav-actions{
 display:flex;
-gap:10px;
-align-items:center;
+gap:15px;
 }
 
-.btn{
-width:48px;
-height:48px;
-border-radius:50%;
-background:#111;
-color:#fff;
-border:1px solid #222;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:20px;
-cursor:pointer;
-padding:0;
-}
-
-.search{
-width:100%;
-padding:15px;
-margin:20px 0;
-border:none;
+.nav-actions a{
+text-decoration:none;
+color:white;
+padding:10px 16px;
 border-radius:12px;
-font-size:16px;
-}
-
-.container{
-padding:20px;
-}
-
-.products{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
-
-.card{
-background:#111;
-border-radius:20px;
-overflow:hidden;
-cursor:pointer;
 transition:.3s;
-border:1px solid #222;
 }
 
-.card:hover{
-transform:translateY(-6px);
+.nav-actions a:hover{
+background:white;
+color:black;
 }
 
-.card img{
+/* Hero */
+
+.hero{
+padding:60px 8%;
+}
+
+.hero-glass{
+padding:50px;
+text-align:center;
+border-radius:30px;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.08);
+}
+
+.hero-glass h1{
+font-size:56px;
+margin-bottom:15px;
+}
+
+.hero-glass p{
+color:#ccc;
+font-size:18px;
+}
+
+/* Search */
+
+.controls{
+padding:30px 8%;
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.controls input,
+.controls select{
+flex:1;
+min-width:220px;
+padding:15px;
+border:none;
+outline:none;
+border-radius:16px;
+background:rgba(255,255,255,.05);
+color:white;
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.08);
+}
+
+/* Products */
+
+.products-section{
+padding:20px 8% 80px;
+}
+
+.products-grid{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
+}
+
+.product-card{
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.08);
+border-radius:28px;
+overflow:hidden;
+transition:.35s;
+position:relative;
+}
+
+.product-card:hover{
+transform:translateY(-10px);
+}
+
+.product-image{
 width:100%;
-height:320px;
+height:280px;
 object-fit:cover;
+transition:.4s;
 }
 
-.info{
+.product-card:hover .product-image{
+transform:scale(1.08);
+}
+
+.product-info{
 padding:20px;
 }
 
-.badge{
-display:inline-block;
-background:gold;
-color:black;
-padding:5px 10px;
-border-radius:10px;
-font-size:12px;
-font-weight:bold;
+.product-name{
+font-size:22px;
+font-weight:700;
 margin-bottom:10px;
 }
 
-.name{
+.product-price{
 font-size:24px;
-font-weight:bold;
-margin-bottom:10px;
-}
-
-.price{
-font-size:30px;
-font-weight:bold;
-color:#00ff88;
-margin-bottom:10px;
-}
-
-.stock{
-color:#00ff88;
+font-weight:800;
 margin-bottom:15px;
-font-weight:bold;
+}
+
+.product-desc{
+color:#aaa;
+font-size:14px;
+margin-bottom:20px;
+}
+
+.featured{
+position:absolute;
+top:15px;
+right:15px;
+background:white;
+color:black;
+padding:8px 14px;
+border-radius:30px;
+font-size:12px;
+font-weight:700;
 }
 
 .actions{
@@ -134,134 +246,264 @@ display:flex;
 gap:10px;
 }
 
-.cartBtn{
+.actions button{
 flex:1;
 padding:12px;
 border:none;
-border-radius:10px;
-background:#fff;
-font-weight:bold;
+border-radius:14px;
 cursor:pointer;
+font-weight:600;
 }
 
-.wishBtn{
-width:55px;
-border:none;
-border-radius:10px;
-background:#222;
-color:white;
-font-size:20px;
-cursor:pointer;
-}
-
-
-.search{
-width:100%;
-padding:15px 20px;
+.cart-btn{
 background:#111;
-border:1px solid #222;
+color:white;
+border:1px solid #333;
+}
+
+.buy-btn{
+background:white;
+color:black;
+}
+
+/* Modal */
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.85);
+justify-content:center;
+align-items:center;
+padding:20px;
+z-index:9999;
+}
+
+.modal-content{
+max-width:500px;
+width:100%;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(30px);
 border-radius:30px;
-color:#fff;
-font-size:16px;
+padding:30px;
+position:relative;
+text-align:center;
+}
+
+.modal-content img{
+width:100%;
+height:300px;
+object-fit:cover;
+border-radius:20px;
 margin-bottom:20px;
 }
 
-.search::placeholder{
-color:#888;
+.close{
+position:absolute;
+top:15px;
+right:20px;
+font-size:34px;
+cursor:pointer;
 }
+
+.view-btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:16px;
+background:white;
+color:black;
+font-weight:700;
+cursor:pointer;
+margin-top:15px;
+}
+
+/* Mobile */
 
 @media(max-width:768px){
 
-.logo{
-font-size:22px;
+.hero-glass h1{
+font-size:38px;
 }
 
-.card img{
-height:220px;
+.navbar{
+flex-direction:column;
+gap:15px;
 }
 
-.name{
-font-size:18px;
-}
-
-.price{
-font-size:22px;
+.controls{
+flex-direction:column;
 }
 
 }
+```
 
 </style>
 
-</style>
 </head>
+
 <body>
 
-<header>
+<div class="bg-glow glow1"></div>
+<div class="bg-glow glow2"></div>
+<div class="bg-glow glow3"></div>
+
+<nav class="navbar">
 
 <div class="logo">
-URBAN CULTURE.IND
+URBAN Culture
 </div>
 
-<div class="right">
+<div class="nav-actions">
 
-<button
-class="btn"
-title="Profile"
-onclick="window.location.href='profile.html'">
-👤
-</button>
+<a href="index.html">
+Home
+</a>
 
-<button
-class="btn"
-title="Wishlist"
-onclick="location.href='wishlist.html'">
-❤️
-</button>
+<a href="cart.html">
+🛒 Cart
+</a>
 
-<button
-class="btn"
-title="Cart"
-onclick="location.href='cart.html'">
-🛒
-</button>
+<a href="profile.html">
+👤 Profile
+</a>
 
 </div>
 
-</header>
+</nav>
 
-<div class="container">
+<section class="hero">
+
+<div class="hero-glass">
+
+<h1>
+Premium Collection
+</h1>
+
+<p>
+Modern Streetwear.
+Premium Quality.
+Timeless Design.
+</p>
+
+</div>
+
+</section>
+
+<section class="controls">
 
 <input
-class="search"
+type="text"
 id="search"
-placeholder="Search Products..."
-onkeyup="filterProducts()">
+placeholder="Search Products...">
 
-<div class="products" id="products">
+<select id="category">
+
+<option value="all">
+All Categories
+</option>
+
+<option value="T-Shirt">
+T-Shirts
+</option>
+
+<option value="Hoodie">
+Hoodies
+</option>
+
+<option value="Shirt">
+Shirts
+</option>
+
+<option value="Pants">
+Pants
+</option>
+
+<option value="Accessories">
+Accessories
+</option>
+
+</select>
+
+</section>
+
+<section
+class="products-section">
+
+<div
+class="products-grid"
+id="productsGrid">
+
+<!-- Products Load Here -->
+
+</div>
+
+</section>
+
+<div
+class="modal"
+id="productModal">
+
+<div
+class="modal-content">
+
+<span
+class="close"
+onclick="closeModal()">
+×
+</span>
+
+<img
+id="modalImage"
+src="">
+
+<h2 id="modalName">
+</h2>
+
+<h3 id="modalPrice">
+</h3>
+
+<p id="modalDesc">
+</p>
+
+<button
+class="view-btn"
+id="viewProductBtn">
+View Product
+</button>
+
 </div>
 
 </div>
 
 <script>
 
-let allProducts=[];
+```js
+let allProducts = [];
 
 async function loadProducts(){
 
 try{
 
-const res=await fetch(
+const res =
+await fetch(
 "https://urban-culture.onrender.com/products"
 );
 
-allProducts=await res.json();
+allProducts =
+await res.json();
 
 renderProducts(allProducts);
 
 }catch(err){
 
-document.getElementById("products").innerHTML=
-"<h2>Products Not Available</h2>";
+console.log(err);
+
+document.getElementById(
+"productsGrid"
+).innerHTML =
+
+"<h2>Unable To Load Products</h2>";
 
 }
 
@@ -269,40 +511,52 @@ document.getElementById("products").innerHTML=
 
 function renderProducts(products){
 
-let html="";
+let html = "";
 
-products.forEach((product,index)=>{
+products.forEach(product=>{
 
-html+=`
+html += `
 
-<div class="card">
-
-<img
-src="${product.image || 'https://via.placeholder.com/600'}"
-onclick="openProduct(${index})">
-
-<div class="info">
+<div class="product-card">
 
 ${product.featured==="Yes"
-?'<div class="badge">FEATURED</div>'
-:''}
+? '<div class="featured">FEATURED</div>'
+: ''}
 
-<div class="name">${product.name}</div>
+<img
+class="product-image"
+src="${
+product.image ||
+'https://via.placeholder.com/500x500'
+}">
 
-<div class="price">₹${product.price}</div>
+<div class="product-info">
+
+<div class="product-name">
+${product.name}
+</div>
+
+<div class="product-price">
+₹${product.price}
+</div>
+
+<div class="product-desc">
+${product.description ||
+"Premium URBAN Culture Product"}
+</div>
 
 <div class="actions">
 
 <button
-class="cartBtn"
-onclick="event.stopPropagation();addToCart(${index})">
-Add To Cart
+class="cart-btn"
+onclick='quickView(${JSON.stringify(product)})'>
+Quick View
 </button>
 
 <button
-class="wishBtn"
-onclick="event.stopPropagation();addWishlist(${index})">
-❤️
+class="buy-btn"
+onclick='openProduct(${JSON.stringify(product)})'>
+Buy Now
 </button>
 
 </div>
@@ -315,96 +569,146 @@ onclick="event.stopPropagation();addWishlist(${index})">
 
 });
 
-document.getElementById("products").innerHTML=html;
+document.getElementById(
+"productsGrid"
+).innerHTML = html;
 
 }
 
-function openProduct(index){
+function quickView(product){
+
+document.getElementById(
+"productModal"
+).style.display = "flex";
+
+document.getElementById(
+"modalImage"
+).src =
+product.image ||
+"https://via.placeholder.com/500";
+
+document.getElementById(
+"modalName"
+).innerHTML =
+product.name;
+
+document.getElementById(
+"modalPrice"
+).innerHTML =
+"₹" + product.price;
+
+document.getElementById(
+"modalDesc"
+).innerHTML =
+product.description ||
+"Premium URBAN Culture Product";
+
+document.getElementById(
+"viewProductBtn"
+).onclick = ()=>{
 
 localStorage.setItem(
 "selectedProduct",
-JSON.stringify(allProducts[index])
+JSON.stringify(product)
 );
 
-window.location.href="product.html";
+window.location.href =
+"product.html";
+
+};
 
 }
 
-function addToCart(index){
+function closeModal(){
 
-let cart=
-JSON.parse(localStorage.getItem("cart"))||[];
+document.getElementById(
+"productModal"
+).style.display = "none";
 
-cart.push(allProducts[index]);
+}
+
+function openProduct(product){
 
 localStorage.setItem(
-"cart",
-JSON.stringify(cart)
+"selectedProduct",
+JSON.stringify(product)
 );
 
-updateCartCount();
-
-alert("Added To Cart");
-
-}
-
-function addWishlist(index){
-
-let wishlist=
-JSON.parse(localStorage.getItem("wishlist"))||[];
-
-wishlist.push(allProducts[index]);
-
-localStorage.setItem(
-"wishlist",
-JSON.stringify(wishlist)
-);
-
-updateWishCount();
-
-alert("Added To Wishlist");
+window.location.href =
+"product.html";
 
 }
 
-function updateCartCount(){
+document.getElementById(
+"search"
+).addEventListener(
+"keyup",
+function(){
 
-let cart=
-JSON.parse(localStorage.getItem("cart"))||[];
+const value =
+this.value.toLowerCase();
 
-document.getElementById("cartCount").innerHTML=
-cart.length;
+const filtered =
+allProducts.filter(product=>
 
-}
+product.name
+.toLowerCase()
+.includes(value)
 
-function updateWishCount(){
-
-let wishlist=
-JSON.parse(localStorage.getItem("wishlist"))||[];
-
-document.getElementById("wishCount").innerHTML=
-wishlist.length;
-
-}
-
-function filterProducts(){
-
-const text=
-document.getElementById("search")
-.value
-.toLowerCase();
-
-const filtered=
-allProducts.filter(p=>
-p.name.toLowerCase().includes(text)
 );
 
 renderProducts(filtered);
 
+});
+
+document.getElementById(
+"category"
+).addEventListener(
+"change",
+function(){
+
+const value =
+this.value;
+
+if(value==="all"){
+
+renderProducts(allProducts);
+
+return;
+
 }
 
+const filtered =
+allProducts.filter(product=>
+
+product.category === value
+
+);
+
+renderProducts(filtered);
+
+});
+
+window.onclick =
+function(event){
+
+const modal =
+document.getElementById(
+"productModal"
+);
+
+if(event.target === modal){
+
+modal.style.display =
+"none";
+
+}
+
+};
+
 loadProducts();
-updateCartCount();
-updateWishCount();
+```
+
 
 </script>
 
