@@ -179,6 +179,30 @@ window.location.href =
 
 }
 
+const customer =
+JSON.parse(
+localStorage.getItem(
+"customer"
+)
+);
+
+if(!customer){
+
+window.location.href =
+"customer-login.html";
+
+}
+
+document.getElementById(
+"name"
+).innerHTML =
+customer.name;
+
+document.getElementById(
+"phone"
+).innerHTML =
+customer.phone;
+
 </script>
 
 </body>

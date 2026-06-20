@@ -10,9 +10,24 @@ mongoose.connect(
 console.log("✅ MongoDB Connected");
 })
 .catch(err=>{
-console.error("❌ MongoDB Error:");
-console.error(err);
+console.log(err);
 });
+
+const ProductSchema = new mongoose.Schema({
+name:String,
+price:Number,
+stock:Number,
+category:String,
+featured:String,
+image:String,
+images:Array,
+description:String
+});
+
+const Product = mongoose.model(
+"Product",
+ProductSchema
+);
 
 const app = express();
 
@@ -49,26 +64,46 @@ PRODUCTS
 ========================= */
 
 // Get Products
-app.get("/products",(req,res)=>{
+app.get("/products",async(req,res)=>{
+
+try{
+
+const products =
+await Product.find();
+
 res.json(products);
+
+}catch(err){
+
+res.status(500).json({
+error:err.message
+});
+
+}
+
 });
 
 // Add Product
-app.post("/products",(req,res)=>{
+app.post("/products",async(req,res)=>{
 
-const product = req.body;
+try{
 
-products.push(product);
-
-fs.writeFileSync(
-PRODUCTS_FILE,
-JSON.stringify(products,null,2)
-);
+const product =
+await Product.create(req.body);
 
 res.json({
 success:true,
-message:"Product Added"
+product
 });
+
+}catch(err){
+
+res.status(500).json({
+success:false,
+error:err.message
+});
+
+}
 
 });
 
