@@ -2,8 +2,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Track Order - URBAN Culture</title>
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>Track Order</title>
 
 <style>
 
@@ -11,97 +13,76 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+font-family:Arial,sans-serif;
 }
 
 body{
 background:#000;
 color:white;
-padding:30px;
+padding:20px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
 }
 
 .header{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-bottom:30px;
+margin-bottom:25px;
 }
 
-.logo{
-font-size:32px;
-font-weight:bold;
-}
-
-.back-btn{
+.back{
 background:white;
 color:black;
-border:none;
-padding:12px 20px;
-border-radius:12px;
-cursor:pointer;
+padding:10px 15px;
+border-radius:10px;
+text-decoration:none;
 font-weight:bold;
 }
 
-.container{
-max-width:700px;
-margin:auto;
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(20px);
-padding:30px;
-border-radius:25px;
-border:1px solid rgba(255,255,255,0.1);
+.card{
+background:#111;
+border:1px solid #222;
+border-radius:20px;
+padding:20px;
+margin-bottom:20px;
 }
 
 .order-id{
-font-size:22px;
+font-size:24px;
 font-weight:bold;
-margin-bottom:30px;
-text-align:center;
+margin-bottom:10px;
+}
+
+.status{
+color:#00ff88;
+font-size:20px;
+font-weight:bold;
 }
 
 .timeline{
-position:relative;
-margin-left:20px;
+margin-top:25px;
 }
 
 .step{
 display:flex;
 align-items:center;
-margin-bottom:40px;
+margin-bottom:25px;
 }
 
 .circle{
-width:30px;
-height:30px;
+width:25px;
+height:25px;
 border-radius:50%;
 background:#333;
-margin-right:20px;
+margin-right:15px;
 }
 
 .active{
 background:#00ff88;
-box-shadow:0 0 20px #00ff88;
-}
-
-.line{
-position:absolute;
-left:14px;
-top:30px;
-width:3px;
-height:220px;
-background:#444;
-}
-
-.step-text{
-font-size:20px;
-}
-
-.status{
-margin-top:30px;
-text-align:center;
-font-size:24px;
-font-weight:bold;
-color:#00ff88;
 }
 
 </style>
@@ -109,74 +90,185 @@ color:#00ff88;
 
 <body>
 
-<div class="header">
-
-<div class="logo">
-📦 Track Order
-</div>
-
-<button
-class="back-btn"
-onclick="window.location.href='my-orders.html'">
-← My Orders
-</button>
-
-</div>
-
 <div class="container">
 
-<div class="order-id">
-Order #UC1001
+<div class="header">
+
+<h2>Track Order</h2>
+
+<a
+href="my-orders.html"
+class="back">
+Back
+</a>
+
+</div>
+
+<div class="card">
+
+<div
+class="order-id"
+id="orderId">
+Loading...
+</div>
+
+<div
+class="status"
+id="statusText">
+Loading...
 </div>
 
 <div class="timeline">
 
-<div class="line"></div>
-
 <div class="step">
-<div class="circle active"></div>
-<div class="step-text">Order Placed</div>
-</div>
-
-<div class="step">
-<div class="circle active"></div>
-<div class="step-text">Packed</div>
+<div class="circle"
+id="s1"></div>
+<div>Order Placed</div>
 </div>
 
 <div class="step">
-<div class="circle active"></div>
-<div class="step-text">Shipped</div>
+<div class="circle"
+id="s2"></div>
+<div>Packed</div>
+</div>
+<div class="step">
+<div class="circle"
+id="s3"></div>
+<div>Shipped</div>
 </div>
 
 <div class="step">
-<div class="circle"></div>
-<div class="step-text">Out For Delivery</div>
+<div class="circle"
+id="s4"></div>
+<div>Out For Delivery</div>
 </div>
 
 <div class="step">
-<div class="circle"></div>
-<div class="step-text">Delivered</div>
+<div class="circle"
+id="s5"></div>
+<div>Delivered</div>
 </div>
 
-</div>
-<div class="status" id="statusText">
-🚚 Shipped
 </div>
 
 </div>
 
 <script>
 
+function updateTracking(status){
+
+for(let i=1;i<=5;i++){
+
+document
+.getElementById("s"+i)
+.classList.remove("active");
+
+}
+
+if(status==="Order Placed"){
+
+document
+.getElementById("s1")
+.classList.add("active");
+
+}
+
+if(status==="Packed"){
+
+document
+.getElementById("s1")
+.classList.add("active");
+
+document
+.getElementById("s2")
+.classList.add("active");
+
+}
+
+if(status==="Shipped"){
+
+document
+.getElementById("s1")
+.classList.add("active");
+
+document
+.getElementById("s2")
+.classList.add("active");
+
+document
+.getElementById("s3")
+.classList.add("active");
+
+}
+
+if(status==="Out For Delivery"){
+
+document
+.getElementById("s1")
+.classList.add("active");
+
+document
+.getElementById("s2")
+.classList.add("active");
+
+document
+.getElementById("s3")
+.classList.add("active");
+
+document
+.getElementById("s4")
+.classList.add("active");
+
+}
+
+if(status==="Delivered"){
+
+for(let i=1;i<=5;i++){
+
+document
+.getElementById("s"+i)
+.classList.add("active");
+
+}
+
+}
+
+document
+.getElementById("statusText")
+.innerHTML = status;
+
+}
 async function loadTracking(){
 
-const selected =
+const selectedOrder =
 JSON.parse(
 localStorage.getItem(
 "selectedOrder"
 )
 );
 
-if(!selected) return;
+if(!selectedOrder){
+
+document
+.getElementById("orderId")
+.innerHTML =
+"No Order Found";
+
+return;
+
+}
+
+document
+.getElementById("orderId")
+.innerHTML =
+
+selectedOrder.orderId ||
+
+selectedOrder.date ||
+
+"URBAN Culture Order";
+
+try{
 
 const res =
 await fetch(
@@ -187,79 +279,44 @@ const orders =
 await res.json();
 
 const order =
-orders.find(
-o =>
-o.orderId === selected.orderId
+orders.find(o =>
+
+o.date ===
+selectedOrder.date
+
 );
 
-if(!order) return;
+if(order){
 
-document.querySelector(
-".order-id"
-).innerHTML =
-"Order #" + order.orderId;
+updateTracking(
 
-if(order.status==="Order Placed")
-updateTracking(1);
+order.status ||
+"Order Placed"
 
-if(order.status==="Packed")
-updateTracking(2);
+);
 
-if(order.status==="Shipped")
-updateTracking(3);
+}else{
 
-if(order.status==="Out For Delivery")
-updateTracking(4);
-
-if(order.status==="Delivered")
-updateTracking(5);
+updateTracking(
+selectedOrder.status ||
+"Order Placed"
+);
 
 }
 
-loadTracking();
+}catch(err){
 
-function updateTracking(status){
+updateTracking(
+selectedOrder.status ||
+"Order Placed"
+);
 
-const circles =
-document.querySelectorAll(".circle");
-
-circles.forEach(circle=>{
-circle.classList.remove("active");
-});
-
-for(let i=0;i<status;i++){
-circles[i].classList.add("active");
-}
-
-const statusText =
-document.getElementById("statusText");
-
-if(status===1){
-statusText.innerHTML =
-"📝 Order Placed";
-}
-
-if(status===2){
-statusText.innerHTML =
-"📦 Packed";
-}
-
-if(status===3){
-statusText.innerHTML =
-"🚚 Shipped";
-}
-
-if(status===4){
-statusText.innerHTML =
-"🏍️ Out For Delivery";
-}
-
-if(status===5){
-statusText.innerHTML =
-"✅ Delivered";
 }
 
 }
+
+window.onload =
+loadTracking;
 
 </script>
 

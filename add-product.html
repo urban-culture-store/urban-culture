@@ -124,10 +124,10 @@ placeholder="Stock Quantity">
 
 <select id="category">
 <option>T-Shirt</option>
-<option>Hoodie</option>
+<option>sweatshirt</option>
 <option>Shirt</option>
 <option>Pants</option>
-<option>Accessories</option>
+<option>sandels</option>
 </select>
 
 <select id="featured">
@@ -136,19 +136,19 @@ placeholder="Stock Quantity">
 </select>
 
 <input
-type="text"
+type="file"
 id="image1"
-placeholder="Image 1 URL">
+accept="image/*">
 
 <input
-type="text"
+type="file"
 id="image2"
-placeholder="Image 2 URL">
+accept="image/*">
 
 <input
-type="text"
+type="file"
 id="image3"
-placeholder="Image 3 URL">
+accept="image/*">
 
 <textarea
 id="description"
@@ -165,8 +165,11 @@ Add Product
 
 function previewImage(){
 
-const image =
-document.getElementById("image").value;
+const file =
+document.getElementById("image").files[0];
+
+const imageUrl =
+URL.createObjectURL(file);
 
 document.getElementById("previewImage").src =
 image ||
@@ -175,6 +178,22 @@ image ||
 }
 
 async function addProduct(){
+
+const file =
+document.getElementById("image").files[0];
+
+if(!file){
+
+alert("Select Product Image");
+
+return;
+
+}
+
+const reader =
+new FileReader();
+
+reader.onload = async function(e){
 
 const product = {
 
@@ -193,29 +212,36 @@ document.getElementById("category").value,
 featured:
 document.getElementById("featured").value,
 
-images:[
-document.getElementById("image1").value,
-document.getElementById("image2").value,
-document.getElementById("image3").value
-],
-
 image:
-document.getElementById("image1").value,
+e.target.result,
 
 description:
 document.getElementById("description").value
 
 };
 
-if(
-!product.name ||
-!product.price
-){
+await fetch(
+"https://urban-culture.onrender.com/products",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(product)
+}
+);
 
-alert("Please fill required fields");
-return;
+alert("✅ Product Added");
+
+};
+
+reader.readAsDataURL(file);
 
 }
+image:
+document.getElementById("image").value,
+
+
 
 try{
 

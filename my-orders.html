@@ -154,6 +154,21 @@ border-radius:12px;
 margin-top:10px;
 }
 
+.order-actions{
+margin-top:15px;
+}
+
+.track-btn{
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:white;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
 </style>
 </head>
 
@@ -244,6 +259,35 @@ html += `
 class="order-card"
 onclick='showOrder(${JSON.stringify(order)})'>
 
+<p>
+<b>Tracking ID:</b>
+${order.trackingId || "Pending"}
+</p>
+
+<p>
+<b>Delivery Partner:</b>
+${order.deliveryPartner || "Not Assigned"}
+</p>
+
+<button
+onclick='trackOrder("${order.orderId}")'
+style="
+width:100%;
+padding:15px;
+margin-top:15px;
+border:none;
+border-radius:12px;
+font-weight:bold;">
+
+🚚 Track Order
+
+</button>
+
+<div class="order-actions">
+
+
+</div>
+
 <div class="order-top">
 
 <div>
@@ -292,7 +336,30 @@ ${order.address}
 </div>
 
 </div>
+<div class="amount">
 
+₹${order.total}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="order-actions">
+
+<button
+class="track-btn"
+onclick='event.stopPropagation();
+trackOrder("${order.orderId}")'>
+
+🚚 Track Order
+
+</button>
+
+</div>
+
+</div>
 `;
 
 });
@@ -307,6 +374,17 @@ document.getElementById(
 
 window.onload =
 findOrders;
+function trackOrder(orderId){
+
+localStorage.setItem(
+"trackingOrderId",
+orderId
+);
+
+window.location.href =
+"track-order.html";
+
+}
 function showOrder(order){
 
 localStorage.setItem(
