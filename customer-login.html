@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Customer Login</title>
+<title>Customer Login - URBAN Culture</title>
 
 <style>
 
@@ -16,66 +16,96 @@ font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 }
 
 body{
-background:#000;
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
-padding:20px;
+background:
+linear-gradient(135deg,#2b1055,#7597de);
+overflow:hidden;
 }
 
 .login-box{
-width:100%;
-max-width:450px;
-background:rgba(255,255,255,0.06);
-backdrop-filter:blur(25px);
-border:1px solid rgba(255,255,255,0.1);
-border-radius:30px;
+width:90%;
+max-width:380px;
 padding:35px;
+border-radius:30px;
+background:rgba(255,255,255,0.12);
+backdrop-filter:blur(25px);
+border:1px solid rgba(255,255,255,0.2);
+box-shadow:0 8px 40px rgba(0,0,0,.3);
 }
 
-h1{
+.avatar{
+width:90px;
+height:90px;
+border-radius:50%;
+background:rgba(255,255,255,.15);
+margin:0 auto 25px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:40px;
 color:white;
-text-align:center;
-margin-bottom:25px;
 }
 
-input{
+.input-box{
+margin-bottom:20px;
+}
+
+.input-box input{
 width:100%;
-padding:15px;
-margin-bottom:15px;
+padding:14px;
+background:transparent;
 border:none;
-border-radius:15px;
+border-bottom:1px solid rgba(255,255,255,.5);
+color:white;
+font-size:16px;
+outline:none;
+}
+
+.input-box input::placeholder{
+color:#ddd;
+}
+
+.options{
+display:flex;
+justify-content:space-between;
+font-size:13px;
+color:#ddd;
+margin-bottom:20px;
+}
+
+.login-btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:30px;
+background:linear-gradient(90deg,#6a11cb,#2575fc);
+color:white;
+font-weight:bold;
+cursor:pointer;
 font-size:16px;
 }
 
-button{
-width:100%;
-padding:15px;
-border:none;
-border-radius:15px;
-background:white;
-color:black;
-font-size:18px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.link{
-text-align:center;
-margin-top:15px;
-}
-
-.link a{
-color:white;
-text-decoration:none;
+.login-btn:hover{
+opacity:.9;
 }
 
 #msg{
 margin-top:15px;
 text-align:center;
-font-weight:bold;
-color:#00ff88;
+font-size:14px;
+}
+
+.register{
+text-align:center;
+margin-top:20px;
+}
+
+.register a{
+color:white;
+text-decoration:none;
 }
 
 </style>
@@ -86,25 +116,37 @@ color:#00ff88;
 
 <div class="login-box">
 
-<h1>Customer Login</h1>
+<div class="avatar">
+👤
+</div>
 
+<div class="input-box">
 <input
-type="text"
-id="phone"
-placeholder="Mobile Number">
+type="email"
+id="email"
+placeholder="Email Address">
+</div>
 
+<div class="input-box">
 <input
 type="password"
 id="password"
 placeholder="Password">
+</div>
 
-<button onclick="login()">
-Login
-</button>
+<div class="options">
+<span>Remember me</span>
+<span>Forgot Password?</span>
+</div>
+
+<button
+class="login-btn"
+onclick="login()">
+LOGIN </button>
 
 <div id="msg"></div>
 
-<div class="link">
+<div class="register">
 <a href="customer-register.html">
 Create Account
 </a>
@@ -116,18 +158,8 @@ Create Account
 
 function login(){
 
-const phone =
-document.getElementById("phone").value;
-
-if(!/^\+91[0-9]{10}$/.test(phone)){
-
-alert(
-"Enter valid Indian number (+91XXXXXXXXXX)"
-);
-
-return;
-
-}
+const email =
+document.getElementById("email").value;
 
 const password =
 document.getElementById("password").value;
@@ -139,10 +171,8 @@ localStorage.getItem("users")
 
 const user =
 users.find(u =>
-
-u.phone === phone &&
+u.email === email &&
 u.password === password
-
 );
 
 if(user){
@@ -152,25 +182,17 @@ localStorage.setItem(
 JSON.stringify(user)
 );
 
-document.getElementById("msg")
-.innerHTML =
-"✅ Login Success";
-
-setTimeout(()=>{
-
 window.location.href =
 "products.html";
-
-},1000);
 
 }else{
 
 document.getElementById("msg")
-.style.color="red";
+.style.color="#ff6666";
 
 document.getElementById("msg")
 .innerHTML =
-"❌ Invalid Login";
+"Invalid Email or Password";
 
 }
 
@@ -180,4 +202,3 @@ document.getElementById("msg")
 
 </body>
 </html>
-o
