@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
-
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Customer Register</title>
+
+<title>Create Account</title>
 
 <style>
 
@@ -17,58 +18,76 @@ font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 
 body{
 background:#000;
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-min-height:100vh;
 padding:20px;
 }
 
 .register-box{
 width:100%;
-max-width:500px;
-background:rgba(255,255,255,0.06);
+max-width:420px;
+background:rgba(255,255,255,.08);
 backdrop-filter:blur(25px);
-border:1px solid rgba(255,255,255,0.1);
+border:1px solid rgba(255,255,255,.15);
 border-radius:30px;
 padding:35px;
 }
 
-h1{
-color:white;
+.logo{
 text-align:center;
-margin-bottom:25px;
+font-size:32px;
+font-weight:bold;
+margin-bottom:30px;
+color:white;
 }
 
 input{
 width:100%;
 padding:15px;
 margin-bottom:15px;
-border:none;
-border-radius:15px;
+background:#111;
+border:1px solid #333;
+border-radius:12px;
+color:white;
 font-size:16px;
 }
 
-button{
+.password-box{
+display:flex;
+gap:10px;
+margin-bottom:15px;
+}
+
+.password-box input{
+margin-bottom:0;
+flex:1;
+}
+
+.eye-btn{
+width:60px;
+border:none;
+border-radius:12px;
+background:white;
+cursor:pointer;
+font-size:18px;
+}
+
+.register-btn{
 width:100%;
 padding:15px;
 border:none;
-border-radius:15px;
+border-radius:12px;
 background:white;
 color:black;
-font-size:18px;
+font-size:16px;
 font-weight:bold;
 cursor:pointer;
 }
 
-.link{
-text-align:center;
-margin-top:15px;
-}
-
-.link a{
-color:white;
-text-decoration:none;
+.register-btn:hover{
+opacity:.9;
 }
 
 #msg{
@@ -77,15 +96,26 @@ text-align:center;
 font-weight:bold;
 }
 
-</style>
+.link{
+margin-top:20px;
+text-align:center;
+}
 
+.link a{
+color:white;
+text-decoration:none;
+}
+
+</style>
 </head>
 
 <body>
 
 <div class="register-box">
 
-<h1>Create Account</h1>
+<div class="logo">
+URBAN Culture
+</div>
 
 <input
 type="text"
@@ -93,22 +123,30 @@ id="name"
 placeholder="Full Name">
 
 <input
-type="text"
+type="tel"
 id="phone"
-placeholder="Mobile Number">
+placeholder="Phone Number">
 
-<input
-type="email"
-id="email"
-placeholder="Email Address">
+<div class="password-box">
 
 <input
 type="password"
 id="password"
 placeholder="Password">
 
-<button onclick="register()">
-Create Account
+<button
+type="button"
+class="eye-btn"
+onclick="togglePassword()">
+👁
+</button>
+
+</div>
+
+<button
+class="register-btn"
+onclick="register()">
+CREATE ACCOUNT
 </button>
 
 <div id="msg"></div>
@@ -123,33 +161,27 @@ Already Have Account?
 
 <script>
 
-function register(){
+function togglePassword(){
 
-const phone =
-document.getElementById("phone").value;
+const p =
+document.getElementById("password");
 
-if(!/^\+91[0-9]{10}$/.test(phone)){
-
-document.getElementById("msg")
-.style.color="red";
-
-document.getElementById("msg")
-.innerHTML=
-"Use +91XXXXXXXXXX";
-
-return;
+p.type =
+p.type === "password"
+? "text"
+: "password";
 
 }
+
+function register(){
 
 const user = {
 
 name:
 document.getElementById("name").value,
 
-phone: phone,
-
-email:
-document.getElementById("email").value,
+phone:
+document.getElementById("phone").value,
 
 password:
 document.getElementById("password").value
@@ -163,7 +195,7 @@ if(
 ){
 
 document.getElementById("msg")
-.style.color="red";
+.style.color="#ff4444";
 
 document.getElementById("msg")
 .innerHTML=
@@ -186,11 +218,11 @@ u.phone === user.phone
 if(exists){
 
 document.getElementById("msg")
-.style.color="red";
+.style.color="#ff4444";
 
 document.getElementById("msg")
 .innerHTML=
-"Phone Already Registered";
+"Account Already Exists";
 
 return;
 
@@ -208,7 +240,7 @@ document.getElementById("msg")
 
 document.getElementById("msg")
 .innerHTML=
-"✅ Account Created";
+"Account Created Successfully";
 
 setTimeout(()=>{
 
@@ -223,3 +255,4 @@ window.location.href =
 
 </body>
 </html>
+```

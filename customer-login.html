@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
-
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Customer Login - URBAN Culture</title>
+
+<title>Customer Login</title>
 
 <style>
 
@@ -16,76 +17,73 @@ font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 }
 
 body{
+background:#000;
 height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background:
-linear-gradient(135deg,#2b1055,#7597de);
-overflow:hidden;
+padding:20px;
 }
 
 .login-box{
-width:90%;
-max-width:380px;
-padding:35px;
-border-radius:30px;
-background:rgba(255,255,255,0.12);
+width:100%;
+max-width:420px;
+background:rgba(255,255,255,.08);
 backdrop-filter:blur(25px);
-border:1px solid rgba(255,255,255,0.2);
-box-shadow:0 8px 40px rgba(0,0,0,.3);
+border:1px solid rgba(255,255,255,.15);
+border-radius:30px;
+padding:35px;
 }
 
-.avatar{
-width:90px;
-height:90px;
-border-radius:50%;
-background:rgba(255,255,255,.15);
-margin:0 auto 25px;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:40px;
+.logo{
+text-align:center;
+font-size:32px;
+font-weight:bold;
+margin-bottom:30px;
 color:white;
 }
 
-.input-box{
-margin-bottom:20px;
-}
-
-.input-box input{
+input{
 width:100%;
-padding:14px;
-background:transparent;
-border:none;
-border-bottom:1px solid rgba(255,255,255,.5);
+padding:15px;
+margin-bottom:15px;
+background:#111;
+border:1px solid #333;
+border-radius:12px;
 color:white;
 font-size:16px;
-outline:none;
 }
 
-.input-box input::placeholder{
-color:#ddd;
-}
-
-.options{
+.password-box{
 display:flex;
-justify-content:space-between;
-font-size:13px;
-color:#ddd;
-margin-bottom:20px;
+gap:10px;
+margin-bottom:15px;
+}
+
+.password-box input{
+margin-bottom:0;
+flex:1;
+}
+
+.eye-btn{
+width:60px;
+border:none;
+border-radius:12px;
+background:white;
+cursor:pointer;
+font-size:18px;
 }
 
 .login-btn{
 width:100%;
-padding:14px;
+padding:15px;
 border:none;
-border-radius:30px;
-background:linear-gradient(90deg,#6a11cb,#2575fc);
-color:white;
+border-radius:12px;
+background:white;
+color:black;
+font-size:16px;
 font-weight:bold;
 cursor:pointer;
-font-size:16px;
 }
 
 .login-btn:hover{
@@ -95,37 +93,34 @@ opacity:.9;
 #msg{
 margin-top:15px;
 text-align:center;
-font-size:14px;
+font-weight:bold;
 }
 
-.register{
-text-align:center;
+.link{
 margin-top:20px;
+text-align:center;
 }
 
-.register a{
+.link a{
 color:white;
 text-decoration:none;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="login-box">
 
-<div class="avatar">
-👤
+<div class="logo">
+URBAN Culture
 </div>
 
-<div class="input-box">
 <input
 type="tel"
 id="phone"
 placeholder="Phone Number">
-</div>
 
 <div class="password-box">
 
@@ -135,26 +130,22 @@ id="password"
 placeholder="Password">
 
 <button
-type="button"
+class="eye-btn"
 onclick="togglePassword()">
 👁
 </button>
 
 </div>
 
-<div class="options">
-<span>Remember me</span>
-<span>Forgot Password?</span>
-</div>
-
 <button
 class="login-btn"
 onclick="login()">
-LOGIN </button>
+LOGIN
+</button>
 
 <div id="msg"></div>
 
-<div class="register">
+<div class="link">
 <a href="customer-register.html">
 Create Account
 </a>
@@ -163,6 +154,18 @@ Create Account
 </div>
 
 <script>
+
+function togglePassword(){
+
+const p =
+document.getElementById("password");
+
+p.type =
+p.type === "password"
+? "text"
+: "password";
+
+}
 
 function login(){
 
@@ -196,25 +199,13 @@ window.location.href =
 }else{
 
 document.getElementById("msg")
-.style.color="#ff6666";
+.style.color="#ff4444";
 
 document.getElementById("msg")
 .innerHTML =
-"Invalid Email or Password";
+"Invalid Phone Number or Password";
 
 }
-
-}
-
-function togglePassword(){
-
-const p =
-document.getElementById("password");
-
-p.type =
-p.type === "password"
-? "text"
-: "password";
 
 }
 
@@ -222,3 +213,4 @@ p.type === "password"
 
 </body>
 </html>
+```

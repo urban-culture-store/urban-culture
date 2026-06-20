@@ -1,5 +1,5 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,256 +7,442 @@
 
 <title>URBAN Culture</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
 
+```css id="t6p4c7"
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-html{
-scroll-behavior:smooth;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#000;
-color:#fff;
-overflow:hidden;
+background:#050505;
+color:white;
+overflow-x:hidden;
+min-height:100vh;
+position:relative;
 }
 
 /* Animated Background */
 
-.bg{
+.blob{
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-1;
-background:
-radial-gradient(circle at 20% 20%,rgba(255,255,255,.08),transparent 300px),
-radial-gradient(circle at 80% 80%,rgba(255,255,255,.05),transparent 300px),
-#000;
-}
-
-.circle{
-position:absolute;
 border-radius:50%;
-background:rgba(255,255,255,.05);
-animation:float 12s infinite ease-in-out;
+filter:blur(100px);
+opacity:.25;
+z-index:-1;
+animation:float 10s infinite ease-in-out;
 }
 
-.c1{
-width:220px;
-height:220px;
-top:10%;
-left:-50px;
+.blob1{
+width:300px;
+height:300px;
+background:white;
+top:-80px;
+left:-80px;
 }
 
-.c2{
-width:150px;
-height:150px;
-bottom:15%;
-right:-30px;
+.blob2{
+width:350px;
+height:350px;
+background:#777;
+right:-100px;
+top:180px;
 animation-delay:2s;
 }
 
-.c3{
-width:100px;
-height:100px;
-top:60%;
-left:20%;
+.blob3{
+width:250px;
+height:250px;
+background:#999;
+bottom:-50px;
+left:40%;
 animation-delay:4s;
 }
 
 @keyframes float{
-0%,100%{
-transform:translateY(0);
+
+0%{
+transform:translateY(0px);
 }
+
 50%{
-transform:translateY(-40px);
-}
+transform:translateY(40px);
 }
 
-/* Header */
+100%{
+transform:translateY(0px);
+}
 
-header{
-position:fixed;
+}
+
+/* Navbar */
+
+.navbar{
+position:sticky;
 top:0;
-left:0;
-width:100%;
-padding:20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-background:rgba(0,0,0,.4);
+padding:20px 8%;
+background:rgba(255,255,255,.05);
 backdrop-filter:blur(20px);
-z-index:1000;
+border-bottom:1px solid rgba(255,255,255,.08);
+z-index:999;
 }
 
 .logo{
 font-size:28px;
-font-weight:bold;
+font-weight:800;
+letter-spacing:1px;
 }
 
-.login-btn{
-background:#fff;
-color:#000;
-border:none;
-padding:12px 25px;
-border-radius:15px;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
+.nav-links{
+display:flex;
+gap:20px;
+}
+
+.nav-links a{
+color:white;
+text-decoration:none;
+padding:10px 18px;
+border-radius:12px;
+transition:.3s;
+}
+
+.nav-links a:hover{
+background:white;
+color:black;
 }
 
 /* Hero */
 
 .hero{
-height:100vh;
+min-height:85vh;
 display:flex;
-flex-direction:column;
 justify-content:center;
 align-items:center;
+padding:40px;
+}
+
+.glass-card{
+width:100%;
+max-width:900px;
 text-align:center;
-padding:20px;
+padding:50px;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(25px);
+border:1px solid rgba(255,255,255,.1);
+border-radius:35px;
 }
 
-.hero h1{
-font-size:95px;
-line-height:0.95;
-animation:fadeUp 1s ease;
+.glass-card h1{
+font-size:60px;
+line-height:1.1;
+margin-bottom:25px;
 }
 
-.hero p{
-margin-top:25px;
-font-size:24px;
-color:#aaa;
-max-width:700px;
-animation:fadeUp 1.5s ease;
-}
-
-.shop-btn{
-margin-top:40px;
-padding:20px 55px;
-font-size:24px;
-font-weight:bold;
-background:#fff;
-color:#000;
-border:none;
-border-radius:20px;
-cursor:pointer;
-transition:.3s;
-animation:fadeUp 2s ease;
-}
-
-.shop-btn:hover{
-transform:scale(1.08);
-}
-
-@keyframes fadeUp{
-from{
-opacity:0;
-transform:translateY(50px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* Bottom Badge */
-
-.badge{
-position:absolute;
-bottom:30px;
-left:50%;
-transform:translateX(-50%);
-padding:10px 20px;
-border-radius:50px;
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(10px);
-font-size:14px;
+.glass-card p{
 color:#ccc;
+font-size:18px;
+max-width:700px;
+margin:auto;
+margin-bottom:35px;
+}
+
+.hero-buttons{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:15px 30px;
+border-radius:16px;
+text-decoration:none;
+font-weight:600;
+transition:.3s;
+}
+
+.primary-btn{
+background:white;
+color:black;
+}
+
+.secondary-btn{
+border:1px solid white;
+color:white;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover{
+transform:translateY(-4px);
+}
+
+/* Features */
+
+.features{
+padding:50px 8%;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+.feature-card{
+padding:30px;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(20px);
+border-radius:25px;
+border:1px solid rgba(255,255,255,.08);
+transition:.3s;
+}
+
+.feature-card:hover{
+transform:translateY(-8px);
+}
+
+.feature-card h2{
+margin-bottom:15px;
+}
+
+/* Showcase */
+
+.showcase{
+padding:80px 8%;
+text-align:center;
+}
+
+.showcase h2{
+font-size:42px;
+margin-bottom:40px;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+.product-card{
+padding:40px;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(20px);
+border-radius:25px;
+border:1px solid rgba(255,255,255,.08);
+transition:.3s;
+}
+
+.product-card:hover{
+transform:scale(1.04);
+}
+
+.product-card h3{
+margin-bottom:10px;
+}
+
+/* Footer */
+
+footer{
+padding:40px;
+text-align:center;
+color:#aaa;
 }
 
 /* Mobile */
 
 @media(max-width:768px){
 
-.logo{
-font-size:20px;
+.navbar{
+flex-direction:column;
+gap:15px;
 }
 
-.login-btn{
-padding:10px 20px;
-font-size:14px;
+.glass-card{
+padding:35px 20px;
 }
 
-.hero h1{
-font-size:65px;
+.glass-card h1{
+font-size:38px;
 }
 
-.hero p{
-font-size:18px;
+.hero-buttons{
+flex-direction:column;
 }
 
-.shop-btn{
-width:90%;
-max-width:320px;
-font-size:22px;
+.btn{
+width:100%;
 }
 
 }
-
+```
 </style>
 
 </head>
 
 <body>
 
-<div class="bg">
-<div class="circle c1"></div>
-<div class="circle c2"></div>
-<div class="circle c3"></div>
-</div>
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
 
-<header>
+<nav class="navbar">
 
 <div class="logo">
 URBAN Culture
 </div>
 
-<button
-class="login-btn"
-onclick="window.location.href='customer-login.html'">
-Login </button>
+<div class="nav-links">
 
-</header>
+<a href="products.html">
+Products
+</a>
+
+<a href="customer-login.html">
+Login
+</a>
+
+<a href="customer-register.html">
+Register
+</a>
+
+</div>
+
+</nav>
 
 <section class="hero">
 
+<div class="glass-card">
+
 <h1>
-URBAN<br>
-Culture
+Premium Streetwear
+For The Modern Generation
 </h1>
 
 <p>
-Premium Streetwear & Fashion Collection
+Minimal. Premium. Timeless.
+Discover the latest collection from URBAN Culture.
+Built for confidence and everyday style.
 </p>
 
-<button
-class="shop-btn"
-onclick="window.location.href='products.html'">
-🛍 Shop Now </button>
+<div class="hero-buttons">
+
+<a
+href="products.html"
+class="btn primary-btn">
+
+Shop Now
+
+</a>
+
+<a
+href="customer-login.html"
+class="btn secondary-btn">
+
+Customer Login
+
+</a>
+
+</div>
+
+</div>
 
 </section>
 
-<div class="badge">
-Premium Fashion • Urban Style • 2026
+<section class="features">
+
+<div class="feature-card">
+
+<h2>⚡ Fast Delivery</h2>
+
+<p>
+Quick order processing and reliable shipping.
+</p>
+
 </div>
+
+<div class="feature-card">
+
+<h2>🛡 Premium Quality</h2>
+
+<p>
+Carefully selected premium products.
+</p>
+
+</div>
+
+<div class="feature-card">
+
+<h2>🔥 Trending Fashion</h2>
+
+<p>
+Modern collections inspired by street culture.
+</p>
+
+</div>
+
+</section>
+
+<section class="showcase">
+
+<h2>
+Featured Collection
+</h2>
+
+<div class="products">
+
+<div class="product-card">
+<h3>Premium Hoodie</h3>
+<p>Modern oversized fit</p>
+</div>
+
+<div class="product-card">
+<h3>Urban T-Shirt</h3>
+<p>Clean minimalist design</p>
+</div>
+
+<div class="product-card">
+<h3>Street Shirt</h3>
+<p>Comfort meets style</p>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<p>
+© 2026 URBAN Culture
+</p>
+
+</footer>
+
+<script>
+
+```js
+// Fade In Animation
+
+const observer =
+new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.style.opacity="1";
+```
+
+
+</script>
 
 </body>
 </html>
+```
