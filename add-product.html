@@ -168,12 +168,20 @@ function previewImage(){
 const file =
 document.getElementById("image").files[0];
 
-const imageUrl =
-URL.createObjectURL(file);
+if(!file) return;
 
-document.getElementById("previewImage").src =
-image ||
-"https://via.placeholder.com/700x300?text=Product+Image";
+const reader =
+new FileReader();
+
+reader.onload = function(e){
+
+document.getElementById(
+"previewImage"
+).src = e.target.result;
+
+};
+
+reader.readAsDataURL(file);
 
 }
 
@@ -183,65 +191,23 @@ const file =
 document.getElementById("image").files[0];
 
 if(!file){
-
-alert("Select Product Image");
-
+alert("Select Image");
 return;
-
 }
 
-const reader =
-new FileReader();
+const reader = new FileReader();
 
 reader.onload = async function(e){
 
 const product = {
-
-name:
-document.getElementById("name").value,
-
-price:
-document.getElementById("price").value,
-
-stock:
-document.getElementById("stock").value,
-
-category:
-document.getElementById("category").value,
-
-featured:
-document.getElementById("featured").value,
-
-image:
-e.target.result,
-
-description:
-document.getElementById("description").value
-
+name: document.getElementById("name").value,
+price: document.getElementById("price").value,
+stock: document.getElementById("stock").value,
+category: document.getElementById("category").value,
+featured: document.getElementById("featured").value,
+image: e.target.result,
+description: document.getElementById("description").value
 };
-
-await fetch(
-"https://urban-culture.onrender.com/products",
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify(product)
-}
-);
-
-alert("✅ Product Added");
-
-};
-
-reader.readAsDataURL(file);
-
-}
-image:
-document.getElementById("image").value,
-
-
 
 try{
 
@@ -256,16 +222,17 @@ body:JSON.stringify(product)
 }
 );
 
-alert("✅ Product Added Successfully");
+alert("✅ Product Added");
 
-window.location.href =
-"manage-products.html";
+}catch(err){
 
-}catch(error){
-
-alert("❌ Failed To Add Product");
+alert("❌ Failed");
 
 }
+
+};
+
+reader.readAsDataURL(file);
 
 }
 
