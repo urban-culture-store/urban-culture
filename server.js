@@ -1,95 +1,78 @@
 const express = require("express");
 const cors = require("cors");
-const fs = require("fs");
 const mongoose = require("mongoose");
-
-mongoose.connect(
-"mongodb+srv://urbanculture:safarudheen@cluster0.aqirf6e.mongodb.net/urbanculture?retryWrites=true&w=majority"
-)
-.then(()=>{
-console.log("✅ MongoDB Connected");
-})
-.catch(err=>{
-console.log(err);
-});
-
-const ProductSchema = new mongoose.Schema({
-name:String,
-price:Number,
-stock:Number,
-category:String,
-featured:String,
-image:String,
-images:Array,
-description:String
-});
-
-const Product = mongoose.model(
-"Product",
-ProductSchema
-);
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-const PRODUCTS_FILE = "products.json";
-const ORDERS_FILE = "orders.json";
+mongoose.connect(process.env.MONGO_URI)
+.then(() => console.log("MongoDB Connected"))
+.catch(err => console.log(err));
 
-let products = [];
-let orders = [];
-
-// Load Products
-if(fs.existsSync(PRODUCTS_FILE)){
-products = JSON.parse(
-fs.readFileSync(PRODUCTS_FILE)
-);
-}
-
-// Load Orders
-if(fs.existsSync(ORDERS_FILE)){
-orders = JSON.parse(
-fs.readFileSync(ORDERS_FILE)
-);
-}
-
-// Home
-app.get("/",(req,res)=>{
-res.send("URBAN Culture Backend Running 🚀");
+const ProductSchema = new mongoose.Schema({
+  name:String,
+  price:Number,
+  stock:Number,
+  category:String,
+  featured:String,
+  image:String,
+  images:[String],
+  description:String
 });
 
-/* =========================
-PRODUCTS
-========================= */
+const Product = mongoose.model("Product", ProductSchema);
 
-// Get Products
-app.get("/products",async(req,res)=>{
+app.get("/", (req,res)=>{
+  res.send("URBAN Culture Backend Running");
+});
+
+app.get("/products", async(req,res)=>{
+  try{
+    const products = await Product.find().sort({_id:-1});
+    res.json(products);
+  }catch(err){
+    res.status(500).json({error:err.message});
+  }
+});
+
+app.post("/products", async(req,res)=>{
+  try{
+    const product = await Product.create(req.body);
+
+    res.json({
+      success:true,
+      product
+    });
+
+  }catch(err){
+    res.status(500).json({
+      success:false,
+      error:err.message
+    });
+  }
+});
+// =====================
+// EDIT PRODUCT
+// =====================
+
+app.put("/products/:id", async (req,res)=>{
 
 try{
 
-const products =
-await Product.find();
+const product = await Product.findByIdAndUpdate(
+req.params.id,
+req.body,
+{new:true}
+);
 
-res.json(products);
-
-}catch(err){
-
-res.status(500).json({
-error:err.message
+if(!product){
+return res.status(404).json({
+success:false,
+message:"Product Not Found"
 });
-
 }
-
-});
-
-// Add Product
-app.post("/products",async(req,res)=>{
-
-try{
-
-const product =
-await Product.create(req.body);
 
 res.json({
 success:true,
@@ -107,182 +90,269 @@ error:err.message
 
 });
 
-// Edit Product
-app.put("/products/:id",(req,res)=>{
+// =====================
+// DELETE PRODUCT
+// =====================
 
-const id = parseInt(req.params.id);
+app.delete("/products/:id", async (req,res)=>{
 
-if(id >= 0 && id < products.length){
+try{
 
-products[id] = {
-...products[id],
-...req.body
-};
-
-fs.writeFileSync(
-PRODUCTS_FILE,
-JSON.stringify(products,null,2)
+const product =
+await Product.findByIdAndDelete(
+req.params.id
 );
 
-res.json({
-success:true,
-message:"Product Updated"
-});
-
-}else{
-
-res.status(404).json({
+if(!product){
+return res.status(404).json({
 success:false,
 message:"Product Not Found"
 });
-
 }
-
-});
-
-
-// Delete Product
-app.delete("/products/:id",(req,res)=>{
-
-const id = parseInt(req.params.id);
-
-if(id >= 0 && id < products.length){
-
-products.splice(id,1);
-
-fs.writeFileSync(
-PRODUCTS_FILE,
-JSON.stringify(products,null,2)
-);
 
 res.json({
 success:true,
 message:"Product Deleted"
 });
 
-}else{
+}catch(err){
 
-res.status(404).json({
+res.status(500).json({
 success:false,
-message:"Product Not Found"
+error:err.message
 });
 
 }
 
 });
 
-/* =========================
-ORDERS
-========================= */
+// =====================
+// ORDER SCHEMA
+// =====================
 
-// Get Orders
-app.get("/orders",(req,res)=>{
+const OrderSchema =
+new mongoose.Schema({
+
+orderId:String,
+
+customerName:String,
+
+phone:String,
+
+address:String,
+
+status:{
+type:String,
+default:"Order Placed"
+},
+
+items:Array,
+
+total:Number,
+
+createdAt:{
+type:Date,
+default:Date.now
+}
+
+});
+
+const Order =
+mongoose.model(
+"Order",
+OrderSchema
+);
+
+// =====================
+// GET ORDERS
+// =====================
+
+app.get("/orders",
+async(req,res)=>{
+
+try{
+
+const orders =
+await Order.find()
+.sort({createdAt:-1});
+
 res.json(orders);
+
+}catch(err){
+
+res.status(500).json({
+error:err.message
 });
 
-// Add Order
-app.post("/orders",(req,res)=>{
+}
 
-const order = req.body;
+});
+// =====================
+// CREATE ORDER
+// =====================
 
-order.orderId = "UC" + Date.now();
+app.post("/orders", async (req,res)=>{
 
-order.status = "Order Placed";
+try{
 
-order.deliveryPartner = "Not Assigned";
+const order = await Order.create({
 
-order.trackingId = "TRK" + Date.now();
+orderId:
+"UC" + Date.now(),
 
-order.tracking = [
+customerName:
+req.body.customerName,
+
+phone:
+req.body.phone,
+
+address:
+req.body.address,
+
+items:
+req.body.items || [],
+
+total:
+req.body.total || 0
+
+});
+
+res.json({
+success:true,
+order
+});
+
+}catch(err){
+
+res.status(500).json({
+success:false,
+error:err.message
+});
+
+}
+
+});
+
+// =====================
+// UPDATE ORDER STATUS
+// =====================
+
+app.put("/orders/:id",
+async(req,res)=>{
+
+try{
+
+const order =
+await Order.findByIdAndUpdate(
+
+req.params.id,
+
 {
-status:"Order Placed",
-date:new Date().toLocaleString()
+status:req.body.status
+},
+
+{
+new:true
 }
-];
 
-orders.push(order);
-
-fs.writeFileSync(
-ORDERS_FILE,
-JSON.stringify(orders,null,2)
 );
 
-res.json({
-success:true,
-message:"Order Saved"
-});
+if(!order){
 
-});
+return res.status(404).json({
 
-// Update Order Status
-app.put("/orders/:id",(req,res)=>{
-
-const id = parseInt(req.params.id);
-
-if(id >= 0 && id < orders.length){
-
-orders[id].status =
-req.body.status;
-
-fs.writeFileSync(
-ORDERS_FILE,
-JSON.stringify(orders,null,2)
-);
-
-res.json({
-success:true,
-message:"Status Updated"
-});
-
-}else{
-
-res.status(404).json({
 success:false,
-message:"Order Not Found"
+
+message:
+"Order Not Found"
+
 });
 
 }
-
-});
-
-// Delete Order
-app.delete("/orders/:id",(req,res)=>{
-
-const id = parseInt(req.params.id);
-
-if(id >= 0 && id < orders.length){
-
-orders.splice(id,1);
-
-fs.writeFileSync(
-ORDERS_FILE,
-JSON.stringify(orders,null,2)
-);
 
 res.json({
+
 success:true,
-message:"Order Deleted"
+
+order
+
 });
 
-}else{
+}catch(err){
 
-res.status(404).json({
+res.status(500).json({
+
 success:false,
-message:"Order Not Found"
+
+error:err.message
+
 });
 
 }
 
 });
 
-/* =========================
-SERVER
-========================= */
+// =====================
+// DELETE ORDER
+// =====================
 
-app.listen(5000,()=>{
+app.delete("/orders/:id",
+async(req,res)=>{
+
+try{
+
+const order =
+await Order.findByIdAndDelete(
+req.params.id
+);
+
+if(!order){
+
+return res.status(404).json({
+
+success:false,
+
+message:
+"Order Not Found"
+
+});
+
+}
+
+res.json({
+
+success:true,
+
+message:
+"Order Deleted"
+
+});
+
+}catch(err){
+
+res.status(500).json({
+
+success:false,
+
+error:err.message
+
+});
+
+}
+
+});
+
+// =====================
+// SERVER START
+// =====================
+
+const PORT =
+process.env.PORT || 5000;
+
+app.listen(PORT,()=>{
 
 console.log(
-"🚀 URBAN Culture Backend Running On Port 5000"
+`🚀 URBAN Culture Backend Running On Port ${PORT}`
 );
 
 });
