@@ -187,8 +187,11 @@ reader.readAsDataURL(file);
 
 async function addProduct(){
 
-const file =
-document.getElementById("image").files[0];
+images: [
+document.getElementById("image1").files[0]?.name || "",
+document.getElementById("image2").files[0]?.name || "",
+document.getElementById("image3").files[0]?.name || ""
+]
 
 if(!file){
 alert("Select Image");

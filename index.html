@@ -124,66 +124,34 @@ color:black;
 /* Hero */
 
 .hero{
-min-height:85vh;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:40px;
-animation:float 4s ease-in-out infinite; }
-
-.glass-card{
-width:100%;
-max-width:900px;
-text-align:center;
-padding:50px;
-background:rgba(255,255,255,.05);
-backdrop-filter:blur(25px);
-border:1px solid rgba(255,255,255,.1);
+width:90%;
+margin:30px auto;
+padding:40px 25px;
 border-radius:35px;
+background:linear-gradient(
+135deg,
+rgba(255,255,255,0.08),
+rgba(255,255,255,0.02)
+);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,0.1);
+animation:float 4s ease-in-out infinite;
 }
 
-.glass-card h1{
-font-size:60px;
-line-height:1.1;
-margin-bottom:25px;
+@keyframes float{
+
+0%{
+transform:translateY(0);
 }
 
-.glass-card p{
-color:#ccc;
-font-size:18px;
-max-width:700px;
-margin:auto;
-margin-bottom:35px;
+50%{
+transform:translateY(-10px);
 }
 
-.hero-buttons{
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
+100%{
+transform:translateY(0);
 }
 
-.btn{
-padding:15px 30px;
-border-radius:16px;
-text-decoration:none;
-font-weight:600;
-transition:.3s;
-}
-
-.primary-btn{
-background:white;
-color:black;
-}
-
-.secondary-btn{
-border:1px solid white;
-color:white;
-}
-
-.primary-btn:hover,
-.secondary-btn:hover{
-transform:translateY(-4px);
 }
 
 /* Features */
@@ -236,7 +204,32 @@ background:rgba(255,255,255,.05);
 backdrop-filter:blur(20px);
 border-radius:25px;
 border:1px solid rgba(255,255,255,.08);
-transition:.3s;
+t.shop-btn{
+
+width:100%;
+height:60px;
+border:none;
+border-radius:18px;
+font-size:22px;
+font-weight:700;
+background:white;
+color:black;
+
+}
+
+.login-btn{
+
+width:100%;
+height:60px;
+margin-top:15px;
+border:2px solid white;
+border-radius:18px;
+background:transparent;
+color:white;
+font-size:22px;
+font-weight:700;
+
+}ransition:.3s;
 }
 
 .product-card:hover{
