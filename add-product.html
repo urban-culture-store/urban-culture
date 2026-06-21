@@ -104,7 +104,7 @@ opacity:.9;
 <div class="preview">
 <img
 id="previewImage"
-src="https://via.placeholder.com/700x300?text=Product+Image">
+src="images/logo.png">
 </div>
 
 <input
@@ -166,7 +166,7 @@ Add Product
 function previewImage(){
 
 const file =
-document.getElementById("image").files[0];
+document.getElementById("image1").files[0];
 
 if(!file) return;
 
@@ -187,15 +187,20 @@ reader.readAsDataURL(file);
 
 async function addProduct(){
 
-images: [
+const images = [
 document.getElementById("image1").files[0]?.name || "",
 document.getElementById("image2").files[0]?.name || "",
 document.getElementById("image3").files[0]?.name || ""
-]
+];
+
+const file =
+document.getElementById("image1").files[0];
 
 if(!file){
-alert("Select Image");
+
+alert("Select Product Image");
 return;
+
 }
 
 const reader = new FileReader();
@@ -203,13 +208,20 @@ const reader = new FileReader();
 reader.onload = async function(e){
 
 const product = {
+
 name: document.getElementById("name").value,
 price: document.getElementById("price").value,
 stock: document.getElementById("stock").value,
 category: document.getElementById("category").value,
 featured: document.getElementById("featured").value,
+
 image: e.target.result,
-description: document.getElementById("description").value
+
+images: images,
+
+description:
+document.getElementById("description").value
+
 };
 
 try{

@@ -265,6 +265,25 @@ if(product.images){
 document.getElementById(
 "thumb1"
 ).src =
+product.images[0] || product.image;
+
+document.getElementById(
+"thumb2"
+).src =
+product.images[1] || product.image;
+
+document.getElementById(
+"thumb3"
+).src =
+product.images[2] || product.image;
+
+}
+
+if(product.images){
+
+document.getElementById(
+"thumb1"
+).src =
 product.images[0] || "";
 
 document.getElementById(
@@ -369,6 +388,49 @@ function changeImage(src){
 document.getElementById(
 "productImage"
 ).src = src;
+
+}
+
+loadSuggestions();
+
+function loadSuggestions(){
+
+const products =
+JSON.parse(
+localStorage.getItem("products")
+) || [];
+
+let html = "";
+
+products
+.filter(p =>
+p.name !== product.name
+)
+.slice(0,4)
+.forEach(item=>{
+
+html += `
+<div class="suggest-card">
+
+<img src="${item.image}">
+
+<h4>${item.name}</h4>
+
+<p>₹${item.price}</p>
+
+</div>
+`;
+
+});
+
+const box =
+document.getElementById(
+"suggestions"
+);
+
+if(box){
+box.innerHTML = html;
+}
 
 }
 
