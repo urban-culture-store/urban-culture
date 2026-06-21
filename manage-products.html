@@ -12,67 +12,21 @@ content="width=device-width, initial-scale=1.0">
 Manage Products
 </title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
 <style>
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#000;
+background:#050505;
 color:white;
-min-height:100vh;
-}
-
-header{
-
-position:sticky;
-top:0;
-
-background:
-rgba(0,0,0,.8);
-
-backdrop-filter:
-blur(20px);
-
-padding:20px;
-
-display:flex;
-
-justify-content:space-between;
-align-items:center;
-
-border-bottom:
-1px solid #222;
-
-z-index:100;
-
-}
-
-.logo{
-
-font-size:28px;
-font-weight:800;
-
-}
-
-.back-btn{
-
-background:#111;
-
-color:white;
-
-padding:12px 18px;
-
-border:none;
-
-border-radius:12px;
-
-cursor:pointer;
-
 }
 
 .container{
@@ -82,52 +36,39 @@ max-width:1400px;
 
 margin:auto;
 
-padding:25px 0;
+padding:25px;
 
 }
 
-.top-bar{
+.header{
 
 display:flex;
-gap:15px;
+
+justify-content:space-between;
+
+align-items:center;
 
 margin-bottom:25px;
 
-flex-wrap:wrap;
-
 }
 
-.search{
+.title{
 
-flex:1;
-
-min-width:250px;
-
-padding:15px;
-
-background:#111;
-
-border:1px solid #222;
-
-border-radius:15px;
-
-color:white;
-
-font-size:16px;
+font-size:42px;
+font-weight:800;
 
 }
 
 .add-btn{
 
 background:white;
-
 color:black;
 
-padding:15px 25px;
+padding:14px 20px;
 
 border:none;
 
-border-radius:15px;
+border-radius:14px;
 
 font-weight:700;
 
@@ -135,44 +76,176 @@ cursor:pointer;
 
 }
 
-.products{
+.search{
+
+width:100%;
+
+padding:16px;
+
+background:#111;
+
+border:none;
+
+border-radius:16px;
+
+color:white;
+
+margin-bottom:25px;
+
+}
+
+#products{
 
 display:grid;
 
 grid-template-columns:
-repeat(auto-fill,minmax(300px,1fr));
+repeat(auto-fill,minmax(280px,1fr));
 
-gap:25px;
+gap:20px;
 
 }
 
 .card{
 
 background:
-linear-gradient(
-135deg,
-rgba(255,255,255,.08),
-rgba(255,255,255,.02)
-);
+rgba(255,255,255,.04);
 
 border:
 1px solid rgba(255,255,255,.08);
 
-border-radius:25px;
+border-radius:24px;
 
 overflow:hidden;
 
-transition:.3s;
+}
+
+.card img{
+
+width:100%;
+height:220px;
+
+object-fit:cover;
+
+background:#111;
 
 }
 
-.card:hover{
+.info{
 
-transform:translateY(-5px);
+padding:18px;
 
 }
 
-.product
+.name{
+
+font-size:20px;
+
+font-weight:700;
+
+margin-bottom:10px;
+
+}
+
+.price{
+
+font-size:24px;
+
+font-weight:800;
+
+margin-bottom:10px;
+
+}
+
+.stock{
+
+color:#aaa;
+
+margin-bottom:15px;
+
+}
+
+.actions{
+
+display:flex;
+gap:10px;
+
+}
+
+.edit-btn,
+.delete-btn{
+
+flex:1;
+
+padding:12px;
+
+border:none;
+
+border-radius:12px;
+
+font-weight:700;
+
+cursor:pointer;
+
+}
+
+.edit-btn{
+
+background:white;
+color:black;
+
+}
+
+.delete-btn{
+
+background:#ff3b30;
+color:white;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<h1 class="title">
+Manage Products
+</h1>
+
+<button
+class="add-btn"
+onclick="location.href='add-product.html'">
+
++ Add Product
+
+</button>
+
+</div>
+
+<input
+id="search"
+class="search"
+placeholder="Search Products..."
+onkeyup="filterProducts()">
+
+<div
+class="count-card">
+
+Total Products :
+
+<span id="productCount">
+0
+</span>
+
+</div>
+
+<div id="products">
+
+</div>
 <script>
 
 let allProducts = [];
@@ -181,12 +254,13 @@ async function loadProducts(){
 
 try{
 
-const res = await fetch(
+const response =
+await fetch(
 "https://urban-culture.onrender.com/products"
 );
 
 const products =
-await res.json();
+await response.json();
 
 allProducts = products;
 
@@ -200,36 +274,61 @@ document.getElementById(
 
 "<h2>Failed To Load Products</h2>";
 
+console.log(err);
+
 }
 
 }
 
 function renderProducts(products){
 
+const container =
+document.getElementById(
+"products"
+);
+
+if(products.length===0){
+
+container.innerHTML =
+
+"<h2>No Products Found</h2>";
+
+return;
+
+}
+
 let html = "";
 
-products.forEach((product,index)=>{
+products.forEach(
+(product,index)=>{
 
 html += `
 
 <div class="card">
 
 <img
-class="product-image"
-src="${product.image}">
+src="${product.image}"
+alt="${product.name}">
 
 <div class="info">
 
 <div class="name">
+
 ${product.name}
+
 </div>
 
 <div class="price">
+
 ₹${product.price}
+
 </div>
 
 <div class="stock">
-Stock : ${product.stock}
+
+Stock :
+${product.stock || 0}
+
 </div>
 
 <div class="actions">
@@ -260,22 +359,21 @@ Delete
 
 });
 
-document.getElementById(
-"products"
-).innerHTML = html;
+container.innerHTML = html;
 
 }
 
 function filterProducts(){
 
 const search =
+
 document.getElementById(
 "search"
 ).value.toLowerCase();
 
 const filtered =
 
-allProducts.filter(product =>
+allProducts.filter(product=>
 
 product.name
 .toLowerCase()
@@ -292,46 +390,30 @@ function editProduct(index){
 const product =
 allProducts[index];
 
-const newName =
-prompt(
-"Product Name",
-product.name
+localStorage.setItem(
+
+"editProduct",
+
+JSON.stringify(product)
+
 );
 
-if(newName===null) return;
-
-const newPrice =
-prompt(
-"Price",
-product.price
-);
-
-if(newPrice===null) return;
-
-product.name =
-newName;
-
-product.price =
-newPrice;
-
-alert(
-"Edit UI Ready\nBackend update next step."
-);
-
-renderProducts(
-allProducts
-);
+window.location.href =
+"add-product.html";
 
 }
 
 function deleteProduct(index){
 
-if(
-!confirm(
+const confirmDelete =
+confirm(
 "Delete Product?"
-)
-){
+);
+
+if(!confirmDelete){
+
 return;
+
 }
 
 allProducts.splice(
@@ -344,7 +426,7 @@ allProducts
 );
 
 alert(
-"Deleted Locally"
+"Product Removed Locally"
 );
 
 }
@@ -352,6 +434,175 @@ alert(
 loadProducts();
 
 </script>
+<style>
+
+.count-card{
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+padding:20px;
+
+border-radius:20px;
+
+margin-bottom:20px;
+
+font-size:22px;
+
+font-weight:700;
+
+}
+
+.featured{
+
+display:inline-block;
+
+padding:6px 10px;
+
+background:white;
+
+color:black;
+
+border-radius:10px;
+
+font-size:12px;
+
+font-weight:700;
+
+margin-bottom:10px;
+
+}
+
+</style>
+
+<script>
+
+/* Update Product Count */
+
+function updateCount(){
+
+document.getElementById(
+"productCount"
+).innerHTML =
+
+allProducts.length;
+
+}
+
+/* Replace renderProducts */
+
+const oldRender =
+renderProducts;
+
+renderProducts = function(products){
+
+const container =
+document.getElementById(
+"products"
+);
+
+if(products.length===0){
+
+container.innerHTML =
+"<h2>No Products Found</h2>";
+
+return;
+
+}
+
+let html = "";
+
+products.forEach(
+(product,index)=>{
+
+html += `
+
+<div class="card">
+
+<img
+src="${product.image}"
+alt="${product.name}">
+
+<div class="info">
+
+${product.featured==="Yes"
+
+? '<div class="featured">FEATURED</div>'
+
+: ''
+
+}
+
+<div class="name">
+
+${product.name}
+
+</div>
+
+<div class="price">
+
+₹${product.price}
+
+</div>
+
+<div class="stock">
+
+Stock :
+${product.stock || 0}
+
+</div>
+
+<div class="actions">
+
+<button
+class="edit-btn"
+onclick="editProduct(${index})">
+
+Edit
+
+</button>
+
+<button
+class="delete-btn"
+onclick="deleteProduct(${index})">
+
+Delete
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+container.innerHTML = html;
+
+updateCount();
+
+};
+
+</script>
+
+<div
+class="count-card">
+
+Total Products :
+
+<span id="productCount">
+
+0
+
+</span>
+
+</div>
 
 </body>
 </html>
