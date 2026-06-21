@@ -1,9 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Orders - URBAN Culture</title>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+My Orders
+</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 
 <style>
 
@@ -11,323 +21,346 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#000;
-color:#fff;
-}
 
-.header{
-background:#000;
-padding:20px;
-border-bottom:1px solid #222;
-position:sticky;
-top:0;
-z-index:1000;
-}
+background:#050505;
+color:white;
 
-.title{
-font-size:28px;
-font-weight:700;
-text-align:center;
+overflow-x:hidden;
+
 }
 
 .container{
-max-width:1000px;
+
+width:95%;
+max-width:1400px;
+
 margin:auto;
-padding:20px;
+
+padding:20px 0;
+
+}
+
+.header{
+
+display:flex;
+
+justify-content:
+space-between;
+
+align-items:center;
+
+margin-bottom:30px;
+
+}
+
+.title{
+
+font-size:42px;
+
+font-weight:800;
+
+}
+
+.back-btn{
+
+padding:14px 18px;
+
+background:#111;
+
+border:none;
+
+border-radius:14px;
+
+color:white;
+
+cursor:pointer;
+
+}
+
+/* Orders */
+
+.orders{
+
+display:grid;
+
+gap:20px;
+
 }
 
 .order-card{
-background:#111;
-border:1px solid #222;
-border-radius:20px;
-padding:15px;
-margin-bottom:15px;
-cursor:pointer;
-transition:.3s;
-}
 
-.order-card:hover{
-transform:translateY(-3px);
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+border-radius:25px;
+
+overflow:hidden;
+
 }
 
 .order-top{
+
 display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:15px;
-}
 
-.status{
-padding:8px 14px;
-border-radius:20px;
-font-size:13px;
-font-weight:700;
-background:#0f172a;
-color:#00ff88;
-}
+gap:20px;
 
-.product-row{
-display:flex;
-gap:15px;
-align-items:center;
-}
-
-.product-img{
-width:90px;
-height:90px;
-object-fit:cover;
-border-radius:15px;
-background:#222;
-}
-
-.product-info{
-flex:1;
-}
-
-.product-info h3{
-font-size:18px;
-margin-bottom:5px;
-}
-
-.product-info p{
-color:#aaa;
-font-size:14px;
-}
-
-.amount{
-font-size:22px;
-font-weight:700;
-color:#00ff88;
-margin-top:5px;
-}
-
-.empty{
-text-align:center;
-padding:80px 20px;
-}
-
-.empty h2{
-margin-bottom:10px;
-}
-
-.modal{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.8);
-justify-content:center;
-align-items:center;
-z-index:9999;
-}
-
-.modal-content{
-background:#111;
-width:90%;
-max-width:600px;
 padding:20px;
-border-radius:20px;
-max-height:85vh;
-overflow:auto;
+
 }
 
-.close-btn{
-background:red;
-color:#fff;
-border:none;
-padding:10px 15px;
-border-radius:10px;
-cursor:pointer;
-float:right;
+.order-image{
+
+width:120px;
+height:120px;
+
+object-fit:cover;
+
+border-radius:18px;
+
+background:#111;
+
 }
 
-.detail-box{
-background:#1a1a1a;
-padding:12px;
+.order-details{
+
+flex:1;
+
+}
+
+.order-name{
+
+font-size:22px;
+
+font-weight:700;
+
+margin-bottom:10px;
+
+}
+
+.order-price{
+
+font-size:24px;
+
+font-weight:800;
+
+margin-bottom:10px;
+
+}
+
+.order-status{
+
+display:inline-block;
+
+padding:8px 14px;
+
 border-radius:12px;
-margin-top:10px;
+
+background:#00ff88;
+
+color:black;
+
+font-weight:700;
+
 }
 
-.order-actions{
-margin-top:15px;
+.actions{
+
+display:flex;
+
+gap:10px;
+
+padding:20px;
+
+border-top:
+1px solid rgba(255,255,255,.08);
+
+}
+
+.action-btn{
+
+flex:1;
+
+padding:14px;
+
+border:none;
+
+border-radius:14px;
+
+font-weight:700;
+
+cursor:pointer;
+
 }
 
 .track-btn{
-width:100%;
-padding:12px;
-border:none;
-border-radius:12px;
+
 background:white;
+
 color:black;
-font-weight:bold;
-cursor:pointer;
+
+}
+
+.bill-btn{
+
+background:#111;
+
+color:white;
+
+border:1px solid #333;
+
+}
+
+.empty{
+
+text-align:center;
+
+padding:80px 20px;
+
+color:#888;
+
+}
+
+@media(max-width:768px){
+
+.order-top{
+
+flex-direction:column;
+
+}
+
+.order-image{
+
+width:100%;
+height:250px;
+
+}
+
+.title{
+
+font-size:32px;
+
+}
+
 }
 
 </style>
+
 </head>
 
 <body>
 
-<div class="header">
-<div class="title">
-📦 My Orders
-</div>
-</div>
-
 <div class="container">
-<div id="orders"></div>
-</div>
-<div class="modal" id="modal">
 
-<div class="modal-content">
+<div class="header">
+
+<h1 class="title">
+My Orders
+</h1>
 
 <button
-class="close-btn"
-onclick="closeModal()">
-✖
+class="back-btn"
+onclick="location.href='profile.html'">
+
+← Profile
+
 </button>
 
-<div id="modalBody"></div>
-
 </div>
 
-</div>
+<div
+id="orders"
+class="orders">
 
+</div>
 <script>
 
-async function findOrders(){
+function loadOrders(){
 
-const customer =
-JSON.parse(
-localStorage.getItem("customer")
+const container =
+document.getElementById(
+"orders"
 );
 
-if(!customer){
+const orders =
 
-window.location.href =
-"customer-login.html";
+JSON.parse(
+localStorage.getItem(
+"orders"
+)
+) || [];
+
+if(orders.length===0){
+
+container.innerHTML =
+
+`
+
+<div class="empty">
+
+<h2>
+No Orders Yet
+</h2>
+
+<p>
+Start shopping to see your orders here.
+</p>
+
+</div>
+
+`;
 
 return;
 
 }
 
-const res = await fetch(
-"https://urban-culture.onrender.com/orders"
-);
-
-const orders =
-await res.json();
-
-const filtered =
-orders.filter(order =>
-
-order.phone === customer.phone
-
-);
-
 let html = "";
 
-if(filtered.length===0){
-
-html = `
-
-<div class="empty">
-
-<h2>No Orders Yet</h2>
-
-<p>
-Start Shopping
-</p>
-
-</div>
-
-`;
-
-}else{
-
-filtered.reverse().forEach(order=>{
+orders.reverse().forEach(
+(order,index)=>{
 
 html += `
 
-<div
-class="order-card"
-onclick='showOrder(${JSON.stringify(order)})'>
-
-<p>
-<b>Tracking ID:</b>
-${order.trackingId || "Pending"}
-</p>
-
-<p>
-<b>Delivery Partner:</b>
-${order.deliveryPartner || "Not Assigned"}
-</p>
-
-<button
-onclick='trackOrder("${order.orderId}")'
-style="
-width:100%;
-padding:15px;
-margin-top:15px;
-border:none;
-border-radius:12px;
-font-weight:bold;">
-
-🚚 Track Order
-
-</button>
-
-<div class="order-actions">
-
-
-</div>
+<div class="order-card">
 
 <div class="order-top">
 
+<img
+class="order-image"
+src="${order.image || ''}">
+
+<div class="order-details">
+
+<div class="order-name">
+
+${order.name || "Product"}
+
+</div>
+
+<div class="order-price">
+
+₹${order.price || 0}
+
+</div>
+
+<div class="order-status">
+
+${order.status || "Order Placed"}
+
+</div>
+
+<br><br>
+
 <div>
 
-<b>
-${order.date}
-</b>
-
-</div>
-
-<div class="status">
-
-${order.status || "Pending"}
-
-</div>
-
-</div>
-
-<div class="product-row">
-
-<img
-class="product-img"
-src="${
-order.items[0]?.image ||
-'https://via.placeholder.com/300'
-}">
-
-<div class="product-info">
-
-<h3>
-${order.items[0]?.name || "Product"}
-</h3>
-
-<p>
-${order.address}
-</p>
-
-<div class="amount">
-
-₹${order.total}
+Order ID:
+${order.orderId || ("UC"+index)}
 
 </div>
 
@@ -335,180 +368,114 @@ ${order.address}
 
 </div>
 
-</div>
-<div class="amount">
-
-₹${order.total}
-
-</div>
-
-</div>
-
-</div>
-
-<div class="order-actions">
+<div class="actions">
 
 <button
-class="track-btn"
-onclick='event.stopPropagation();
-trackOrder("${order.orderId}")'>
+class="action-btn track-btn"
+onclick="trackOrder(${index})">
 
-🚚 Track Order
+📦 Track Order
+
+</button>
+
+<button
+class="action-btn bill-btn"
+onclick="downloadBill(${index})">
+
+📄 Download Bill
 
 </button>
 
 </div>
 
 </div>
+
 `;
 
 });
 
-}
-
-document.getElementById(
-"orders"
-).innerHTML = html;
+container.innerHTML = html;
 
 }
 
-window.onload =
-findOrders;
-function trackOrder(orderId){
-
-localStorage.setItem(
-"trackingOrderId",
-orderId
-);
-
-window.location.href =
-"my-orders.html";
-
-}
-function showOrder(order){
+function trackOrder(index){
 
 localStorage.setItem(
 "selectedOrder",
-JSON.stringify(order)
+index
 );
 
-document.getElementById(
-"modal"
-).style.display="flex";
+window.location.href =
+"track-order.html";
 
-document.getElementById(
-"modalBody"
-).innerHTML = `
+}
 
-<h2>
-📦 Order Details
-</h2>
+function downloadBill(index){
 
-<div class="detail-box">
+const orders =
+JSON.parse(
+localStorage.getItem(
+"orders"
+)
+) || [];
+
+const order =
+orders[index];
+
+const billWindow =
+window.open(
+"",
+"_blank"
+);
+
+billWindow.document.write(
+
+`
+<h1>URBAN Culture</h1>
+
+<hr>
+
+<h2>Invoice</h2>
 
 <p>
-<b>Order Date:</b>
-${order.date}
+Order ID:
+${order.orderId || "N/A"}
 </p>
 
 <p>
-<b>Name:</b>
+Product:
 ${order.name}
 </p>
 
 <p>
-<b>Phone:</b>
-${order.phone}
+Price:
+₹${order.price}
 </p>
 
 <p>
-<b>Address:</b>
-${order.address}
+Status:
+${order.status || "Order Placed"}
 </p>
 
 <p>
-<b>Pincode:</b>
-${order.pincode}
+Customer:
+${order.customerName || "Customer"}
 </p>
 
-<p>
-<b>Status:</b>
-${order.status || "Pending"}
-</p>
+<hr>
 
-<p>
-<b>Total:</b>
-₹${order.total}
-</p>
-
-</div>
-
-<div class="detail-box">
-
-<p>
-<b>Tracking ID:</b>
-${order.trackingId || "Pending"}
-</p>
-
-<p>
-<b>Delivery Partner:</b>
-${order.deliveryPartner || "Not Assigned"}
-</p>
-
-<br>
-
-<button
-onclick="window.location.href='track-order.html'"
-style="
-width:100%;
-padding:15px;
-border:none;
-border-radius:12px;
-background:white;
-color:black;
-font-weight:bold;
-cursor:pointer;">
-🚚 Track Order
-</button>
-
-</div>
-
-<h3 style="margin-top:20px">
-Products
+<h3>
+Thank You For Shopping
 </h3>
 
-${order.items.map(item => `
+`
+);
 
-<div class="detail-box">
-
-<p>
-<b>${item.name}</b>
-</p>
-
-<p>
-₹${item.price}
-</p>
-
-<p>
-Category:
-${item.category || "Product"}
-</p>
-
-</div>
-
-`).join("")}
-
-`;
+billWindow.print();
 
 }
 
-function closeModal(){
-
-document.getElementById(
-"modal"
-).style.display="none";
-
-}
+loadOrders();
 
 </script>
 

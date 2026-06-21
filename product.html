@@ -1,330 +1,714 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Products - URBAN Culture</title><style>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Product Details
+</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<style>
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#000;
+
+background:#050505;
 color:white;
+
 overflow-x:hidden;
-}
-
-/* Animated Background */
-
-body::before{
-content:"";
-position:fixed;
-width:500px;
-height:500px;
-background:rgba(255,255,255,.05);
-filter:blur(120px);
-top:-100px;
-left:-100px;
-animation:glowMove 10s infinite alternate;
-z-index:-1;
-}
-
-@keyframes glowMove{
-
-0%{
-transform:translate(0,0);
-}
-
-100%{
-transform:translate(200px,120px);
-}
 
 }
 
-/* Header */
+.container{
 
-header{
-position:sticky;
-top:0;
-z-index:1000;
-background:rgba(0,0,0,.75);
-backdrop-filter:blur(20px);
-padding:18px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:1px solid rgba(255,255,255,.08);
+width:95%;
+max-width:1400px;
+
+margin:auto;
+
+padding:20px 0;
+
 }
 
-.logo{
-font-size:28px;
-font-weight:800;
-}
+.back-btn{
 
-.right{
-display:flex;
-gap:10px;
-}
+display:inline-block;
 
-.top-btn{
+padding:12px 18px;
+
 background:#111;
-border:none;
+
 color:white;
-padding:12px 15px;
+
+text-decoration:none;
+
 border-radius:14px;
-cursor:pointer;
+
+margin-bottom:25px;
+
 }
 
-/* Search */
+.product-section{
 
-.search-box{
-padding:20px;
-}
-
-.search{
-width:100%;
-padding:16px;
-border:none;
-border-radius:18px;
-background:#111;
-color:white;
-font-size:16px;
-outline:none;
-}
-
-/* Products Grid */
-
-.products{
-padding:15px;
 display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:40px;
+
+align-items:start;
+
+}
+
+/* Images */
+
+.image-box{
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+border-radius:30px;
+
+padding:20px;
+
+}
+
+.main-image{
+
+width:100%;
+
+height:520px;
+
+object-fit:cover;
+
+border-radius:25px;
+
+background:#111;
+
+}
+
+.gallery{
+
+display:flex;
+
+gap:12px;
+
+margin-top:15px;
+
+}
+
+.thumb{
+
+width:90px;
+height:90px;
+
+object-fit:cover;
+
+border-radius:15px;
+
+cursor:pointer;
+
+border:2px solid transparent;
+
+}
+
+.thumb:hover{
+
+border-color:white;
+
+}
+
+/* Details */
+
+.details{
+
+padding-top:10px;
+
+}
+
+.product-name{
+
+font-size:42px;
+
+font-weight:800;
+
+margin-bottom:15px;
+
+}
+
+.product-price{
+
+font-size:38px;
+
+font-weight:800;
+
+margin-bottom:20px;
+
+}
+
+.product-desc{
+
+color:#aaa;
+
+line-height:1.8;
+
+margin-bottom:25px;
+
+}
+
+select{
+
+width:100%;
+
+padding:16px;
+
+background:#111;
+
+border:none;
+
+border-radius:16px;
+
+color:white;
+
+margin-bottom:15px;
+
+font-size:16px;
+
+}
+
+.buttons{
+
+display:flex;
+
+gap:15px;
+
+margin-top:10px;
+
+}
+
+.cart-btn{
+
+flex:1;
+
+padding:16px;
+
+border:none;
+
+border-radius:16px;
+
+background:white;
+
+color:black;
+
+font-weight:700;
+
+cursor:pointer;
+
+}
+
+.buy-btn{
+
+flex:1;
+
+padding:16px;
+
+border:none;
+
+border-radius:16px;
+
+background:#111;
+
+color:white;
+
+font-weight:700;
+
+cursor:pointer;
+
+border:1px solid #333;
+
+}
+
+/* Suggestions */
+
+.suggestions{
+
+margin-top:70px;
+
+}
+
+.suggestions h2{
+
+font-size:32px;
+
+margin-bottom:25px;
+
+}
+
+.suggestion-grid{
+
+display:grid;
+
 grid-template-columns:
 repeat(2,1fr);
-gap:15px;
-}
 
-/* Product Card */
+gap:20px;
 
-.card{
-background:#111;
-border-radius:24px;
-overflow:hidden;
-border:1px solid #222;
-cursor:pointer;
-transition:.3s;
-}
-
-.card:hover{
-transform:translateY(-5px);
-}
-
-.card img{
-width:100%;
-height:230px;
-object-fit:cover;
-}
-
-.info{
-padding:14px;
-}
-
-.badge{
-display:inline-block;
-padding:6px 10px;
-background:#fff;
-color:#000;
-font-size:11px;
-font-weight:bold;
-border-radius:8px;
-margin-bottom:8px;
-}
-
-.name{
-font-size:17px;
-font-weight:700;
-margin-bottom:8px;
-}
-
-.price{
-font-size:22px;
-font-weight:800;
-color:#00ff88;
-margin-bottom:12px;
-}
-
-.actions{
-display:flex;
-gap:8px;
-}
-
-.cartBtn{
-flex:1;
-background:#fff;
-color:#000;
-border:none;
-padding:10px;
-border-radius:12px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.wishBtn{
-width:50px;
-border:none;
-border-radius:12px;
-background:#222;
-color:white;
-cursor:pointer;
-font-size:18px;
 }
 
 @media(max-width:768px){
 
-.logo{
-font-size:22px;
-}
+.product-section{
 
-.card img{
-height:180px;
-}
-
-.name{
-font-size:15px;
-}
-
-.price{
-font-size:18px;
-}
+grid-template-columns:
+1fr;
 
 }
 
-</style></head><body>
-<header><div class="logo">
-URBAN Culture
-</div><div class="right"><button
-class="top-btn"
-onclick="location.href='profile.html'">
-👤
+.main-image{
+
+height:380px;
+
+}
+
+.product-name{
+
+font-size:30px;
+
+}
+
+.suggestion-grid{
+
+grid-template-columns:
+1fr 1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<a
+href="products.html"
+class="back-btn">
+
+← Back To Shop
+
+</a>
+<div class="product-section">
+
+<div class="image-box">
+
+<img
+id="productImage"
+class="main-image"
+src="">
+
+<div class="gallery">
+
+<img
+id="thumb1"
+class="thumb"
+onclick="changeImage(this.src)">
+
+<img
+id="thumb2"
+class="thumb"
+onclick="changeImage(this.src)">
+
+<img
+id="thumb3"
+class="thumb"
+onclick="changeImage(this.src)">
+
+</div>
+
+</div>
+
+<div class="details">
+
+<div
+id="productName"
+class="product-name">
+
+Loading...
+
+</div>
+
+<div
+id="productPrice"
+class="product-price">
+
+₹0
+
+</div>
+
+<div
+id="productDesc"
+class="product-desc">
+
+Premium URBAN Culture Product
+
+</div>
+
+<select id="size">
+
+<option value="">
+Select Size
+</option>
+
+<option value="S">
+S
+</option>
+
+<option value="M">
+M
+</option>
+
+<option value="L">
+L
+</option>
+
+<option value="XL">
+XL
+</option>
+
+<option value="XXL">
+XXL
+</option>
+
+</select>
+
+<select id="qty">
+
+<option value="1">
+Qty 1
+</option>
+
+<option value="2">
+Qty 2
+</option>
+
+<option value="3">
+Qty 3
+</option>
+
+<option value="4">
+Qty 4
+</option>
+
+<option value="5">
+Qty 5
+</option>
+
+</select>
+
+<div class="buttons">
+
+<button
+class="cart-btn"
+onclick="addToCart()">
+
+🛒 Add To Cart
+
 </button>
 
 <button
-class="top-btn"
-onclick="location.href='wishlist.html'">
-❤️
+class="buy-btn"
+onclick="buyNow()">
+
+⚡ Buy Now
+
 </button>
 
-<button
-class="top-btn"
-onclick="location.href='cart.html'">
-🛒
-</button>
+</div>
 
-</div></header><div class="search-box"><input
-type="text"
-id="search"
-class="search"
-placeholder="Search Products..."
-onkeyup="filterProducts()">
+</div>
 
-</div><div
-class="products"
-id="products"></div>
+</div>
+
+<div class="suggestions">
+
+<h2>
+You May Also Like
+</h2>
+
+<div
+id="suggestions"
+class="suggestion-grid">
+
+</div>
+
+</div>
 <script>
 
-let allProducts = [];
+const product =
+JSON.parse(
+localStorage.getItem(
+"selectedProduct"
+)
+);
 
-async function loadProducts(){
+if(!product){
+
+window.location.href =
+"products.html";
+
+}
+
+/* Main Product */
+
+document.getElementById(
+"productImage"
+).src =
+product.image;
+
+document.getElementById(
+"productName"
+).innerHTML =
+product.name;
+
+document.getElementById(
+"productPrice"
+).innerHTML =
+"₹" + product.price;
+
+document.getElementById(
+"productDesc"
+).innerHTML =
+product.description ||
+"Premium URBAN Culture Product";
+
+/* Gallery */
+
+if(product.images){
+
+document.getElementById(
+"thumb1"
+).src =
+product.images[0] ||
+product.image;
+
+document.getElementById(
+"thumb2"
+).src =
+product.images[1] ||
+product.image;
+
+document.getElementById(
+"thumb3"
+).src =
+product.images[2] ||
+product.image;
+
+}else{
+
+document.getElementById(
+"thumb1"
+).src =
+product.image;
+
+document.getElementById(
+"thumb2"
+).src =
+product.image;
+
+document.getElementById(
+"thumb3"
+).src =
+product.image;
+
+}
+
+function changeImage(src){
+
+document.getElementById(
+"productImage"
+).src = src;
+
+}
+
+/* Add To Cart */
+
+function addToCart(){
+
+const size =
+document.getElementById(
+"size"
+).value;
+
+const qty =
+document.getElementById(
+"qty"
+).value;
+
+if(size===""){
+
+alert(
+"Please Select Size"
+);
+
+return;
+
+}
+
+let cart =
+
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+) || [];
+
+cart.push({
+
+...product,
+
+size:size,
+
+qty:qty
+
+});
+
+localStorage.setItem(
+
+"cart",
+
+JSON.stringify(cart)
+
+);
+
+alert(
+"✅ Added To Cart"
+);
+
+}
+
+/* Buy Now */
+
+function buyNow(){
+
+const size =
+document.getElementById(
+"size"
+).value;
+
+if(size===""){
+
+alert(
+"Please Select Size"
+);
+
+return;
+
+}
+
+addToCart();
+
+window.location.href =
+"cart.html";
+
+}
+
+/* Suggestions */
+
+async function loadSuggestions(){
 
 try{
 
-const res = await fetch(
+const res =
+await fetch(
 "https://urban-culture.onrender.com/products"
 );
 
-const products = await res.json();
-
-allProducts = products.reverse();
-
-renderProducts(allProducts);
-
-}catch(err){
-
-console.log(err);
-
-document.getElementById(
-"products"
-).innerHTML =
-
-"<h2 style='text-align:center'>Failed To Load Products</h2>";
-
-}
-
-}
-
-function renderProducts(products){
+const products =
+await res.json();
 
 let html = "";
 
-products.forEach((product,index)=>{
+products
+
+.filter(item=>
+
+item.name !==
+product.name
+
+)
+
+.slice(0,4)
+
+.forEach(item=>{
 
 html += `
 
 <div
-class="card"
-onclick='openProduct(${JSON.stringify(product)})'>
+onclick='openSuggestion(${JSON.stringify(item)})'
+style="
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+border-radius:20px;
+
+overflow:hidden;
+
+cursor:pointer;
+">
 
 <img
-src="${product.image}"
-alt="${product.name}">
-
-<div class="info">
-
-${product.featured==="Yes"
-
-? '<div class="badge">FEATURED</div>'
-
-: ''
-
-}
-
-<div class="name">
-
-${product.name}
-
-</div>
-
-<div class="price">
-
-₹${product.price}
-
-</div>
-
-<div class="actions">
-
-<button
-class="cartBtn"
-onclick="
-event.stopPropagation();
-addToCart(${index})
+src="${item.image}"
+style="
+width:100%;
+height:220px;
+object-fit:cover;
 ">
 
-Add To Cart
-
-</button>
-
-<button
-class="wishBtn"
-onclick="
-event.stopPropagation();
-addWishlist(${index})
+<div
+style="
+padding:15px;
 ">
 
-❤️
+<h3>
 
-</button>
+${item.name}
 
-</div>
+</h3>
+
+<p
+style="
+margin-top:10px;
+font-size:20px;
+font-weight:700;
+">
+
+₹${item.price}
+
+</p>
 
 </div>
 
@@ -335,98 +719,35 @@ addWishlist(${index})
 });
 
 document.getElementById(
-"products"
-).innerHTML = html;
+"suggestions"
+).innerHTML =
+html;
+
+}catch(err){
+
+console.log(err);
 
 }
 
-function filterProducts(){
-
-const search =
-document.getElementById(
-"search"
-).value.toLowerCase();
-
-const filtered =
-
-allProducts.filter(product =>
-
-product.name
-.toLowerCase()
-.includes(search)
-
-);
-
-renderProducts(filtered);
-
 }
 
-function openProduct(product){
+function openSuggestion(item){
 
 localStorage.setItem(
 
 "selectedProduct",
 
-JSON.stringify(product)
+JSON.stringify(item)
 
 );
 
-window.location.href =
-"product.html";
+location.reload();
 
 }
 
-function addToCart(index){
+loadSuggestions();
 
-let cart =
+</script>
 
-JSON.parse(
-localStorage.getItem("cart")
-)
-
-|| [];
-
-cart.push(allProducts[index]);
-
-localStorage.setItem(
-"cart",
-JSON.stringify(cart)
-);
-
-alert(
-"✅ Added To Cart"
-);
-
-}
-
-function addWishlist(index){
-
-let wishlist =
-
-JSON.parse(
-localStorage.getItem(
-"wishlist"
-))
-
-|| [];
-
-wishlist.push(allProducts[index]);
-
-localStorage.setItem(
-
-"wishlist",
-
-JSON.stringify(wishlist)
-
-);
-
-alert(
-"❤️ Added To Wishlist"
-);
-
-}
-
-loadProducts();
-
-</script></body>
+</body>
 </html>
