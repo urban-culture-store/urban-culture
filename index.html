@@ -1,45 +1,119 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>URBAN Culture</title><style>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+URBAN Culture
+</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<style>
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+font-family:'Poppins',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
 }
 
 body{
-background:#000;
+
+background:#050505;
 color:white;
 overflow-x:hidden;
-min-height:100vh;
+
 }
 
 /* Animated Background */
 
-body::before{
-content:"";
+.bg{
+
 position:fixed;
-width:500px;
-height:500px;
-background:rgba(255,255,255,.05);
-filter:blur(120px);
-top:-150px;
-left:-150px;
-animation:moveGlow 10s infinite alternate;
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
 z-index:-1;
+
+background:
+radial-gradient(
+circle at top left,
+rgba(255,255,255,.06),
+transparent 40%
+),
+
+radial-gradient(
+circle at bottom right,
+rgba(255,255,255,.05),
+transparent 40%
+),
+
+#050505;
+
 }
 
-@keyframes moveGlow{
+.glow{
 
-0%{
-transform:translate(0,0);
+position:absolute;
+
+width:300px;
+height:300px;
+
+border-radius:50%;
+
+background:
+rgba(255,255,255,.05);
+
+filter:blur(120px);
+
+animation:
+floatGlow 8s infinite alternate;
+
 }
 
-100%{
-transform:translate(200px,120px);
+.glow2{
+
+right:0;
+bottom:0;
+
+animation-delay:2s;
+
+}
+
+@keyframes floatGlow{
+
+from{
+transform:
+translate(0,0);
+}
+
+to{
+transform:
+translate(
+120px,
+-80px
+);
 }
 
 }
@@ -47,357 +121,643 @@ transform:translate(200px,120px);
 /* Header */
 
 header{
+
 position:sticky;
 top:0;
-z-index:1000;
-background:rgba(0,0,0,.7);
-backdrop-filter:blur(20px);
-padding:18px 25px;
+
+z-index:999;
+
 display:flex;
-justify-content:space-between;
+
+justify-content:
+space-between;
+
 align-items:center;
-border-bottom:1px solid rgba(255,255,255,.08);
+
+padding:18px 20px;
+
+background:
+rgba(0,0,0,.65);
+
+backdrop-filter:
+blur(25px);
+
+border-bottom:
+1px solid rgba(255,255,255,.08);
+
 }
 
 .logo{
-font-size:30px;
+
+font-size:28px;
 font-weight:800;
-letter-spacing:2px;
+
+letter-spacing:1px;
+
 }
 
-.nav{
+.menu{
+
 display:flex;
-gap:15px;
+gap:12px;
+
 }
 
-.nav a{
+.menu a{
+
 text-decoration:none;
+
 color:white;
-font-size:16px;
+
+font-size:14px;
+
 padding:10px 14px;
+
 border-radius:12px;
-transition:.3s;
+
+background:
+rgba(255,255,255,.05);
+
 }
 
-.nav a:hover{
-background:white;
-color:black;
-}
-
-/* Hero Section */
+/* Hero */
 
 .hero{
-width:92%;
-margin:40px auto;
-padding:70px 30px;
-border-radius:35px;
-background:linear-gradient(
-135deg,
-rgba(255,255,255,.08),
-rgba(255,255,255,.02)
-);
-backdrop-filter:blur(30px);
-border:1px solid rgba(255,255,255,.08);
+
+padding:
+70px 20px 40px;
+
 text-align:center;
-animation:floatCard 4s ease-in-out infinite;
+
 }
 
-@keyframes floatCard{
+.badge{
 
-0%{
-transform:translateY(0);
-}
+display:inline-block;
 
-50%{
-transform:translateY(-12px);
-}
+padding:
+10px 18px;
 
-100%{
-transform:translateY(0);
-}
+border-radius:999px;
+
+background:
+rgba(255,255,255,.08);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+margin-bottom:25px;
+
+font-size:13px;
 
 }
 
 .hero h1{
-font-size:68px;
-font-weight:900;
+
+font-size:52px;
+font-weight:800;
+
 line-height:1.05;
+
 margin-bottom:20px;
+
 }
 
 .hero p{
-max-width:700px;
+
+color:#bdbdbd;
+
+font-size:17px;
+
+line-height:1.8;
+
+max-width:650px;
+
 margin:auto;
-font-size:20px;
-color:#ccc;
-margin-bottom:30px;
+
 }
-
-.hero-buttons{
-display:flex;
-justify-content:center;
-gap:15px;
-flex-wrap:wrap;
-}
-
-.btn{
-padding:16px 28px;
-border:none;
-border-radius:16px;
-font-size:18px;
-font-weight:700;
-cursor:pointer;
-transition:.3s;
-text-decoration:none;
-}
-
-.btn-primary{
-background:white;
-color:black;
-}
-
-.btn-primary:hover{
-transform:translateY(-4px);
-}
-
-.btn-secondary{
-background:transparent;
-border:1px solid rgba(255,255,255,.2);
-color:white;
-}
-
-/* Premium Banner */
-
-.banner{
-width:92%;
-margin:30px auto;
-padding:25px;
-border-radius:25px;
-background:#111;
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-gap:15px;
-}
-
-.banner h2{
-font-size:28px;
-}
-
-/* Mobile */
 
 @media(max-width:768px){
 
 .hero h1{
-font-size:38px;
-}
 
-.hero p{
-font-size:16px;
+font-size:42px;
+
 }
 
 .logo{
+
 font-size:22px;
-}
-
-.nav{
-gap:8px;
-}
-
-.nav a{
-font-size:14px;
-padding:8px 10px;
-}
 
 }
 
-</style></head>
+.menu a{
+
+font-size:13px;
+
+padding:8px 12px;
+
+}
+
+}
+
+</style>
+
+</head>
+
 <body>
-<header><div class="logo">
+
+<div class="bg">
+
+<div class="glow"></div>
+
+<div class="glow glow2"></div>
+
+</div>
+<header>
+
+<div class="logo">
 URBAN Culture
-</div><div class="nav"><a href="index.html">
-Home
-</a><a href="products.html">
+</div>
+
+<div class="menu">
+
+<a href="products.html">
 Products
-</a><a href="customer-login.html">
+</a>
+
+<a href="customer-login.html">
 Login
-</a><a href="customer-register.html">
+</a>
+
+<a href="customer-register.html">
 Register
-</a><a href="cart.html">
-🛒 Cart
-</a></div></header><section class="hero"><h1>
-PREMIUM<br>
-STREETWEAR
-</h1><p>
-Minimal Design. Premium Quality.
-Built for the new generation.
-Experience the future of fashion with
-URBAN Culture.
-</p><div class="hero-buttons"><a
+</a>
+
+</div>
+
+</header>
+
+<section class="hero">
+
+<div class="badge">
+🔥 PREMIUM STREETWEAR BRAND
+</div>
+
+<h1>
+
+Modern Fashion
+
+<br>
+
+For The
+
+<br>
+
+Next Generation
+
+</h1>
+
+<p>
+
+Minimal.
+Premium.
+Timeless.
+
+Discover premium streetwear designed for confidence, comfort and everyday style.
+
+</p>
+
+<div class="hero-buttons">
+
+<a
 href="products.html"
-class="btn btn-primary">
+class="shop-btn">
 
 Shop Now
 
-</a><a
+</a>
+
+<a
 href="customer-login.html"
-class="btn btn-secondary">
+class="login-btn">
 
-Explore Collection
+Login
 
-</a></div></section><div class="banner"><div><h2>
-🚚 Free Shipping
-</h2><p>
-On Selected Products
-</p></div><div><h2>
-🔥 New Collection
-</h2><p>
-Limited Edition Drops
-</p></div><div><h2>
-⭐ Premium Quality
-</h2><p>
-Trusted By Customers
-</p></div></div><section
-style="
-width:92%;
-margin:auto;
-padding:20px;
-"><h2
-style="
-font-size:34px;
-margin-bottom:20px;
-text-align:center;
-">Featured Categories
+</a>
 
-</h2></section>
+</div>
+
+</section>
+
+<style>
+
+.hero-buttons{
+
+display:flex;
+
+justify-content:center;
+
+gap:15px;
+
+margin-top:35px;
+
+flex-wrap:wrap;
+
+}
+
+.shop-btn{
+
+background:white;
+
+color:black;
+
+padding:16px 35px;
+
+border-radius:16px;
+
+font-weight:700;
+
+text-decoration:none;
+
+transition:.3s;
+
+}
+
+.shop-btn:hover{
+
+transform:translateY(-3px);
+
+}
+
+.login-btn{
+
+background:transparent;
+
+border:1px solid rgba(255,255,255,.2);
+
+color:white;
+
+padding:16px 35px;
+
+border-radius:16px;
+
+font-weight:700;
+
+text-decoration:none;
+
+transition:.3s;
+
+}
+
+.login-btn:hover{
+
+background:white;
+
+color:black;
+
+}
+
+/* Moving Text */
+
+.marquee{
+
+overflow:hidden;
+
+white-space:nowrap;
+
+margin-top:60px;
+
+padding:20px 0;
+
+border-top:1px solid rgba(255,255,255,.08);
+
+border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.marquee-track{
+
+display:inline-block;
+
+animation:scrollText 18s linear infinite;
+
+font-size:22px;
+
+font-weight:700;
+
+}
+
+@keyframes scrollText{
+
+0%{
+transform:translateX(100%);
+}
+
+100%{
+transform:translateX(-100%);
+}
+
+}
+
+</style>
+
+<div class="marquee">
+
+<div class="marquee-track">
+
+URBAN CULTURE • PREMIUM STREETWEAR • MODERN FASHION • PREMIUM QUALITY • LIMITED COLLECTION •
+
+</div>
+
+</div>
 <section
 style="
 width:92%;
-margin:auto;
-padding-bottom:50px;
-"><h2
+margin:60px auto;
+">
+
+<h2
 style="
 font-size:34px;
-margin-bottom:25px;
+font-weight:800;
 text-align:center;
-">Latest Products
+margin-bottom:25px;
+">
 
-</h2><div
-id="products"
+Why Choose URBAN Culture
+
+</h2>
+
+<div
 style="
 display:grid;
 grid-template-columns:
-repeat(auto-fit,minmax(280px,1fr));
+repeat(auto-fit,minmax(250px,1fr));
 gap:20px;
-"></div></section><footer
-style="
-padding:40px 20px;
-text-align:center;
-border-top:1px solid rgba(255,255,255,.08);
-"><h2>
-URBAN Culture
-</h2><p
-style="
-margin-top:10px;
-color:#888;
-">Premium Fashion Brand
-
-</p></footer><script>
-
-async function loadProducts(){
-
-try{
-
-const res =
-await fetch(
-"https://urban-culture.onrender.com/products"
-);
-
-const products =
-await res.json();
-
-let html = "";
-
-products.reverse().forEach(product=>{
-
-html += `
-
-<div
-onclick='openProduct(${JSON.stringify(product)})'
-style="
-background:#111;
-border-radius:25px;
-overflow:hidden;
-cursor:pointer;
-border:1px solid #222;
-transition:.3s;
 ">
 
-<img
-src="${product.image}"
-style="
-width:100%;
-height:320px;
-object-fit:cover;
-">
+<div class="feature-card">
 
-<div style="padding:18px">
-
-<h3
-style="
-font-size:22px;
-margin-bottom:10px;
-">
-
-${product.name}
-
+<h3>
+🚀 Premium Quality
 </h3>
 
-<div
+<p>
+Carefully selected materials for long lasting comfort and style.
+</p>
+
+</div>
+
+<div class="feature-card">
+
+<h3>
+⚡ Fast Delivery
+</h3>
+
+<p>
+Quick order processing and reliable delivery experience.
+</p>
+
+</div>
+
+<div class="feature-card">
+
+<h3>
+🔥 Trending Designs
+</h3>
+
+<p>
+Modern fashion inspired by global streetwear culture.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section
 style="
-font-size:28px;
-font-weight:bold;
-color:#00ff88;
+width:92%;
+margin:60px auto;
 ">
 
-₹${product.price}
+<div class="stats">
+
+<div class="stat-box">
+
+<h1 id="count1">
+0
+</h1>
+
+<p>
+Products
+</p>
+
+</div>
+
+<div class="stat-box">
+
+<h1 id="count2">
+0
+</h1>
+
+<p>
+Customers
+</p>
+
+</div>
+
+<div class="stat-box">
+
+<h1 id="count3">
+0
+</h1>
+
+<p>
+Orders
+</p>
 
 </div>
 
 </div>
 
-</div>
+</section>
 
-`;
+<footer>
 
-});
+<h2>
+URBAN Culture
+</h2>
 
-document.getElementById(
-"products"
-).innerHTML = html;
+<p>
+Premium Fashion Brand
+</p>
 
-}catch(err){
+<p
+style="
+margin-top:15px;
+color:#888;
+">
 
-console.log(err);
+© 2026 URBAN Culture.
+All Rights Reserved.
+
+</p>
+
+</footer>
+
+<style>
+
+.feature-card{
+
+background:
+rgba(255,255,255,.05);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+padding:25px;
+
+border-radius:24px;
+
+backdrop-filter:
+blur(20px);
+
+transition:.3s;
+
+}
+
+.feature-card:hover{
+
+transform:
+translateY(-6px);
+
+}
+
+.feature-card h3{
+
+margin-bottom:12px;
+
+font-size:22px;
+
+}
+
+.feature-card p{
+
+color:#bdbdbd;
+
+line-height:1.7;
+
+}
+
+.stats{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:20px;
+
+}
+
+.stat-box{
+
+background:
+rgba(255,255,255,.05);
+
+padding:25px;
+
+border-radius:24px;
+
+text-align:center;
+
+border:
+1px solid rgba(255,255,255,.08);
+
+}
+
+.stat-box h1{
+
+font-size:42px;
+
+margin-bottom:10px;
+
+}
+
+footer{
+
+margin-top:80px;
+
+padding:50px 20px;
+
+text-align:center;
+
+border-top:
+1px solid rgba(255,255,255,.08);
+
+color:white;
+
+}
+
+@media(max-width:768px){
+
+.stats{
+
+grid-template-columns:
+1fr;
 
 }
 
 }
 
-function openProduct(product){
+</style>
 
-localStorage.setItem(
-"selectedProduct",
-JSON.stringify(product)
+<script>
+
+function animateValue(id,end){
+
+let start = 0;
+
+const obj =
+document.getElementById(id);
+
+const timer =
+setInterval(()=>{
+
+start++;
+
+obj.innerHTML =
+start;
+
+if(start>=end){
+
+clearInterval(timer);
+
+}
+
+},20);
+
+}
+
+animateValue(
+"count1",
+50
 );
 
-window.location.href =
-"product.html";
+animateValue(
+"count2",
+100
+);
 
-}
+animateValue(
+"count3",
+250
+);
 
-loadProducts();
+</script>
 
-</script></body>
+</body>
 </html>

@@ -1,10 +1,16 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<html>
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Manage Products</title>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Manage Products
+</title>
 
 <style>
 
@@ -17,229 +23,200 @@ font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 
 body{
 background:#000;
-color:#fff;
-padding:25px;
+color:white;
+min-height:100vh;
 }
 
-.header{
+header{
+
+position:sticky;
+top:0;
+
+background:
+rgba(0,0,0,.8);
+
+backdrop-filter:
+blur(20px);
+
+padding:20px;
+
 display:flex;
+
 justify-content:space-between;
 align-items:center;
-margin-bottom:30px;
+
+border-bottom:
+1px solid #222;
+
+z-index:100;
+
 }
 
 .logo{
-font-size:32px;
-font-weight:700;
+
+font-size:28px;
+font-weight:800;
+
 }
 
-.add-btn{
-background:#fff;
-color:#000;
+.back-btn{
+
+background:#111;
+
+color:white;
+
+padding:12px 18px;
+
 border:none;
-padding:12px 20px;
-border-radius:15px;
-font-weight:bold;
+
+border-radius:12px;
+
 cursor:pointer;
+
+}
+
+.container{
+
+width:95%;
+max-width:1400px;
+
+margin:auto;
+
+padding:25px 0;
+
+}
+
+.top-bar{
+
+display:flex;
+gap:15px;
+
+margin-bottom:25px;
+
+flex-wrap:wrap;
+
 }
 
 .search{
-width:100%;
+
+flex:1;
+
+min-width:250px;
+
 padding:15px;
-border:none;
+
+background:#111;
+
+border:1px solid #222;
+
 border-radius:15px;
-margin-bottom:25px;
+
+color:white;
+
 font-size:16px;
+
+}
+
+.add-btn{
+
+background:white;
+
+color:black;
+
+padding:15px 25px;
+
+border:none;
+
+border-radius:15px;
+
+font-weight:700;
+
+cursor:pointer;
+
 }
 
 .products{
+
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+grid-template-columns:
+repeat(auto-fill,minmax(300px,1fr));
+
 gap:25px;
+
 }
 
 .card{
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(25px);
-border:1px solid rgba(255,255,255,0.1);
+
+background:
+linear-gradient(
+135deg,
+rgba(255,255,255,.08),
+rgba(255,255,255,.02)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
 border-radius:25px;
+
 overflow:hidden;
+
+transition:.3s;
+
 }
 
-.card img{
-width:100%;
-height:250px;
-object-fit:cover;
-background:#111;
+.card:hover{
+
+transform:translateY(-5px);
+
 }
 
-.info{
-padding:20px;
-}
-
-.name{
-font-size:22px;
-font-weight:bold;
-margin-bottom:10px;
-}
-
-.price{
-font-size:26px;
-font-weight:bold;
-margin-bottom:10px;
-}
-
-.category{
-color:#aaa;
-margin-bottom:15px;
-}
-
-.actions{
-display:flex;
-gap:10px;
-}
-
-.edit{
-flex:1;
-padding:12px;
-border:none;
-border-radius:12px;
-background:#fff;
-color:#000;
-font-weight:bold;
-cursor:pointer;
-}
-
-.delete{
-flex:1;
-padding:12px;
-border:none;
-border-radius:12px;
-background:red;
-color:white;
-font-weight:bold;
-cursor:pointer;
-}
-
-#editModal{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.8);
-justify-content:center;
-align-items:center;
-}
-
-.modal-box{
-width:90%;
-max-width:500px;
-background:#111;
-padding:25px;
-border-radius:20px;
-}
-
-.modal-box input{
-width:100%;
-padding:12px;
-margin:10px 0;
-border:none;
-border-radius:12px;
-}
-
-.save-btn{
-width:100%;
-padding:12px;
-border:none;
-border-radius:12px;
-background:white;
-color:black;
-font-weight:bold;
-cursor:pointer;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="header">
-<div class="logo">Manage Products</div>
-
-<button
-class="add-btn"
-onclick="window.location.href='add-product.html'">
-
-* Add Product
-
-  </button>
-
-</div>
-
-<input
-class="search"
-id="search"
-placeholder="Search Products..."
-onkeyup="filterProducts()">
-
-<div
-class="products"
-id="products">
-</div>
-
-<div id="editModal">
-
-<div class="modal-box">
-
-<h2>Edit Product</h2>
-
-<input id="editName" placeholder="Product Name">
-
-<input id="editPrice" placeholder="Price">
-
-<button
-class="save-btn"
-onclick="saveEdit()">
-Save Changes </button>
-
-</div>
-
-</div>
-
+.product
 <script>
 
-let allProducts=[];
-let currentIndex=-1;
+let allProducts = [];
 
 async function loadProducts(){
 
-const res=
-await fetch("https://urban-culture.onrender.com/products");
+try{
 
-const products=
+const res = await fetch(
+"https://urban-culture.onrender.com/products"
+);
+
+const products =
 await res.json();
 
-allProducts=products;
+allProducts = products;
 
 renderProducts(products);
+
+}catch(err){
+
+document.getElementById(
+"products"
+).innerHTML =
+
+"<h2>Failed To Load Products</h2>";
+
+}
 
 }
 
 function renderProducts(products){
 
-let html="";
+let html = "";
 
 products.forEach((product,index)=>{
 
-html+=`
+html += `
 
 <div class="card">
 
 <img
-src="${product.image || 'https://via.placeholder.com/300'}">
+class="product-image"
+src="${product.image}">
 
 <div class="info">
 
@@ -251,22 +228,26 @@ ${product.name}
 ₹${product.price}
 </div>
 
-<div class="category">
-${product.category}
+<div class="stock">
+Stock : ${product.stock}
 </div>
 
 <div class="actions">
 
 <button
-class="edit"
+class="edit-btn"
 onclick="editProduct(${index})">
+
 Edit
+
 </button>
 
 <button
-class="delete"
+class="delete-btn"
 onclick="deleteProduct(${index})">
+
 Delete
+
 </button>
 
 </div>
@@ -279,24 +260,26 @@ Delete
 
 });
 
-document.getElementById("products")
-.innerHTML=html;
+document.getElementById(
+"products"
+).innerHTML = html;
 
 }
 
 function filterProducts(){
 
-const text=
-document.getElementById("search")
-.value
-.toLowerCase();
+const search =
+document.getElementById(
+"search"
+).value.toLowerCase();
 
-const filtered=
-allProducts.filter(product=>
+const filtered =
+
+allProducts.filter(product =>
 
 product.name
 .toLowerCase()
-.includes(text)
+.includes(search)
 
 );
 
@@ -306,78 +289,63 @@ renderProducts(filtered);
 
 function editProduct(index){
 
-currentIndex=index;
+const product =
+allProducts[index];
 
-document.getElementById("editName").value=
-allProducts[index].name;
-
-document.getElementById("editPrice").value=
-allProducts[index].price;
-
-document.getElementById("editModal").style.display="flex";
-
-}
-
-async function saveEdit(){
-
-const updatedProduct = {
-
-...allProducts[currentIndex],
-
-name:
-document.getElementById("editName").value,
-
-price:
-document.getElementById("editPrice").value
-
-};
-
-const res = await fetch(
-
-`https://urban-culture.onrender.com/products/${currentIndex}`,
-
-{
-method:"PUT",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify(updatedProduct)
-}
-
+const newName =
+prompt(
+"Product Name",
+product.name
 );
 
-if(res.ok){
+if(newName===null) return;
 
-alert("✅ Product Updated");
+const newPrice =
+prompt(
+"Price",
+product.price
+);
 
-document.getElementById(
-"editModal"
-).style.display="none";
+if(newPrice===null) return;
 
-loadProducts();
+product.name =
+newName;
 
-}else{
+product.price =
+newPrice;
 
-alert("❌ Update Failed");
+alert(
+"Edit UI Ready\nBackend update next step."
+);
+
+renderProducts(
+allProducts
+);
 
 }
 
-}
+function deleteProduct(index){
 
-async function deleteProduct(index){
-
-if(!confirm("Delete Product?")){
+if(
+!confirm(
+"Delete Product?"
+)
+){
 return;
 }
 
-await fetch(
-`https://urban-culture.onrender.com/products/${index}`,
-{
-method:"DELETE"
-}
+allProducts.splice(
+index,
+1
 );
 
-loadProducts();
+renderProducts(
+allProducts
+);
+
+alert(
+"Deleted Locally"
+);
 
 }
 
