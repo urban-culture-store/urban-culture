@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>URBAN Culture</title>
-
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>URBAN Culture</title><style>
 
 *{
 margin:0;
@@ -17,9 +12,12 @@ font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 
 body{
 background:#000;
-color:#fff;
+color:white;
 overflow-x:hidden;
+min-height:100vh;
 }
+
+/* Animated Background */
 
 body::before{
 content:"";
@@ -27,593 +25,285 @@ position:fixed;
 width:500px;
 height:500px;
 background:rgba(255,255,255,.05);
-filter:blur(150px);
+filter:blur(120px);
 top:-150px;
 left:-150px;
-animation:glowMove 8s infinite alternate;
+animation:moveGlow 10s infinite alternate;
 z-index:-1;
 }
 
-@keyframes glowMove{
+@keyframes moveGlow{
 
 0%{
 transform:translate(0,0);
 }
 
 100%{
-transform:translate(150px,100px);
+transform:translate(200px,120px);
 }
 
 }
+
+/* Header */
 
 header{
 position:sticky;
 top:0;
 z-index:1000;
-background:rgba(0,0,0,.8);
+background:rgba(0,0,0,.7);
 backdrop-filter:blur(20px);
-padding:15px 20px;
+padding:18px 25px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-border-bottom:1px solid #222;
+border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .logo{
-font-size:28px;
-font-weight:900;
+font-size:30px;
+font-weight:800;
 letter-spacing:2px;
 }
 
-.icons{
+.nav{
 display:flex;
-gap:12px;
+gap:15px;
 }
 
-.icon-btn{
-width:45px;
-height:45px;
-border:none;
-border-radius:14px;
-background:#111;
+.nav a{
+text-decoration:none;
 color:white;
-font-size:20px;
-cursor:pointer;
+font-size:16px;
+padding:10px 14px;
+border-radius:12px;
+transition:.3s;
 }
+
+.nav a:hover{
+background:white;
+color:black;
+}
+
+/* Hero Section */
 
 .hero{
-padding:80px 20px;
+width:92%;
+margin:40px auto;
+padding:70px 30px;
+border-radius:35px;
+background:linear-gradient(
+135deg,
+rgba(255,255,255,.08),
+rgba(255,255,255,.02)
+);
+backdrop-filter:blur(30px);
+border:1px solid rgba(255,255,255,.08);
 text-align:center;
+animation:floatCard 4s ease-in-out infinite;
 }
 
-.hero h1{
-font-size:58px;
-font-weight:900;
-line-height:1;
-margin-bottom:20px;
-animation:fadeUp 1s ease;
+@keyframes floatCard{
+
+0%{
+transform:translateY(0);
 }
 
-.hero p{
-color:#aaa;
-font-size:18px;
-margin-bottom:30px;
+50%{
+transform:translateY(-12px);
 }
 
-@keyframes fadeUp{
-
-from{
-opacity:0;
-transform:translateY(40px);
-}
-
-to{
-opacity:1;
+100%{
 transform:translateY(0);
 }
 
 }
 
-.shop-btn{
-padding:18px 35px;
-border:none;
-border-radius:18px;
-font-size:18px;
-font-weight:bold;
-background:white;
-color:black;
-cursor:pointer;
+.hero h1{
+font-size:68px;
+font-weight:900;
+line-height:1.05;
+margin-bottom:20px;
 }
 
-.slider{
-margin-top:50px;
-overflow:hidden;
-white-space:nowrap;
+.hero p{
+max-width:700px;
+margin:auto;
+font-size:20px;
+color:#ccc;
+margin-bottom:30px;
 }
 
-.slide-track{
-display:inline-block;
-animation:scroll 20s linear infinite;
-}
-
-.slide-track span{
-font-size:22px;
-margin-right:80px;
-font-weight:bold;
-}
-
-@keyframes scroll{
-
-0%{
-transform:translateX(0);
-}
-
-100%{
-transform:translateX(-50%);
-}
-
-}
-
-.section-title{
-padding:20px;
-font-size:28px;
-font-weight:bold;
-}
-
-</style>
-</head>
-
-<body>
-
-<header>
-
-<div class="logo">
-URBAN Culture
-</div>
-
-<div class="icons">
-
-<button class="icon-btn"
-onclick="location.href='profile.html'">
-👤
-</button>
-
-<button class="icon-btn"
-onclick="location.href='wishlist.html'">
-❤️
-</button>
-
-<button class="icon-btn"
-onclick="location.href='cart.html'">
-🛒
-</button>
-
-</div>
-
-</header>
-
-<section class="hero">
-
-<h1>
-PREMIUM<br>
-STREETWEAR
-</h1>
-
-<p>
-Designed for the next generation.
-Minimal. Premium. Timeless.
-</p>
-
-<button
-class="shop-btn"
-onclick="location.href='products.html'">
-SHOP NOW
-</button>
-
-<div class="slider">
-
-<div class="slide-track">
-
-<span>PREMIUM QUALITY</span>
-<span>FREE SHIPPING</span>
-<span>NEW ARRIVALS</span>
-<span>LIMITED DROP</span>
-<span>PREMIUM QUALITY</span>
-<span>FREE SHIPPING</span>
-<span>NEW ARRIVALS</span>
-
-</div>
-
-</div>
-
-</section>
-<!-- FEATURED PRODUCTS -->
-
-<h2 class="section-title">
-🔥 Featured Products
-</h2>
-
-<div class="products" id="products">
-
-<div class="product-card">
-<img src="images/product1.jpeg">
-<div class="product-info">
-<h3>T Shirt For Men</h3>
-<p>₹100</p>
-<button onclick="location.href='products.html'">
-View Product
-</button>
-</div>
-</div>
-
-<div class="product-card">
-<img src="images/product2.jpg.jpeg">
-<div class="product-info">
-<h3>Premium Sweater</h3>
-<p>₹200</p>
-<button onclick="location.href='products.html'">
-View Product
-</button>
-</div>
-</div>
-
-</div>
-
-<!-- TRENDING BANNER -->
-
-<section class="banner">
-
-<h2>
-⚡ NEW DROP 2026
-</h2>
-
-<p>
-Premium Streetwear Collection
-</p>
-
-<button
-onclick="location.href='products.html'">
-Explore Collection
-</button>
-
-</section>
-
-<style>
-
-.products{
-
-display:grid;
-grid-template-columns:
-repeat(2,1fr);
-
+.hero-buttons{
+display:flex;
+justify-content:center;
 gap:15px;
-padding:15px;
-
+flex-wrap:wrap;
 }
 
-.product-card{
-
-background:#111;
-border:1px solid #222;
-border-radius:25px;
-overflow:hidden;
-transition:.3s;
-
-}
-
-.product-card:hover{
-
-transform:translateY(-8px);
-
-}
-
-.product-card img{
-
-width:100%;
-height:220px;
-object-fit:cover;
-
-}
-
-.product-info{
-
-padding:15px;
-
-}
-
-.product-info h3{
-
-font-size:18px;
-margin-bottom:8px;
-
-}
-
-.product-info p{
-
-font-size:22px;
-font-weight:bold;
-color:#00ff88;
-margin-bottom:12px;
-
-}
-
-.product-info button{
-
-width:100%;
-padding:12px;
+.btn{
+padding:16px 28px;
 border:none;
-border-radius:12px;
+border-radius:16px;
+font-size:18px;
+font-weight:700;
+cursor:pointer;
+transition:.3s;
+text-decoration:none;
+}
+
+.btn-primary{
 background:white;
 color:black;
-font-weight:bold;
-cursor:pointer;
-
 }
+
+.btn-primary:hover{
+transform:translateY(-4px);
+}
+
+.btn-secondary{
+background:transparent;
+border:1px solid rgba(255,255,255,.2);
+color:white;
+}
+
+/* Premium Banner */
 
 .banner{
-
-margin:25px;
-padding:40px 20px;
-border-radius:30px;
-
-background:
-linear-gradient(
-135deg,
-#111,
-#1a1a1a
-);
-
-text-align:center;
-
+width:92%;
+margin:30px auto;
+padding:25px;
+border-radius:25px;
+background:#111;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:15px;
 }
 
 .banner h2{
-
-font-size:36px;
-margin-bottom:10px;
-
+font-size:28px;
 }
 
-.banner p{
-
-color:#aaa;
-margin-bottom:20px;
-
-}
-
-.banner button{
-
-padding:15px 25px;
-border:none;
-border-radius:15px;
-background:white;
-color:black;
-font-weight:bold;
-cursor:pointer;
-
-}
+/* Mobile */
 
 @media(max-width:768px){
 
 .hero h1{
-
-font-size:42px;
-
+font-size:38px;
 }
 
-.products{
-
-grid-template-columns:
-repeat(2,1fr);
-
+.hero p{
+font-size:16px;
 }
 
-.product-card img{
-
-height:170px;
-
-}
-
-}
-
-</style>
-<!-- BOTTOM NAVIGATION -->
-
-<div class="bottom-nav">
-
-<button onclick="location.href='index.html'">
-🏠
-<span>Home</span>
-</button>
-
-<button onclick="location.href='products.html'">
-🛍️
-<span>Shop</span>
-</button>
-
-<button onclick="location.href='wishlist.html'">
-❤️
-<span>Wishlist</span>
-</button>
-
-<button onclick="location.href='my-orders.html'">
-📦
-<span>Orders</span>
-</button>
-
-<button onclick="location.href='profile.html'">
-👤
-<span>Profile</span>
-</button>
-
-</div>
-
-<!-- FOOTER -->
-
-<footer>
-
-<h2>
-URBAN Culture
-</h2>
-
-<p>
-Premium Streetwear Brand
-</p>
-
-<p>
-© 2026 All Rights Reserved
-</p>
-
-</footer>
-
-<style>
-
-.bottom-nav{
-
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-
-background:#111;
-border-top:1px solid #222;
-
-display:flex;
-justify-content:space-around;
-
-padding:10px 0;
-z-index:9999;
-
-}
-
-.bottom-nav button{
-
-background:none;
-border:none;
-color:white;
-
-display:flex;
-flex-direction:column;
-align-items:center;
-
-font-size:20px;
-cursor:pointer;
-
-}
-
-.bottom-nav span{
-
-font-size:12px;
-margin-top:4px;
-
-}
-
-footer{
-
-margin-top:60px;
-padding:40px 20px 100px;
-
-text-align:center;
-color:#888;
-
-}
-
-footer h2{
-
-color:white;
-margin-bottom:10px;
-
-}
-
-.loading{
-
-position:fixed;
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:#000;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
+.logo{
 font-size:22px;
-font-weight:bold;
-
-z-index:99999;
-
 }
 
-.loader{
-
-width:50px;
-height:50px;
-
-border:4px solid #333;
-border-top:4px solid white;
-
-border-radius:50%;
-
-animation:spin 1s linear infinite;
-
+.nav{
+gap:8px;
 }
 
-@keyframes spin{
-
-100%{
-transform:rotate(360deg);
+.nav a{
+font-size:14px;
+padding:8px 10px;
 }
 
 }
 
-</style>
+</style></head>
+<body>
+<header><div class="logo">
+URBAN Culture
+</div><div class="nav"><a href="index.html">
+Home
+</a><a href="products.html">
+Products
+</a><a href="customer-login.html">
+Login
+</a><a href="customer-register.html">
+Register
+</a><a href="cart.html">
+🛒 Cart
+</a></div></header><section class="hero"><h1>
+PREMIUM<br>
+STREETWEAR
+</h1><p>
+Minimal Design. Premium Quality.
+Built for the new generation.
+Experience the future of fashion with
+URBAN Culture.
+</p><div class="hero-buttons"><a
+href="products.html"
+class="btn btn-primary">
 
-<div id="loading" class="loading">
+Shop Now
 
-<div class="loader"></div>
+</a><a
+href="customer-login.html"
+class="btn btn-secondary">
 
-</div>
+Explore Collection
 
-<script>
+</a></div></section><div class="banner"><div><h2>
+🚚 Free Shipping
+</h2><p>
+On Selected Products
+</p></div><div><h2>
+🔥 New Collection
+</h2><p>
+Limited Edition Drops
+</p></div><div><h2>
+⭐ Premium Quality
+</h2><p>
+Trusted By Customers
+</p></div></div><section
+style="
+width:92%;
+margin:auto;
+padding:20px;
+"><h2
+style="
+font-size:34px;
+margin-bottom:20px;
+text-align:center;
+">Featured Categories
 
-// LOADING SCREEN
+</h2></section>
+<section
+style="
+width:92%;
+margin:auto;
+padding-bottom:50px;
+"><h2
+style="
+font-size:34px;
+margin-bottom:25px;
+text-align:center;
+">Latest Products
 
-window.addEventListener(
-"load",
-()=>{
+</h2><div
+id="products"
+style="
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+"></div></section><footer
+style="
+padding:40px 20px;
+text-align:center;
+border-top:1px solid rgba(255,255,255,.08);
+"><h2>
+URBAN Culture
+</h2><p
+style="
+margin-top:10px;
+color:#888;
+">Premium Fashion Brand
 
-setTimeout(()=>{
-
-document.getElementById(
-"loading"
-).style.display="none";
-
-},800);
-
-}
-);
-
-// LOGIN DETECT
-
-const customer =
-JSON.parse(
-localStorage.getItem(
-"customer"
-)
-);
-
-if(customer){
-
-console.log(
-"Customer Logged In"
-);
-
-}
-
-// AUTO LOAD PRODUCTS
+</p></footer><script>
 
 async function loadProducts(){
 
@@ -627,48 +317,53 @@ await fetch(
 const products =
 await res.json();
 
-const box =
-document.getElementById(
-"products"
-);
+let html = "";
 
-if(!box) return;
+products.reverse().forEach(product=>{
 
-box.innerHTML="";
+html += `
 
-products.forEach(product=>{
+<div
+onclick='openProduct(${JSON.stringify(product)})'
+style="
+background:#111;
+border-radius:25px;
+overflow:hidden;
+cursor:pointer;
+border:1px solid #222;
+transition:.3s;
+">
 
-box.innerHTML += `
+<img
+src="${product.image}"
+style="
+width:100%;
+height:320px;
+object-fit:cover;
+">
 
-<div class="product-card">
+<div style="padding:18px">
 
-<img src="${
-product.image
-}">
+<h3
+style="
+font-size:22px;
+margin-bottom:10px;
+">
 
-<div class="product-info">
-
-<h3>
 ${product.name}
+
 </h3>
 
-<p>
-₹${product.price}
-</p>
-
-<button
-onclick="
-localStorage.setItem(
-'selectedProduct',
-JSON.stringify(
-${JSON.stringify('${product.name}')}
-)
-);
-location.href=
-'product.html';
+<div
+style="
+font-size:28px;
+font-weight:bold;
+color:#00ff88;
 ">
-View Product
-</button>
+
+₹${product.price}
+
+</div>
 
 </div>
 
@@ -678,6 +373,10 @@ View Product
 
 });
 
+document.getElementById(
+"products"
+).innerHTML = html;
+
 }catch(err){
 
 console.log(err);
@@ -686,10 +385,19 @@ console.log(err);
 
 }
 
+function openProduct(product){
+
+localStorage.setItem(
+"selectedProduct",
+JSON.stringify(product)
+);
+
+window.location.href =
+"product.html";
+
+}
+
 loadProducts();
 
-</script>
-
-</body>
+</script></body>
 </html>
-

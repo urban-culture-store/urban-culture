@@ -1,12 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Profile</title>
-
-<style>
+<title>
+My Profile
+</title><style>
 
 *{
 margin:0;
@@ -18,168 +15,382 @@ font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 body{
 background:#000;
 color:white;
-display:flex;
-justify-content:center;
-align-items:center;
+overflow-x:hidden;
 min-height:100vh;
-padding:20px;
 }
 
-.profile-box{
-width:100%;
-max-width:600px;
-background:rgba(255,255,255,0.06);
-backdrop-filter:blur(25px);
-border:1px solid rgba(255,255,255,0.1);
+/* Animated Background */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+width:450px;
+height:450px;
+
+background:
+rgba(255,255,255,.05);
+
+filter:blur(120px);
+
+top:-120px;
+left:-120px;
+
+animation:
+moveGlow 10s infinite alternate;
+
+z-index:-1;
+
+}
+
+@keyframes moveGlow{
+
+0%{
+transform:translate(0,0);
+}
+
+100%{
+transform:translate(180px,120px);
+}
+
+}
+
+/* Header */
+
+header{
+
+position:sticky;
+top:0;
+
+background:
+rgba(0,0,0,.7);
+
+backdrop-filter:
+blur(20px);
+
+padding:18px;
+
+display:flex;
+
+justify-content:
+space-between;
+
+align-items:center;
+
+border-bottom:
+1px solid rgba(255,255,255,.08);
+
+}
+
+.logo{
+
+font-size:26px;
+font-weight:800;
+
+}
+
+.back-btn{
+
+background:#111;
+
+padding:12px 16px;
+
+border:none;
+
+border-radius:12px;
+
+color:white;
+
+cursor:pointer;
+
+}
+
+/* Main */
+
+.container{
+
+width:92%;
+
+max-width:900px;
+
+margin:auto;
+
+padding:25px 0;
+
+}
+
+/* Profile Card */
+
+.profile-card{
+
+background:
+linear-gradient(
+135deg,
+rgba(255,255,255,.08),
+rgba(255,255,255,.02)
+);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+backdrop-filter:
+blur(25px);
+
+padding:30px;
+
 border-radius:30px;
-padding:35px;
+
+text-align:center;
+
+margin-bottom:25px;
+
+animation:
+floatCard 4s ease-in-out infinite;
+
+}
+
+@keyframes floatCard{
+
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-8px);
+}
+
+100%{
+transform:translateY(0);
+}
+
 }
 
 .avatar{
+
 width:120px;
 height:120px;
+
 border-radius:50%;
-background:white;
-color:black;
+
+background:#111;
+
 display:flex;
-justify-content:center;
+
 align-items:center;
-font-size:40px;
-font-weight:bold;
-margin:0 auto 20px;
+justify-content:center;
+
+font-size:50px;
+
+margin:auto;
+
+margin-bottom:20px;
+
+border:
+2px solid rgba(255,255,255,.1);
+
 }
 
-h1{
-text-align:center;
-margin-bottom:25px;
+.name{
+
+font-size:28px;
+font-weight:800;
+
+margin-bottom:10px;
+
 }
 
-.info{
-background:rgba(255,255,255,0.05);
-padding:15px;
-border-radius:15px;
-margin-bottom:15px;
-}
+.phone{
 
-.label{
 color:#aaa;
-font-size:14px;
-}
 
-.value{
-font-size:18px;
-font-weight:bold;
-margin-top:5px;
-}
-
-.btn{
-width:100%;
-padding:15px;
-border:none;
-border-radius:15px;
-margin-top:10px;
-background:white;
-color:black;
 font-size:16px;
-font-weight:bold;
+
+}
+
+/* Stats */
+
+.stats{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:15px;
+
+margin-bottom:25px;
+
+}
+
+.stat{
+
+background:#111;
+
+padding:20px;
+
+border-radius:20px;
+
+text-align:center;
+
+border:1px solid #222;
+
+}
+
+.stat-number{
+
+font-size:28px;
+font-weight:800;
+
+color:#00ff88;
+
+}
+
+.stat-title{
+
+margin-top:8px;
+
+color:#aaa;
+
+font-size:14px;
+
+}
+
+@media(max-width:768px){
+
+.stats{
+
+grid-template-columns:
+1fr 1fr 1fr;
+
+}
+
+.name{
+
+font-size:22px;
+
+}
+
+}
+
+</style></head><body>
+<header><div class="logo">
+URBAN Culture
+</div><button
+class="back-btn"
+onclick="window.location.href='index.html'">
+
+← Home
+
+</button></header><div class="container"><div class="profile-card"><div class="avatar">
+👤
+</div><div
+id="customerName"
+class="name">Customer
+
+</div><div
+id="customerPhone"
+class="phone">+91XXXXXXXXXX
+
+</div></div><div class="stats"><div class="stat"><div
+id="ordersCount"
+class="stat-number">0
+
+</div><div class="stat-title">Orders
+
+</div></div><div class="stat"><div
+id="wishlistCount"
+class="stat-number">0
+
+</div><div class="stat-title">Wishlist
+
+</div></div><div class="stat"><div
+id="cartCount"
+class="stat-number">0
+
+</div><div class="stat-title">Cart
+
+</div></div></div><div
+style="
+display:grid;
+gap:15px;
+"><button
+onclick="location.href='my-orders.html'"
+style="
+padding:18px;
+border:none;
+border-radius:18px;
+background:#fff;
+color:#000;
+font-size:18px;
+font-weight:700;
 cursor:pointer;
-}
+">
 
-.logout{
-background:red;
-color:white;
-}
+📦 My Orders
 
-</style>
+</button><button
+onclick="location.href='wishlist.html'"
+style="
+padding:18px;
+border:none;
+border-radius:18px;
+background:#111;
+color:#fff;
+font-size:18px;
+font-weight:700;
+cursor:pointer;
+border:1px solid #222;
+">
 
-</head>
+❤️ Wishlist
 
-<body>
+</button><button
+onclick="location.href='cart.html'"
+style="
+padding:18px;
+border:none;
+border-radius:18px;
+background:#111;
+color:#fff;
+font-size:18px;
+font-weight:700;
+cursor:pointer;
+border:1px solid #222;
+">
 
-<div class="profile-box">
+🛒 Cart
 
-<div class="avatar" id="avatar">
-U
-</div>
+</button><button
+onclick="logout()"
+style="
+padding:18px;
+border:none;
+border-radius:18px;
+background:#ff4444;
+color:#fff;
+font-size:18px;
+font-weight:700;
+cursor:pointer;
+">
 
-<h1>My Profile</h1>
+🚪 Logout
 
-<div class="info">
-<div class="label">Full Name</div>
-<div class="value" id="name"></div>
-</div>
+</button></div></div>
+<footer
+style="
+text-align:center;
+padding:40px 20px;
+margin-top:40px;
+color:#666;
+border-top:1px solid rgba(255,255,255,.08);
+">© 2026 URBAN Culture
 
-<div class="info">
-<div class="label">Phone Number</div>
-<div class="value" id="phone"></div>
-</div>
-
-<div class="info">
-<div class="label">Email</div>
-<div class="value" id="email"></div>
-</div>
-
-<button
-class="btn"
-onclick="window.location.href='my-orders.html'">
-📦 My Orders </button>
-
-<button
-class="btn"
-onclick="window.location.href='wishlist.html'">
-❤️ Wishlist </button>
-
-<button
-class="btn"
-onclick="window.location.href='products.html'">
-🛍️ Continue Shopping </button>
-
-<button
-class="btn logout"
-onclick="logout()">
-Logout </button>
-
-</div>
-
-<script>
-
-const user =
-JSON.parse(
-localStorage.getItem("customer")
-);
-
-if(!user){
-
-window.location.href =
-"customer-login.html";
-
-}
-
-document.getElementById("name")
-.innerHTML = user.name;
-
-document.getElementById("phone")
-.innerHTML = user.phone;
-
-document.getElementById("email")
-.innerHTML = user.email;
-
-document.getElementById("avatar")
-.innerHTML =
-user.name.charAt(0).toUpperCase();
-
-function logout(){
-
-localStorage.removeItem(
-"customer"
-);
-
-window.location.href =
-"customer-login.html";
-
-}
+</footer><script>
 
 const customer =
+
 JSON.parse(
 localStorage.getItem(
 "customer"
@@ -194,16 +405,85 @@ window.location.href =
 }
 
 document.getElementById(
-"name"
+"customerName"
 ).innerHTML =
-customer.name;
+
+customer.name ||
+"Customer";
 
 document.getElementById(
-"phone"
+"customerPhone"
 ).innerHTML =
-customer.phone;
 
-</script>
+customer.phone ||
+"Not Available";
 
-</body>
+/* Orders Count */
+
+const orders =
+
+JSON.parse(
+localStorage.getItem(
+"orders"
+)
+) || [];
+
+document.getElementById(
+"ordersCount"
+).innerHTML =
+
+orders.length;
+
+/* Wishlist Count */
+
+const wishlist =
+
+JSON.parse(
+localStorage.getItem(
+"wishlist"
+)
+) || [];
+
+document.getElementById(
+"wishlistCount"
+).innerHTML =
+
+wishlist.length;
+
+/* Cart Count */
+
+const cart =
+
+JSON.parse(
+localStorage.getItem(
+"cart"
+)
+) || [];
+
+document.getElementById(
+"cartCount"
+).innerHTML =
+
+cart.length;
+
+function logout(){
+
+if(
+confirm(
+"Logout from account?"
+)
+){
+
+localStorage.removeItem(
+"customer"
+);
+
+window.location.href =
+"customer-login.html";
+
+}
+
+}
+
+</script></body>
 </html>
