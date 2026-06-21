@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>URBAN Culture Admin</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+URBAN Culture Admin
+</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -14,97 +23,177 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:'Poppins',sans-serif;
 }
 
 body{
+
 background:#050505;
 color:white;
+
+display:flex;
+
+min-height:100vh;
+
 }
 
+/* Sidebar */
+
 .sidebar{
+
+width:260px;
+
+background:
+#0a0a0a;
+
+border-right:
+1px solid #222;
+
+padding:25px;
+
 position:fixed;
+
 left:0;
 top:0;
-width:240px;
+
 height:100vh;
-background:#0d0d0d;
-padding:25px;
-border-right:1px solid #222;
+
 }
 
 .logo{
-font-size:28px;
-font-weight:bold;
-margin-bottom:40px;
+
+font-size:30px;
+
+font-weight:800;
+
+margin-bottom:35px;
+
+}
+
+.menu{
+
+display:flex;
+
+flex-direction:column;
+
+gap:12px;
+
 }
 
 .menu a{
-display:block;
-color:white;
+
 text-decoration:none;
-padding:15px;
-margin-bottom:10px;
+
+color:white;
+
+padding:14px 16px;
+
 background:#111;
-border-radius:12px;
+
+border-radius:14px;
+
 transition:.3s;
+
 }
 
 .menu a:hover{
+
 background:white;
+
 color:black;
+
 }
 
+/* Main */
+
 .main{
+
 margin-left:260px;
-padding:30px;
+
+width:100%;
+
+padding:25px;
+
 }
 
 .header{
+
 display:flex;
-justify-content:space-between;
+
+justify-content:
+space-between;
+
 align-items:center;
+
 margin-bottom:30px;
+
 }
 
-.header h1{
-font-size:34px;
+.title{
+
+font-size:42px;
+
+font-weight:800;
+
 }
 
 .admin{
+
 background:white;
+
 color:black;
+
 padding:12px 20px;
-border-radius:15px;
-font-weight:bold;
+
+border-radius:14px;
+
+font-weight:700;
+
 }
 
+/* Cards */
+
 .cards{
+
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+grid-template-columns:
+repeat(4,1fr);
+
 gap:20px;
+
 margin-bottom:30px;
+
 }
 
 .card{
-background:#111;
-padding:25px;
-border-radius:20px;
-border:1px solid #222;
-transition:.3s;
-}
 
-.card:hover{
-transform:translateY(-5px);
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+border-radius:24px;
+
+padding:25px;
+
 }
 
 .card h3{
+
 color:#999;
+
 margin-bottom:10px;
+
 }
 
 .card h1{
-font-size:34px;
+
+font-size:36px;
+
+font-weight:800;
+
 }
 
 .revenue{
@@ -123,51 +212,57 @@ color:#00aaff;
 color:#00ff66;
 }
 
+/* Chart */
+
 .chart-box{
-background:#111;
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+border-radius:24px;
+
 padding:20px;
-border-radius:20px;
+
 margin-bottom:30px;
+
 }
 
-.orders{
-background:#111;
-padding:20px;
-border-radius:20px;
+@media(max-width:768px){
+
+.sidebar{
+
+display:none;
+
 }
 
-table{
-width:100%;
-border-collapse:collapse;
-}
+.main{
 
-th,td{
+margin-left:0;
+
 padding:15px;
-text-align:left;
-border-bottom:1px solid #222;
+
 }
 
-.accept{
-background:#00ff88;
-color:black;
-border:none;
-padding:10px 15px;
-border-radius:10px;
-font-weight:bold;
-cursor:pointer;
+.cards{
+
+grid-template-columns:
+1fr 1fr;
+
 }
 
-.reject{
-background:#ff4444;
-color:white;
-border:none;
-padding:10px 15px;
-border-radius:10px;
-font-weight:bold;
-cursor:pointer;
+.title{
+
+font-size:30px;
+
+}
+
 }
 
 </style>
+
 </head>
 
 <body>
@@ -180,26 +275,28 @@ URBAN Culture
 
 <div class="menu">
 
-<a href="#">Dashboard</a>
+<a href="#">
+🏠 Dashboard
+</a>
 
 <a href="manage-products.html">
-Products
+📦 Products
+</a>
+
+<a href="add-product.html">
+➕ Add Product
 </a>
 
 <a href="manage-orders.html">
-Orders
+🛒 Orders
 </a>
 
 <a href="customers.html">
-Customers
+👥 Customers
 </a>
 
 <a href="analytics.html">
-Analytics
-</a>
-
-<a href="delivery-team.html">
-Delivery
+📊 Analytics
 </a>
 
 </div>
@@ -209,66 +306,168 @@ Delivery
 <div class="main">
 
 <div class="header">
-<h1>Admin Dashboard</h1>
+
+<h1 class="title">
+Dashboard
+</h1>
 
 <div class="admin">
 Manager
 </div>
+
 </div>
 
 <div class="cards">
 
 <div class="card">
-<h3>Total Revenue</h3>
-<h1 class="revenue" id="revenue">₹0</h1>
+
+<h3>
+Revenue
+</h3>
+
+<h1
+id="revenue"
+class="revenue">
+
+₹0
+
+</h1>
+
 </div>
 
 <div class="card">
-<h3>Pending Orders</h3>
-<h1 class="pending" id="pending">0</h1>
+
+<h3>
+Pending
+</h3>
+
+<h1
+id="pending"
+class="pending">
+
+0
+
+</h1>
+
 </div>
 
 <div class="card">
-<h3>Confirmed Orders</h3>
-<h1 class="confirmed" id="confirmed">0</h1>
+
+<h3>
+Confirmed
+</h3>
+
+<h1
+id="confirmed"
+class="confirmed">
+
+0
+
+</h1>
+
 </div>
 
 <div class="card">
-<h3>Delivered Orders</h3>
-<h1 class="delivered" id="delivered">0</h1>
+
+<h3>
+Delivered
+</h3>
+
+<h1
+id="delivered"
+class="delivered">
+
+0
+
+</h1>
+
 </div>
 
 </div>
 
 <div class="chart-box">
 
-<h2 style="margin-bottom:20px">
+<h2
+style="margin-bottom:20px">
+
 Monthly Sales
+
 </h2>
 
-<canvas id="salesChart"></canvas>
+<canvas
+id="salesChart">
+
+</canvas>
 
 </div>
-<div class="orders">
+<div
+class="chart-box">
 
-<h2 style="margin-bottom:20px">
+<h2
+style="margin-bottom:20px">
+
 Recent Orders
+
 </h2>
 
-<table>
+<div
+style="
+overflow-x:auto;
+">
+
+<table
+style="
+width:100%;
+border-collapse:collapse;
+">
 
 <thead>
+
 <tr>
-<th>Order ID</th>
-<th>Customer</th>
-<th>Amount</th>
-<th>Status</th>
-<th>Courier</th>
-<th>Action</th>
+
+<th
+style="
+padding:15px;
+text-align:left;
+border-bottom:1px solid #222;
+">
+Order ID
+</th>
+
+<th
+style="
+padding:15px;
+text-align:left;
+border-bottom:1px solid #222;
+">
+Customer
+</th>
+
+<th
+style="
+padding:15px;
+text-align:left;
+border-bottom:1px solid #222;
+">
+Amount
+</th>
+
+<th
+style="
+padding:15px;
+text-align:left;
+border-bottom:1px solid #222;
+">
+Status
+</th>
+
 </tr>
+
 </thead>
 
-<tbody id="ordersTable">
+<tbody
+id="ordersTable">
+
 </tbody>
 
 </table>
@@ -277,7 +476,11 @@ Recent Orders
 
 </div>
 
+</div>
+
 <script>
+
+/* Chart */
 
 const ctx =
 document.getElementById(
@@ -304,12 +507,12 @@ datasets:[{
 label:"Sales",
 
 data:[
-12000,
-18000,
-25000,
-15000,
-30000,
-25000
+0,
+0,
+0,
+0,
+0,
+0
 ]
 
 }]
@@ -318,146 +521,99 @@ data:[
 
 });
 
-async function acceptOrder(id){
+/* Dashboard Data */
 
-const courier =
-document.getElementById(
-"courier"+id
-).value;
+async function loadDashboard(){
 
+try{
+
+const res =
 await fetch(
-`https://urban-culture.onrender.com/orders/${id}`,
-{
-method:"PUT",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-status:"Confirmed",
-deliveryPartner:courier
-})
-}
-);
-
-alert("✅ Order Confirmed");
-
-loadOrders();
-
-}
-
-
-async function cancelOrder(id){
-
-await fetch(
-`https://urban-culture.onrender.com/orders/${id}`,
-{
-method:"PUT",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-status:"Cancelled",
-cancelled:true
-})
-}
-);
-
-alert("❌ Order Cancelled");
-
-loadOrders();
-
-}
-
-
-async function loadOrders(){
-
-const res = await fetch(
 "https://urban-culture.onrender.com/orders"
 );
 
-const orders = await res.json();
+const orders =
+await res.json();
 
 let revenue = 0;
 let pending = 0;
 let confirmed = 0;
 let delivered = 0;
 
-orders.forEach(order=>{
-
-revenue += Number(order.total || 0);
-
-if(order.status==="Pending")
-pending++;
-
-if(order.status==="Confirmed")
-confirmed++;
-
-if(order.status==="Delivered")
-delivered++;
-
-});
-
-document.getElementById("revenue").innerText =
-"₹" + revenue;
-
-document.getElementById("pending").innerText =
-pending;
-
-document.getElementById("confirmed").innerText =
-confirmed;
-
-document.getElementById("delivered").innerText =
-delivered;
-
 let html = "";
 
-orders.reverse().forEach((order,index)=>{
+orders.reverse().forEach(
+(order,index)=>{
+
+revenue +=
+Number(
+order.total ||
+order.price ||
+0
+);
+
+if(
+order.status ===
+"Pending"
+){
+pending++;
+}
+
+if(
+order.status ===
+"Confirmed"
+){
+confirmed++;
+}
+
+if(
+order.status ===
+"Delivered"
+){
+delivered++;
+}
 
 html += `
 
 <tr>
 
-<td>
-${order.orderId || ("UC"+Date.now()+index)}
+<td
+style="
+padding:15px;
+border-bottom:1px solid #222;
+">
+
+${order.orderId || ("UC"+index)}
+
 </td>
 
-<td>
-${order.name}
+<td
+style="
+padding:15px;
+border-bottom:1px solid #222;
+">
+
+${order.name || "Customer"}
+
 </td>
 
-<td>
-₹${order.total}
+<td
+style="
+padding:15px;
+border-bottom:1px solid #222;
+">
+
+₹${order.total || order.price || 0}
+
 </td>
 
-<td id="status${index}">
+<td
+style="
+padding:15px;
+border-bottom:1px solid #222;
+">
+
 ${order.status || "Pending"}
-</td>
-
-<td>
-
-<select id="courier${index}">
-<option>Delhivery</option>
-<option>DTDC</option>
-<option>Blue Dart</option>
-<option>XpressBees</option>
-<option>Ekart</option>
-</select>
-
-</td>
-
-<td>
-
-<button
-class="accept"
-onclick="acceptOrder(${index})">
-Accept
-</button>
-
-<button
-class="reject"
-onclick="cancelOrder(${index})">
-Cancel
-</button>
 
 </td>
 
@@ -468,33 +624,39 @@ Cancel
 });
 
 document.getElementById(
-"ordersTable"
-).innerHTML = html;
-
-}
-
-
-document.getElementById(
 "revenue"
-).innerText =
+).innerHTML =
 "₹" + revenue;
 
 document.getElementById(
 "pending"
-).innerText =
+).innerHTML =
 pending;
 
 document.getElementById(
 "confirmed"
-).innerText =
+).innerHTML =
 confirmed;
 
 document.getElementById(
 "delivered"
-).innerText =
+).innerHTML =
 delivered;
 
-loadOrders();
+document.getElementById(
+"ordersTable"
+).innerHTML =
+html;
+
+}catch(err){
+
+console.log(err);
+
+}
+
+}
+
+loadDashboard();
 
 </script>
 
