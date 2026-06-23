@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -5,354 +7,518 @@ const mongoose = require("mongoose");
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
 
-mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log("MongoDB Connected"))
+// MongoDB Connection
+mongoose.connect("mongodb+srv://urbanculture:safwan123@cluster0.aqirf6e.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+.then(() => console.log("✅ MongoDB Connected"))
 .catch(err => console.log(err));
 
+// Product Schema
 const ProductSchema = new mongoose.Schema({
-  name:String,
-  price:Number,
-  stock:Number,
-  category:String,
-  featured:String,
-  image:String,
-  images:[String],
-  description:String
+    name: String,
+    price: Number,
+    stock: Number,
+    category: String,
+    featured: String,
+    image: String,
+    images: [String],
+    description: String
 });
 
 const Product = mongoose.model("Product", ProductSchema);
 
-app.get("/", (req,res)=>{
-  res.send("URBAN Culture Backend Running");
+// Home Route
+app.get("/", (req, res) => {
+    res.send("🚀 URBAN Culture Backend Running");
 });
 
-app.get("/products", async(req,res)=>{
-  try{
-    const products = await Product.find().sort({_id:-1});
-    res.json(products);
-  }catch(err){
-    res.status(500).json({error:err.message});
-  }
+// Get All Products
+app.get("/products", async (req, res) => {
+    try {
+        const products = await Product.find().sort({ _id: -1 });
+        res.json(products);
+    } catch (err) {
+        res.status(500).json({
+            error: err.message
+        });
+    }
 });
 
-app.post("/products", async(req,res)=>{
-  try{
-    const product = await Product.create(req.body);
+// Add Product
+app.post("/products", async (req, res) => {
+    try {
+        const product = new Product(req.body);
+        await product.save();
+
+        res.json({
+            success: true,
+            message: "Product Added"
+        });
+
+    } catch (err) {
+        res.status(500).json({
+            error: err.message
+        });
+    }
+});
+
+// Delete Product
+app.delete("/products/:id", async (req, res) => {
+  try {
+    await Product.findByIdAndDelete(req.params.id);
 
     res.json({
-      success:true,
-      product
+      success: true,
+      message: "Product Deleted"
     });
 
-  }catch(err){
+  } catch (err) {
     res.status(500).json({
-      success:false,
-      error:err.message
+      error: err.message
     });
   }
 });
-// =====================
-// EDIT PRODUCT
-// =====================
 
-app.put("/products/:id", async (req,res)=>{
+// Start Server
+const PORT = process.env.PORT || 5000;
 
-try{
-
-const product = await Product.findByIdAndUpdate(
-req.params.id,
-req.body,
-{new:true}
-);
-
-if(!product){
-return res.status(404).json({
-success:false,
-message:"Product Not Found"
+app.listen(PORT, () => {
+    console.log(`🚀 URBAN Culture Backend Running On Port ${PORT}`);
 });
-}
-
-res.json({
-success:true,
-product
-});
-
-}catch(err){
-
-res.status(500).json({
-success:false,
-error:err.message
-});
-
-}
-
-});
-
-// =====================
-// DELETE PRODUCT
-// =====================
-
-app.delete("/products/:id", async (req,res)=>{
-
-try{
-
-const product =
-await Product.findByIdAndDelete(
-req.params.id
-);
-
-if(!product){
-return res.status(404).json({
-success:false,
-message:"Product Not Found"
-});
-}
-
-res.json({
-success:true,
-message:"Product Deleted"
-});
-
-}catch(err){
-
-res.status(500).json({
-success:false,
-error:err.message
-});
-
-}
-
-});
-
-// =====================
+// ==========================
 // ORDER SCHEMA
-// =====================
+// ==========================
 
-const OrderSchema =
-new mongoose.Schema({
+const OrderSchema = new mongoose.Schema({
+    customerName: String,
+    phone: String,
+    address: String,
+    items: Array,
+    total: Number,
+    status: {
+        type: String,
+        default: "Pending"
+    },
+    date: {
+        type: Date,
+        default: Date.now
+    }
+});
 
-orderId:String,
+const Order = mongoose.model("Order", OrderSchema);
 
-customerName:String,
+// ==========================
+// EDIT PRODUCT
+// ==========================
 
-phone:String,
+app.put("/products/:id", async (req, res) => {
+    try {
 
-address:String,
+        const product =
+        await Product.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        );
 
-status:{
-type:String,
-default:"Order Placed"
-},
+        res.json(product);
 
-items:Array,
+    } catch (err) {
 
-total:Number,
+        res.status(500).json({
+            error: err.message
+        });
 
-createdAt:{
-type:Date,
-default:Date.now
-}
+    }
+});
+
+// ==========================
+// GET SINGLE PRODUCT
+// ==========================
+
+app.get("/products/:id", async (req, res) => {
+
+    try {
+
+        const product =
+        await Product.findById(req.params.id);
+
+        res.json(product);
+
+    } catch (err) {
+
+        res.status(500).json({
+            error: err.message
+        });
+
+    }
 
 });
 
-const Order =
-mongoose.model(
-"Order",
-OrderSchema
-);
-
-// =====================
-// GET ORDERS
-// =====================
-
-app.get("/orders",
-async(req,res)=>{
-
-try{
-
-const orders =
-await Order.find()
-.sort({createdAt:-1});
-
-res.json(orders);
-
-}catch(err){
-
-res.status(500).json({
-error:err.message
-});
-
-}
-
-});
-// =====================
+// ==========================
 // CREATE ORDER
-// =====================
+// ==========================
 
-app.post("/orders", async (req,res)=>{
+app.post("/orders", async (req, res) => {
 
-try{
+    try {
 
-const order = await Order.create({
+        const order =
+        new Order(req.body);
 
-orderId:
-"UC" + Date.now(),
+        await order.save();
 
-customerName:
-req.body.customerName,
+        res.json({
+            success: true,
+            message: "Order Placed"
+        });
 
-phone:
-req.body.phone,
+    } catch (err) {
 
-address:
-req.body.address,
+        res.status(500).json({
+            error: err.message
+        });
 
-items:
-req.body.items || [],
-
-total:
-req.body.total || 0
+    }
 
 });
 
-res.json({
-success:true,
-order
+// ==========================
+// GET ALL ORDERS
+// ==========================
+
+app.get("/orders", async (req, res) => {
+
+    try {
+
+        const orders =
+        await Order.find()
+        .sort({ date: -1 });
+
+        res.json(orders);
+
+    } catch (err) {
+
+        res.status(500).json({
+            error: err.message
+        });
+
+    }
+
 });
 
-}catch(err){
-
-res.status(500).json({
-success:false,
-error:err.message
-});
-
-}
-
-});
-
-// =====================
+// ==========================
 // UPDATE ORDER STATUS
-// =====================
+// ==========================
 
-app.put("/orders/:id",
-async(req,res)=>{
+app.put("/orders/:id", async (req, res) => {
 
-try{
+    try {
 
-const order =
-await Order.findByIdAndUpdate(
+        const order =
+        await Order.findByIdAndUpdate(
+            req.params.id,
+            {
+                status: req.body.status
+            },
+            { new: true }
+        );
 
-req.params.id,
+        res.json(order);
 
-{
-status:req.body.status
-},
+    } catch (err) {
 
-{
-new:true
-}
+        res.status(500).json({
+            error: err.message
+        });
 
-);
-
-if(!order){
-
-return res.status(404).json({
-
-success:false,
-
-message:
-"Order Not Found"
+    }
 
 });
 
-}
+// ==========================
+// DASHBOARD STATS
+// ==========================
 
-res.json({
+app.get("/dashboard", async (req, res) => {
 
-success:true,
+    try {
 
-order
+        const totalProducts =
+        await Product.countDocuments();
+
+        const totalOrders =
+        await Order.countDocuments();
+
+        const orders =
+        await Order.find();
+
+        let revenue = 0;
+
+        orders.forEach(order => {
+            revenue += Number(order.total || 0);
+        });
+
+        res.json({
+            totalProducts,
+            totalOrders,
+            revenue
+        });
+
+    } catch (err) {
+
+        res.status(500).json({
+            error: err.message
+        });
+
+    }
+
+});
+// ==========================
+// CUSTOMER SCHEMA
+// ==========================
+
+const CustomerSchema = new mongoose.Schema({
+
+    name: String,
+    phone: String,
+    email: String,
+    address: String,
+
+    joined: {
+        type: Date,
+        default: Date.now
+    }
 
 });
 
-}catch(err){
+const Customer =
+mongoose.model("Customer", CustomerSchema);
 
-res.status(500).json({
+// ==========================
+// EXPENSE SCHEMA
+// ==========================
 
-success:false,
+const ExpenseSchema = new mongoose.Schema({
 
-error:err.message
+    title: String,
+    amount: Number,
 
-});
-
-}
-
-});
-
-// =====================
-// DELETE ORDER
-// =====================
-
-app.delete("/orders/:id",
-async(req,res)=>{
-
-try{
-
-const order =
-await Order.findByIdAndDelete(
-req.params.id
-);
-
-if(!order){
-
-return res.status(404).json({
-
-success:false,
-
-message:
-"Order Not Found"
+    date: {
+        type: Date,
+        default: Date.now
+    }
 
 });
 
-}
+const Expense =
+mongoose.model("Expense", ExpenseSchema);
 
-res.json({
+// ==========================
+// ADD CUSTOMER
+// ==========================
 
-success:true,
+app.post("/customers", async (req,res)=>{
 
-message:
-"Order Deleted"
+    try{
+
+        const customer =
+        new Customer(req.body);
+
+        await customer.save();
+
+        res.json({
+            success:true
+        });
+
+    }catch(err){
+
+        res.status(500).json({
+            error:err.message
+        });
+
+    }
 
 });
 
-}catch(err){
+// ==========================
+// GET CUSTOMERS
+// ==========================
 
-res.status(500).json({
+app.get("/customers", async(req,res)=>{
 
-success:false,
+    try{
 
-error:err.message
+        const customers =
+        await Customer.find()
+        .sort({joined:-1});
+
+        res.json(customers);
+
+    }catch(err){
+
+        res.status(500).json({
+            error:err.message
+        });
+
+    }
 
 });
 
-}
+// ==========================
+// ADD EXPENSE
+// ==========================
+
+app.post("/expenses", async(req,res)=>{
+
+    try{
+
+        const expense =
+        new Expense(req.body);
+
+        await expense.save();
+
+        res.json({
+            success:true
+        });
+
+    }catch(err){
+
+        res.status(500).json({
+            error:err.message
+        });
+
+    }
 
 });
 
-// =====================
-// SERVER START
-// =====================
+// ==========================
+// GET EXPENSES
+// ==========================
 
-const PORT =
-process.env.PORT || 5000;
+app.get("/expenses", async(req,res)=>{
 
-app.listen(PORT,()=>{
+    try{
 
-console.log(
-`🚀 URBAN Culture Backend Running On Port ${PORT}`
-);
+        const expenses =
+        await Expense.find()
+        .sort({date:-1});
+
+        res.json(expenses);
+
+    }catch(err){
+
+        res.status(500).json({
+            error:err.message
+        });
+
+    }
+
+});
+
+// ==========================
+// PROFIT / LOSS
+// ==========================
+
+app.get("/profit", async(req,res)=>{
+
+    try{
+
+        const orders =
+        await Order.find();
+
+        const expenses =
+        await Expense.find();
+
+        let revenue = 0;
+        let expenseTotal = 0;
+
+        orders.forEach(order=>{
+            revenue += Number(order.total || 0);
+        });
+
+        expenses.forEach(exp=>{
+            expenseTotal += Number(exp.amount || 0);
+        });
+
+        res.json({
+
+            revenue,
+            expenses:expenseTotal,
+            profit:
+            revenue - expenseTotal
+
+        });
+
+    }catch(err){
+
+        res.status(500).json({
+            error:err.message
+        });
+
+    }
+
+});
+
+// ==========================
+// LOW STOCK ALERT
+// ==========================
+
+app.get("/low-stock", async(req,res)=>{
+
+    try{
+
+        const products =
+        await Product.find({
+            stock:{ $lte:5 }
+        });
+
+        res.json(products);
+
+    }catch(err){
+
+        res.status(500).json({
+            error:err.message
+        });
+
+    }
+
+});
+
+// ==========================
+// MONTHLY SALES
+// ==========================
+
+app.get("/monthly-sales", async(req,res)=>{
+
+    try{
+
+        const orders =
+        await Order.find();
+
+        const months =
+        Array(12).fill(0);
+
+        orders.forEach(order=>{
+
+            const month =
+            new Date(order.date)
+            .getMonth();
+
+            months[month] +=
+            Number(order.total || 0);
+
+        });
+
+        res.json(months);
+
+    }catch(err){
+
+        res.status(500).json({
+            error:err.message
+        });
+
+    }
 
 });
