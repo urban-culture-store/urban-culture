@@ -1,12 +1,19 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Urban Culture - Manage Products</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>
+Manage Products
+</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 
 <style>
 
@@ -18,317 +25,326 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#f5f5f5;
-color:#111;
+background:#050505;
+color:white;
 min-height:100vh;
-padding:30px;
 }
 
 .header{
+
 display:flex;
-justify-content:space-between;
+
+justify-content:
+space-between;
+
 align-items:center;
-margin-bottom:30px;
+
+padding:20px;
+
+border-bottom:
+1px solid #222;
+
+background:#000;
+
+position:sticky;
+
+top:0;
+
+z-index:100;
+
 }
 
 .logo{
-font-size:28px;
+
+font-size:30px;
+
 font-weight:800;
-letter-spacing:2px;
+
 }
 
-.add-btn{
-background:#111;
-color:#fff;
-border:none;
-padding:14px 22px;
-border-radius:12px;
-cursor:pointer;
-font-weight:600;
-transition:.3s;
-}
+.header-actions{
 
-.add-btn:hover{
-transform:translateY(-2px);
-}
-
-.dashboard{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-margin-bottom:30px;
-}
-
-.card{
-background:rgba(255,255,255,.7);
-backdrop-filter:blur(15px);
-border:1px solid rgba(0,0,0,.08);
-border-radius:20px;
-padding:20px;
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-}
-
-.card h3{
-font-size:15px;
-color:#666;
-margin-bottom:10px;
-}
-
-.card h1{
-font-size:35px;
-font-weight:800;
-}
-
-.search-box{
-margin-bottom:25px;
-}
-
-.search-box input{
-width:100%;
-padding:15px;
-border:none;
-outline:none;
-border-radius:15px;
-background:white;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-font-size:15px;
-}
-
-.products-grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-gap:25px;
-}
-
-.product-card{
-background:white;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-transition:.3s;
-}
-
-.product-card:hover{
-transform:translateY(-5px);
-}
-
-.product-image{
-width:100%;
-height:250px;
-object-fit:cover;
-background:#eee;
-}
-
-.product-info{
-padding:18px;
-}
-
-.product-name{
-font-size:18px;
-font-weight:700;
-margin-bottom:8px;
-}
-
-.product-price{
-font-size:22px;
-font-weight:800;
-margin-bottom:10px;
-}
-
-.stock{
-display:inline-block;
-padding:6px 12px;
-border-radius:20px;
-font-size:13px;
-font-weight:600;
-background:#111;
-color:white;
-margin-bottom:15px;
-}
-
-.actions{
-display:flex;<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Urban Culture - Manage Products</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-background:#f5f5f5;
-color:#111;
-min-height:100vh;
-padding:30px;
-}
-
-.header{
 display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:30px;
-}
 
-.logo{
-font-size:28px;
-font-weight:800;
-letter-spacing:2px;
-}
-
-.add-btn{
-background:#111;
-color:#fff;
-border:none;
-padding:14px 22px;
-border-radius:12px;
-cursor:pointer;
-font-weight:600;
-transition:.3s;
-}
-
-.add-btn:hover{
-transform:translateY(-2px);
-}
-
-.dashboard{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-margin-bottom:30px;
-}
-
-.card{
-background:rgba(255,255,255,.7);
-backdrop-filter:blur(15px);
-border:1px solid rgba(0,0,0,.08);
-border-radius:20px;
-padding:20px;
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-}
-
-.card h3{
-font-size:15px;
-color:#666;
-margin-bottom:10px;
-}
-
-.card h1{
-font-size:35px;
-font-weight:800;
-}
-
-.search-box{
-margin-bottom:25px;
-}
-
-.search-box input{
-width:100%;
-padding:15px;
-border:none;
-outline:none;
-border-radius:15px;
-background:white;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-font-size:15px;
-}
-
-.products-grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-gap:25px;
-}
-
-.product-card{
-background:white;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 10px 25px rgba(0,0,0,.08);
-transition:.3s;
-}
-
-.product-card:hover{
-transform:translateY(-5px);
-}
-
-.product-image{
-width:100%;
-height:250px;
-object-fit:cover;
-background:#eee;
-}
-
-.product-info{
-padding:18px;
-}
-
-.product-name{
-font-size:18px;
-font-weight:700;
-margin-bottom:8px;
-}
-
-.product-price{
-font-size:22px;
-font-weight:800;
-margin-bottom:10px;
-}
-
-.stock{
-display:inline-block;
-padding:6px 12px;
-border-radius:20px;
-font-size:13px;
-font-weight:600;
-background:#111;
-color:white;
-margin-bottom:15px;
-}
-
-.actions{
-display:flex;
 gap:10px;
+
+}
+
+.back-btn,
+.add-btn{
+
+border:none;
+
+padding:12px 18px;
+
+border-radius:12px;
+
+cursor:pointer;
+
+font-weight:700;
+
+}
+
+.back-btn{
+
+background:#111;
+color:white;
+
+}
+
+.add-btn{
+
+background:white;
+color:black;
+
+}
+
+.container{
+
+width:95%;
+
+max-width:1400px;
+
+margin:25px auto;
+
+}
+
+.search{
+
+width:100%;
+
+padding:16px;
+
+background:#111;
+
+border:none;
+
+border-radius:15px;
+
+color:white;
+
+font-size:16px;
+
+margin-bottom:20px;
+
+outline:none;
+
+}
+
+.stats{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(220px,1fr));
+
+gap:15px;
+
+margin-bottom:25px;
+
+}
+
+.stat-card{
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+padding:20px;
+
+border-radius:20px;
+
+}
+
+.stat-title{
+
+color:#aaa;
+
+font-size:14px;
+
+margin-bottom:8px;
+
+}
+
+.stat-value{
+
+font-size:30px;
+
+font-weight:800;
+
+}
+
+#products{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fill,minmax(300px,1fr));
+
+gap:20px;
+
+}
+.stat-card{
+
+backdrop-filter:blur(12px);
+
+}
+
+.card{
+
+background:
+rgba(255,255,255,.04);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+border-radius:22px;
+
+overflow:hidden;
+
+transition:.3s;
+
+}
+
+.card:hover{
+
+transform:translateY(-4px);
+
+}
+
+.card img{
+
+width:100%;
+
+height:240px;
+
+object-fit:cover;
+
+background:#111;
+
+}
+
+.info{
+
+padding:18px;
+
+}
+
+.badge{
+
+display:inline-block;
+
+padding:6px 10px;
+
+border-radius:10px;
+
+font-size:12px;
+
+font-weight:700;
+
+margin-bottom:10px;
+
+background:white;
+
+color:black;
+
+}
+
+.name{
+
+font-size:20px;
+
+font-weight:700;
+
+margin-bottom:10px;
+
+}
+
+.price{
+
+font-size:26px;
+
+font-weight:800;
+
+margin-bottom:8px;
+
+}
+
+.stock{
+
+color:#aaa;
+
+margin-bottom:8px;
+
+}
+
+.category{
+
+font-size:14px;
+
+color:#ccc;
+
+margin-bottom:15px;
+
+}
+
+.actions{
+
+display:flex;
+
+gap:10px;
+
 }
 
 .edit-btn,
 .delete-btn{
+
 flex:1;
+
 border:none;
+
 padding:12px;
-border-radius:10px;
+
+border-radius:12px;
+
+font-weight:700;
+
 cursor:pointer;
-font-weight:600;
+
 }
 
 .edit-btn{
-background:#111;
-color:white;
+
+background:white;
+
+color:black;
+
 }
 
 .delete-btn{
-background:#e53935;
+
+background:#ff3b30;
+
 color:white;
+
 }
 
 .empty{
+
 text-align:center;
-padding:60px;
+
+padding:50px;
+
+color:#888;
+
 font-size:20px;
-font-weight:600;
-color:#666;
+
 }
 
 </style>
+
 </head>
 
 <body>
@@ -336,175 +352,159 @@ color:#666;
 <div class="header">
 
 <div class="logo">
-URBAN CULTURE
+URBAN Culture
 </div>
 
-<button class="add-btn"
-onclick="window.location.href='add-product.html'">
+<div class="header-actions">
+
+<button
+class="back-btn"
+onclick="location.href='dashboard.html'">
+
+← Dashboard
+
+</button>
+
+<button
+class="add-btn"
+onclick="location.href='add-product.html'">
+
 + Add Product
+
 </button>
 
 </div>
 
-<div class="dashboard">
-
-<div class="card">
-<h3>Total Products</h3>
-<h1 id="productCount">0</h1>
 </div>
 
-<div class="card">
-<h3>Total Stock</h3>
-<h1 id="stockCount">0</h1>
-</div>
+<div class="container">
 
-<div class="card">
-<h3>Categories</h3>
-<h1 id="categoryCount">0</h1>
-</div>
-
-</div>
-
-<div class="search-box">
 <input
 type="text"
-id="searchInput"
-placeholder="Search products..."
-onkeyup="searchProducts()">
+id="search"
+class="search"
+placeholder="Search Products..."
+onkeyup="filterProducts()">
+
+<div class="stats">
+
+<div class="stat-card">
+
+<div class="stat-title">
+Total Products
 </div>
 
-<div id="products" class="products-grid">
-</div>
-gap:10px;
-}
+<div
+class="stat-value"
+id="productCount">
 
-.edit-btn,
-.delete-btn{
-flex:1;
-border:none;
-padding:12px;
-border-radius:10px;
-cursor:pointer;
-font-weight:600;
-}
+0
 
-.edit-btn{
-background:#111;
-color:white;
-}
-
-.delete-btn{
-background:#e53935;
-color:white;
-}
-
-.empty{
-text-align:center;
-padding:60px;
-font-size:20px;
-font-weight:600;
-color:#666;
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="header">
-
-<div class="logo">
-URBAN CULTURE
-</div>
-
-<button class="add-btn"
-onclick="window.location.href='add-product.html'">
-+ Add Product
-</button>
-
-</div>
-
-<div class="dashboard">
-
-<div class="card">
-<h3>Total Products</h3>
-<h1 id="productCount">0</h1>
-</div>
-
-<div class="card">
-<h3>Total Stock</h3>
-<h1 id="stockCount">0</h1>
-</div>
-
-<div class="card">
-<h3>Categories</h3>
-<h1 id="categoryCount">0</h1>
 </div>
 
 </div>
 
-<div class="search-box">
-<input
-type="text"
-id="searchInput"
-placeholder="Search products..."
-onkeyup="searchProducts()">
 </div>
 
-<div id="products" class="products-grid">
+<div id="products">
+
+</div>
+
 </div>
 <script>
 
+const API =
+"https://urban-culture.onrender.com";
+
 let allProducts = [];
 
-function loadProducts(){
 
-allProducts =
-JSON.parse(
-localStorage.getItem("products")
-) || [];
+/* LOAD PRODUCTS */
 
-renderProducts(allProducts);
+async function loadProducts(){
 
-updateStats();
+try{
+
+const response =
+await fetch(
+`${API}/products`
+);
+
+const products =
+await response.json();
+
+allProducts = products;
+
+renderProducts(products);
+
+}
+catch(err){
+
+console.log(err);
+
+document.getElementById(
+"products"
+).innerHTML =
+
+'<div class="empty">Failed To Load Products</div>';
 
 }
 
+}
+
+
+/* RENDER PRODUCTS */
+
 function renderProducts(products){
 
+document.getElementById(
+"productCount"
+).innerHTML =
+products.length;
+
 const container =
-document.getElementById("products");
+document.getElementById(
+"products"
+);
 
 if(products.length===0){
 
 container.innerHTML =
-`
-<div class="empty">
-No Products Found
-</div>
-`;
+
+'<div class="empty">No Products Found</div>';
 
 return;
 
 }
 
-container.innerHTML =
-products.map((product,index)=>`
+let html = "";
 
-<div class="product-card">
+products.forEach(
+(product,index)=>{
+
+html += `
+
+<div class="card">
 
 <img
-class="product-image"
-src="${product.image}"
+src="${product.image || ''}"
 alt="${product.name}">
 
-<div class="product-info">
+<div class="info">
 
-<div class="product-name">
+${product.featured==="Yes"
+
+? '<div class="badge">FEATURED</div>'
+
+: ''
+
+}
+
+<div class="name">
 ${product.name}
 </div>
 
-<div class="product-price">
+<div class="price">
 ₹${product.price}
 </div>
 
@@ -512,18 +512,26 @@ ${product.name}
 Stock : ${product.stock}
 </div>
 
+<div class="category">
+${product.category}
+</div>
+
 <div class="actions">
 
 <button
 class="edit-btn"
 onclick="editProduct(${index})">
+
 Edit
+
 </button>
 
 <button
 class="delete-btn"
 onclick="deleteProduct(${index})">
+
 Delete
+
 </button>
 
 </div>
@@ -532,66 +540,32 @@ Delete
 
 </div>
 
-`).join("");
-
-}
-
-function updateStats(){
-
-const products =
-JSON.parse(
-localStorage.getItem("products")
-) || [];
-
-document.getElementById(
-"productCount"
-).innerText =
-products.length;
-
-let stock = 0;
-
-products.forEach(item=>{
-
-stock +=
-Number(item.stock || 0);
+`;
 
 });
 
-document.getElementById(
-"stockCount"
-).innerText =
-stock;
-
-const categories =
-new Set(
-products.map(
-item=>item.category
-)
-);
-
-document.getElementById(
-"categoryCount"
-).innerText =
-categories.size;
+container.innerHTML = html;
 
 }
 
-function searchProducts(){
 
-const value =
-document
-.getElementById(
-"searchInput"
-)
-.value
-.toLowerCase();
+/* SEARCH */
+
+function filterProducts(){
+
+const search =
+
+document.getElementById(
+"search"
+).value.toLowerCase();
 
 const filtered =
+
 allProducts.filter(product=>
 
-product.name
+(product.name || "")
 .toLowerCase()
-.includes(value)
+.includes(search)
 
 );
 
@@ -599,50 +573,92 @@ renderProducts(filtered);
 
 }
 
-function deleteProduct(index){
 
-let products =
-JSON.parse(
-localStorage.getItem("products")
-) || [];
-
-if(
-confirm(
-"Delete this product?"
-)
-){
-
-products.splice(index,1);
-
-localStorage.setItem(
-"products",
-JSON.stringify(products)
-);
-
-loadProducts();
-
-}
-
-}
+/* EDIT */
 
 function editProduct(index){
 
-let products =
-JSON.parse(
-localStorage.getItem("products")
-) || [];
+const product =
+allProducts[index];
+
+if(!product){
+
+alert(
+"Product Not Found"
+);
+
+return;
+
+}
 
 localStorage.setItem(
 "editProduct",
-JSON.stringify(
-products[index]
-)
+JSON.stringify(product)
 );
 
-window.location.href =
+location.href =
 "add-product.html";
 
 }
+
+
+/* DELETE */
+
+async function deleteProduct(index){
+
+const confirmDelete =
+confirm(
+"Delete Product ?"
+);
+
+if(!confirmDelete){
+return;
+}
+
+try{
+
+const response =
+await fetch(
+`${API}/products/${index}`,
+{
+method:"DELETE"
+}
+);
+
+const result =
+await response.json();
+
+alert(
+result.message ||
+"Product Deleted"
+);
+
+await loadProducts();
+
+}
+catch(err){
+
+console.log(err);
+
+alert(
+"Delete Failed"
+);
+
+}
+
+}
+
+
+/* AUTO REFRESH */
+
+setInterval(()=>{
+
+loadProducts();
+
+},5000);
+
+
+/* INITIAL LOAD */
 
 loadProducts();
 
