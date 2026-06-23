@@ -409,35 +409,23 @@ renderProducts(filtered);
 
 /* EDIT PRODUCT */
 
-async function editProduct(id){
+async function editProduct(index){
 
-try{
-
-const product =
-
-allProducts.find(
-
-p => p._id === id
-
-);
+const product = allProducts[index];
 
 if(!product){
-
-alert("Product Not Found");
-
-return;
-
+ alert("Product Not Found");
+ return;
 }
 
 localStorage.setItem(
-
-"editProduct",
-
-JSON.stringify(product)
-
+ "editProduct",
+ JSON.stringify(product)
 );
 
 window.location.href =
+"add-product.html";
+}
 
 "add-product.html";
 

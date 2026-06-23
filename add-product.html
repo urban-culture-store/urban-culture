@@ -323,170 +323,80 @@ onclick="addProduct()">
 
 </div>
 <script>
+async function addProduct() {
 
-function previewImage(){
+const imageInput =
+document.getElementById("image1");
 
-const file =
-document.getElementById(
-"image1"
-).files[0];
-
-if(!file) return;
-
-const reader =
-new FileReader();
-
-reader.onload =
-function(e){
-
-document.getElementById(
-"preview"
-).src =
-e.target.result;
-
-};
-
-reader.readAsDataURL(
-file
-);
-
+if (!imageInput.files[0]) {
+    alert("Select Image");
+    return;
 }
 
-async function addProduct(){
+const reader = new FileReader();
 
-const file =
-document.getElementById(
-"image1"
-).files[0];
-
-if(!file){
-
-alert(
-"Please Select Product Image"
-);
-
-return;
-
-}
-
-const reader =
-new FileReader();
-
-reader.onload =
-async function(e){
+reader.onload = async function(e){
 
 const product = {
 
-name:
-document.getElementById(
-"name"
-).value,
+name: document.getElementById("name").value,
 
-price:
-document.getElementById(
-"price"
-).value,
+price: document.getElementById("price").value,
 
-stock:
-document.getElementById(
-"stock"
-).value,
+stock: document.getElementById("stock").value,
 
-category:
-document.getElementById(
-"category"
-).value,
+category: document.getElementById("category").value,
 
-featured:
-document.getElementById(
-"featured"
-).value,
+featured: document.getElementById("featured").value,
 
-image:
-e.target.result,
-
-images:[
-e.target.result,
-e.target.result,
-e.target.result
-],
+image: e.target.result,
 
 description:
-document.getElementById(
-"description"
-).value
+document.getElementById("description").value
 
 };
 
 try{
 
-const response =
-await fetch(
+const response = await fetch(
 "https://urban-culture.onrender.com/products",
 {
 method:"POST",
 headers:{
-"Content-Type":
-"application/json"
+"Content-Type":"application/json"
 },
-body:
-JSON.stringify(
-product
-)
+body: JSON.stringify(product)
 }
 );
+
+const result = await response.json();
 
 if(!response.ok){
-
-throw new Error(
-"Failed"
-);
-
+throw new Error(result.message);
 }
 
-alert(
-"✅ Product Added Successfully"
-);
+alert("✅ Product Added Successfully");
 
-document.getElementById(
-"name"
-).value = "";
+document.getElementById("name").value = "";
+document.getElementById("price").value = "";
+document.getElementById("stock").value = "";
+document.getElementById("description").value = "";
+document.getElementById("image1").value = "";
 
-document.getElementById(
-"price"
-).value = "";
-
-document.getElementById(
-"stock"
-).value = "";
-
-document.getElementById(
-"description"
-).value = "";
-
-document.getElementById(
-"preview"
-).src = "";
-
-}catch(err){
-
-alert(
-"❌ Failed To Add Product"
-);
+}
+catch(err){
 
 console.log(err);
+
+alert("❌ Product Add Failed");
 
 }
 
 };
 
-reader.readAsDataURL(
-file
-);
+reader.readAsDataURL(imageInput.files[0]);
 
 }
-
 </script>
-
 </body>
 </html>
