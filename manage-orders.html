@@ -87,6 +87,26 @@ font-weight:bold;
 cursor:pointer;
 }
 
+.delete-btn{
+
+margin-top:10px;
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:#ff0033;
+color:white;
+font-weight:bold;
+cursor:pointer;
+
+}
+
+.delete-btn:hover{
+
+opacity:.8;
+
+}
+
 </style>
 </head>
 
@@ -223,6 +243,14 @@ onclick="downloadInvoice(${index})">
 📄 Download Invoice
 </button>
 
+<button
+class="delete-btn"
+onclick="deleteOrder('${order._id}')">
+
+🗑 Delete Order
+
+</button>
+
 </div>
 
 `;
@@ -281,6 +309,47 @@ window.open(
 
 }
 
+async function deleteOrder(id){
+
+if(
+!confirm(
+"Delete this order permanently?"
+)
+){
+return;
+}
+
+try{
+
+const response =
+await fetch(
+`https://urban-culture.onrender.com/orders/${id}`,
+{
+method:"DELETE"
+}
+);
+
+const result =
+await response.json();
+
+alert(
+result.message ||
+"Order Deleted"
+);
+
+loadOrders();
+
+}catch(err){
+
+console.log(err);
+
+alert(
+"Delete Failed"
+);
+
+}
+
+}
 
 loadOrders();
 
