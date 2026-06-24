@@ -282,6 +282,29 @@ app.get("/orders", async (req, res) => {
   }
 });
 
+// GET SINGLE ORDER
+
+app.get("/orders/:id", async (req, res) => {
+
+try {
+
+const order =
+await Order.findById(
+req.params.id
+);
+
+res.json(order);
+
+} catch (err) {
+
+res.status(500).json({
+error: err.message
+});
+
+}
+
+});
+
 // ======================
 // UPDATE ORDER STATUS
 // ======================

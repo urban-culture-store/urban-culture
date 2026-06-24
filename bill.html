@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Invoice - URBAN Culture</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:#000;
+color:#fff;
+padding:20px;
+}
+
+.invoice{
+max-width:900px;
+margin:auto;
+background:#111;
+padding:30px;
+border-radius:20px;
+border:1px solid #333;
+}
+
+.logo{
+text-align:center;
+margin-bottom:30px;
+}
+
+.logo h1{
+font-size:40px;
+}
+
+.logo p{
+color:#aaa;
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+margin-bottom:20px;
+flex-wrap:wrap;
+}
+
+.card{
+background:#1a1a1a;
+padding:15px;
+border-radius:12px;
+margin-top:10px;
+flex:1;
+min-width:250px;
+margin-right:10px;
+}
+
+.card h3{
+margin-bottom:10px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+th,td{
+padding:12px;
+border-bottom:1px solid #333;
+text-align:left;
+}
+
+th{
+background:#222;
+}
+
+.total-box{
+margin-top:20px;
+text-align:right;
+}
+
+.total-box h2{
+margin-top:10px;
+}
+
+.btns{
+margin-top:30px;
+display:flex;
+gap:10px;
+}
+
+button{
+flex:1;
+padding:14px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-size:16px;
+font-weight:600;
+}
+
+.print{
+background:#fff;
+color:#000;
+}
+
+.home{
+background:#444;
+color:#fff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="invoice">
+
+<div class="logo">
+<h1>URBAN Culture</h1>
+<p>Official Customer Invoice</p>
+</div>
+
+<div class="row">
+
+<div class="card">
+<h3>Customer Details</h3>
+
+<p id="customerName">Loading...</p>
+<p id="customerPhone"></p>
+<p id="customerAddress"></p>
+
+</div>
+
+<div class="card">
+<h3>Order Details</h3>
+
+<p id="orderId"></p>
+<p id="orderDate"></p>
+<p id="orderStatus"></p>
+
+</div>
+
+</div>
+
+<table>
+
+<thead>
+<tr>
+<th>Product</th>
+<th>Qty</th>
+<th>Price</th>
+<th>Total</th>
+</tr>
+</thead>
+
+<tbody id="itemsTable">
+</tbody>
+
+</table>
+
+<div class="total-box">
+<h3 id="subtotal"></h3>
+<h2 id="grandTotal"></h2>
+</div>
+
+<div class="btns">
+
+<button
+class="print"
+onclick="window.print()">
+Download / Print
+</button>
+
+<button
+class="home"
+onclick="location.href='my-orders.html'">
+Back
+</button>
+
+</div>
+
+</div>
+
+<script>
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const orderId =
+params.get("id");
+
+loadInvoice();
+
+async function loadInvoice(){
+
+try{
+
+const response =
+await fetch(
+"https://urban-culture.onrender.com/orders/" +
+orderId
+);
+
+const order =
+await response.json();
+
+document.getElementById(
+"customerName"
+).innerText =
+order.customerName || "";
+
+document.getElementById(
+"customerPhone"
+).innerText =
+order.phone || "";
+
+document.getElementById(
+"customerAddress"
+).innerText =
+order.address || "";
+
+document.getElementById(
+"orderId"
+).innerText =
+"Order ID: " + order._id;
+
+document.getElementById(
+"orderDate"
+).innerText =
+"Date: " +
+new Date(order.createdAt)
+.toLocaleDateString();
+
+document.getElementById(
+"orderStatus"
+).innerText =
+"Status: " +
+(order.status || "Confirmed");
+
+let html = "";
+let subtotal = 0;
+
+order.items.forEach(item=>{
+
+const total =
+item.price *
+(item.qty || 1);
+
+subtotal += total;
+
+html += `
+<tr>
+<td>${item.name}</td>
+<td>${item.qty || 1}</td>
+<td>₹${item.price}</td>
+<td>₹${total}</td>
+</tr>
+`;
+
+});
+
+document.getElementById(
+"itemsTable"
+).innerHTML = html;
+
+document.getElementById(
+"subtotal"
+).innerText =
+"Subtotal: ₹" +
+subtotal;
+
+document.getElementById(
+"grandTotal"
+).innerText =
+"Grand Total: ₹" +
+subtotal;
+
+}catch(err){
+
+document.body.innerHTML =
+"<h1>Invoice Not Found</h1>";
+
+console.log(err);
+
+}
+
+}
+</script>
+
+</body>
+</html>
