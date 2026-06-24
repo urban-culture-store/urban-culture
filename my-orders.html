@@ -281,22 +281,22 @@ class="orders">
 </div>
 <script>
 
-function loadOrders(){
+async function loadOrders(){
 
 const container =
 document.getElementById(
 "orders"
 );
 
+const response =
+await fetch(
+"https://urban-culture.onrender.com/orders"
+);
+
 const orders =
+await response.json();
 
-JSON.parse(
-localStorage.getItem(
-"orders"
-)
-) || [];
-
-if(orders.length===0){
+if(myOrders.length===0)
 
 container.innerHTML =
 
@@ -322,7 +322,7 @@ return;
 
 let html = "";
 
-orders.reverse().forEach(
+myOrders.reverse().forEach(
 (order,index)=>{
 
 html += `
