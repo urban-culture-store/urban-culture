@@ -278,6 +278,16 @@ total -
 
 const order = {
 
+const customer =
+JSON.parse(
+localStorage.getItem("customer")
+);
+
+const myOrders =
+orders.filter(
+o => o.phone === customer.phone
+);
+
 name:
 document.getElementById("name").value,
 

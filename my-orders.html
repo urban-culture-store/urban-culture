@@ -234,13 +234,13 @@ const orders =
 await response.json();
 
 const customer =
-localStorage.getItem(
-"customer"
+JSON.parse(
+localStorage.getItem("customer")
 );
 
 const myOrders =
 orders.filter(
-o => o.customer === customer
+o => o.phone === customer.phone
 );
 
 if(myOrders.length===0){
