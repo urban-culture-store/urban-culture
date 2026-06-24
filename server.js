@@ -28,6 +28,32 @@ const ProductSchema = new mongoose.Schema({
 
 const Product = mongoose.model("Product", ProductSchema);
 
+// User Schema
+
+const UserSchema = new mongoose.Schema({
+
+name:String,
+
+phone:{
+type:String,
+unique:true
+},
+
+password:String,
+
+createdAt:{
+type:Date,
+default:Date.now
+}
+
+});
+
+const User =
+mongoose.model(
+"User",
+UserSchema
+);
+
 // Home Route
 app.get("/", (req, res) => {
   res.send("🚀 URBAN Culture Backend Running");
@@ -99,6 +125,90 @@ app.delete("/products/:id", async (req, res) => {
       error: err.message
     });
   }
+});
+
+// =====================
+// CUSTOMER USERS
+// =====================
+
+app.post("/register", async (req,res)=>{
+
+try{
+
+const {name,phone,password}
+= req.body;
+
+const existingUser =
+await User.findOne({
+phone
+});
+
+if(existingUser){
+
+return res.status(400).json({
+message:"Account Already Exists"
+});
+
+}
+
+const user =
+new User({
+name,
+phone,
+password
+});
+
+await user.save();
+
+res.json({
+success:true,
+message:"Account Created"
+});
+
+}catch(err){
+
+res.status(500).json({
+error:err.message
+});
+
+}
+
+});
+
+app.post("/login", async (req,res)=>{
+
+try{
+
+const {phone,password}
+= req.body;
+
+const user =
+await User.findOne({
+phone,
+password
+});
+
+if(!user){
+
+return res.status(401).json({
+message:"Invalid Login"
+});
+
+}
+
+res.json({
+success:true,
+user
+});
+
+}catch(err){
+
+res.status(500).json({
+error:err.message
+});
+
+}
+
 });
 
 // ======================
