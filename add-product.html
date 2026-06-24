@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -399,6 +400,28 @@ new FileReader();
 reader.onload =
 async function(e){
 
+const file = imageInput.files[0];
+
+const formData = new FormData();
+
+formData.append("file", file);
+
+formData.append(
+"upload_preset",
+"urbanculture"
+);
+
+const uploadResponse = await fetch(
+"https://api.cloudinary.com/v1_1/urban-culture/image/upload",
+{
+method:"POST",
+body:formData
+}
+);
+
+const uploadData =
+await uploadResponse.json();
+
 const product = {
 
 name:
@@ -415,6 +438,10 @@ document.getElementById("category").value,
 
 featured:
 document.getElementById("featured").value,
+
+image: uploadData.secure_url,
+
+images: [],
 
 description:
 document.getElementById("description").value
