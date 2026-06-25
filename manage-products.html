@@ -618,7 +618,7 @@ try{
 
 const response =
 await fetch(
-`${API}/products/${index}`,
+`${API}/products/${allProducts[index]._id}`
 {
 method:"DELETE"
 }

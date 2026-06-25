@@ -637,6 +637,8 @@ window.location.href =
 
 async function loadSuggestions(){
 
+const product = JSON.parse(localStorage.getItem("selectedProduct"));
+
 try{
 
 const res =
