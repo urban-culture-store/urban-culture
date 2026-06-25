@@ -173,81 +173,53 @@ p.type === "password"
 
 }
 
-function register(){
+async function register(){
 
 const user = {
-
-name:
-document.getElementById("name").value,
-
-phone:
-document.getElementById("phone").value,
-
-password:
-document.getElementById("password").value
-
+name: document.getElementById("name").value.trim(),
+phone: document.getElementById("phone").value.trim(),
+password: document.getElementById("password").value
 };
 
-if(
-!user.name ||
-!user.phone ||
-!user.password
-){
-
-document.getElementById("msg")
-.style.color="#ff4444";
-
-document.getElementById("msg")
-.innerHTML=
-"Fill Required Fields";
-
+if(!user.name || !user.phone || !user.password){
+document.getElementById("msg").style.color="#ff4444";
+document.getElementById("msg").innerHTML="Fill Required Fields";
 return;
-
 }
 
-let users =
-JSON.parse(
-localStorage.getItem("users")
-) || [];
+try{
 
-const exists =
-users.find(u =>
-u.phone === user.phone
-);
-
-if(exists){
-
-document.getElementById("msg")
-.style.color="#ff4444";
-
-document.getElementById("msg")
-.innerHTML=
-"Account Already Exists";
-
-return;
-
+const res = await fetch(
+"https://urban-culture-xe7v.onrender.com/register",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(user)
 }
-
-users.push(user);
-
-localStorage.setItem(
-"users",
-JSON.stringify(users)
 );
 
-document.getElementById("msg")
-.style.color="#00ff88";
+const data = await res.json();
 
-document.getElementById("msg")
-.innerHTML=
-"Account Created Successfully";
+document.getElementById("msg").style.color =
+data.success ? "#00ff88" : "#ff4444";
 
+document.getElementById("msg").innerHTML =
+data.message;
+
+if(data.success){
 setTimeout(()=>{
-
-window.location.href =
-"customer-login.html";
-
+location.href="customer-login.html";
 },1000);
+}
+
+}catch(err){
+
+document.getElementById("msg").style.color="#ff4444";
+document.getElementById("msg").innerHTML="Server Error";
+
+}
 
 }
 
