@@ -3,10 +3,16 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-const app = express();
+app.use(cors({
+  origin: [
+    "https://urban-culture-store.netlify.app",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
-// Middleware
-app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 
 // Product Schema
