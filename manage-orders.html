@@ -1,4 +1,4 @@
-/wWWWWWWWWwwwwwwwEWWWWwwww<!DOCTYPE html>
+WW/wWWWWWWWWwwwwwwwEWWWWwwww<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -193,7 +193,7 @@ ${order.trackingId || "Pending"}
 ${order.date || "N/A"}
 </div>
 
-<select id="status${index}">
+<select id="status${order._id}">
 
 <option value="Order Placed"
 ${order.status==="Order Placed"?"selected":""}>
@@ -271,15 +271,11 @@ console.log(err);
 async function saveStatus(orderId){
 
 const status =
-document.getElementById(
-`status${index}`
-).value;
+document.getElementById(`status${orderId}`).value;
 
 try{
 
-await fetch(
-`https://urban-culture.onrender.com/orders/${index}`,
-{
+await fetch(`https://urban-culture.onrender.com/orders/${orderId}`, {
 method:"PUT",
 headers:{
 "Content-Type":"application/json"
